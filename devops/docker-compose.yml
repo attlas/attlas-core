@@ -1,0 +1,15 @@
+version: '2'
+services:
+  php:
+    build: ./php
+    depends_on:
+      - db
+    ports:
+      - 80:80
+  db:
+    image: mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD
+      - MYSQL_DATABASE
+      - MYSQL_USER
+      - MYSQL_PASSWORD
