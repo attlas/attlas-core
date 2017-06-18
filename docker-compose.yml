@@ -1,0 +1,16 @@
+version: '2'
+services:
+  php:
+    build: ./devops/php
+    depends_on:
+      - db
+    ports:
+      - 80:80
+      - 443:443
+  db:
+    build: ./devops/db
+    environment:
+      - MYSQL_ROOT_PASSWORD
+      - MYSQL_DATABASE
+      - MYSQL_USER
+      - MYSQL_PASSWORD
