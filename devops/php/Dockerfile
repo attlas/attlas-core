@@ -1,4 +1,4 @@
-FROM php:7.1.5-apache
+FROM php:7.1.7-apache
 
 RUN apt-get update && \
     apt-get install -y mc mysql-client && \
@@ -7,7 +7,7 @@ RUN apt-get update && \
 #COPY php.ini /usr/local/etc/php
 
 RUN mkdir /var/www/attlas.org
-COPY dist /var/www/attlas.org
+COPY ./dist /var/www/attlas.org
 RUN chown www-data:www-data -R /var/www/attlas.org
 RUN chmod u=rwX,g=srX,o=rX -R /var/www/attlas.org
 
@@ -19,4 +19,4 @@ RUN a2ensite attlas.org.conf
 #RUN chown www-data:www-data -R /var/www/html
 #RUN chmod u=rwX,g=srX,o=rX -R /var/www/html
 
-EXPOSE 80 443
+EXPOSE 443
