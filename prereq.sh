@@ -35,6 +35,6 @@ if [ "$1" == "jenkins" ]; then
   cp /var/lib/jenkins/.ssh/id_rsa.pub ./jenkins.rsa.pub
 fi
 
-if [ "$1" == "sonar" ]; then
-  echo --- Install Sonarqube ---
+if [ "$1" == "maven" ]; then
+  echo --- Install Maven ---
 fi

@@ -6,14 +6,14 @@ services:
       - "9000:9000"
     environment:
       - SONARQUBE_JDBC_URL=jdbc:mysql://db:3306/sonar?useUnicode=true&characterEncoding=utf8&rewriteBatchedStatements=true&useConfigs=maxPerformance&useSSL=false
-      - SONARQUBE_JDBC_USERNAME=sonar
-      - SONARQUBE_JDBC_PASSWORD=rpXD7es7cNSEmMML
+      - SONARQUBE_JDBC_USERNAME=${SONARQUBE_USERNAME}
+      - SONARQUBE_JDBC_PASSWORD=${SONARQUBE_PASSWORD}
     links:
       - db
   db:
     image: mysql
     environment:
-      - MYSQL_DATABASE=sonar
-      - MYSQL_ROOT_PASSWORD=692A5Rww7Q97JwM6
-      - MYSQL_USER=sonar
-      - MYSQL_PASSWORD=rpXD7es7cNSEmMML
+      - MYSQL_DATABASE=${SONARQUBE_DATABASE}
+      - MYSQL_ROOT_PASSWORD=${SONARQUBE_ROOT_PASSWORD}
+      - MYSQL_USER=${SONARQUBE_USERNAME}
+      - MYSQL_PASSWORD=${SONARQUBE_PASSWORD}
