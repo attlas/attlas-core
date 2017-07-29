@@ -1,5 +1,7 @@
 #!/bin/bash
 
+echo "Building ..."
+
 rm -rf ./devops/php/dist
 rm -rf ./frontend/dist
 

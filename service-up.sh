@@ -7,11 +7,11 @@ then
   . $envFile
 
   # configure apache
-  cp ./devops/apache.conf ./devops/php/$SERVICE_HOST.conf
+  cp ./devops/apache.conf ./devops/php/$SERVICE_DOMAIN.conf
   cp ./devops/apache-php.ini ./devops/php/php.ini
 
-  sed -i "s/SERVICE_HOST_EMAIL/$SERVICE_HOST_EMAIL/" ./devops/php/$SERVICE_HOST.conf
-  sed -i "s/SERVICE_HOST/$SERVICE_HOST/" ./devops/php/$SERVICE_HOST.conf
+  sed -i "s/%SERVICE_DOMAIN%/$SERVICE_DOMAIN/" ./devops/php/$SERVICE_DOMAIN.conf
+  sed -i "s/%SERVICE_DOMAIN_EMAIL%/$SERVICE_DOMAIN_EMAIL/" ./devops/php/$SERVICE_DOMAIN.conf
 
   docker-compose -f service.yml up $1
 

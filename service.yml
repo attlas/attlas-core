@@ -4,7 +4,7 @@ services:
     build:
       context: ./devops/php
       args:
-        - SERVICE_HOST
+        - SERVICE_DOMAIN
     depends_on:
       - db
     ports:
