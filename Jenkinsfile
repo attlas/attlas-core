@@ -11,27 +11,27 @@ pipeline {
     }
     stage('Build') {
       steps {
-        sh '/service-build.sh'
+        sh './service-build.sh'
       }
     }
     stage('Test') {
       steps {
-        sh '/service-test.sh'
+        sh './service-test.sh'
       }
     }
     stage('Up') {
       steps {
-        sh '/service-up.sh -d'
+        sh './service-up.sh -d'
       }
     }
     stage('Deploy') {
       steps {
-        sh '/service-deploy.sh'
+        sh './service-deploy.sh'
       }
     }
     stage('Cleanup') {
       steps {
-        sh '/service-down.sh'
+        sh './service-down.sh'
       }
     }
   }
