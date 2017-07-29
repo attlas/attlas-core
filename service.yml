@@ -5,6 +5,7 @@ services:
       context: ./devops/php
       args:
         - SERVICE_DOMAIN
+    image: ${SERVICE_DOMAIN}_php
     depends_on:
       - db
     ports:
@@ -13,6 +14,7 @@ services:
   db:
     build: 
       context: ./devops/db
+    image: ${SERVICE_DOMAIN}_db
     environment:
       - MYSQL_ROOT_PASSWORD
       - MYSQL_DATABASE

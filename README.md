@@ -10,9 +10,10 @@
 * Commit Jenkins SSH public key back to the repository
 
 #### Jenkins-Github
-* create personal access token
-* add github server into Jenkins
-* setup integration at Github side http://<jenkinsHost>:8080/github-webhook/
+* Check "GitHub hook trigger for GITScm polling" at Jenkins job configuration
+* ?Create personal access token
+* ?Add github server into Jenkins
+* Add web-hook at Github project side http://<jenkinsHost>:8080/github-webhook/
 
 #### Jenkins-SonarQube
 * Execute 'docker-compose up -d' from <project_root>/devops/sonar folder
