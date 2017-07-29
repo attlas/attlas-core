@@ -38,3 +38,10 @@ fi
 if [ "$1" == "maven" ]; then
   echo --- Install Maven ---
 fi
+
+if [ "$1" == "nodejs" ]; then
+  echo --- Install Nodejs 6.x & NPM ---
+  sudo curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash 
+  sudo apt-get -y install nodejs
+  sudo apt-get -y install npm
+fi

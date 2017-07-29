@@ -1,12 +1,19 @@
 #!/bin/bash
 
-echo "Building ..."
+echo "[+] Building ..."
 
+echo " | [+] Frontend ..."
+pushd frontend
+npm i
+npm run build
+popd
+echo " | [-] Frontend ..."
+
+echo " | [+] Backend ..."
 rm -rf ./devops/php/dist
-rm -rf ./frontend/dist
-
-mkdir ./frontend/dist
-# replace with actual frontend build
-cp -r ./frontend/src/* ./frontend/dist
-
+pushd backend
+popd
 cp -r ./frontend/dist ./devops/php
+echo " | [-] Backend"
+
+echo "[-] Building"
