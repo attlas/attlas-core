@@ -5,8 +5,8 @@ pipeline {
     stage('Configure') {
       steps {
         sh 'cp ./.env.template ./.env'
-        sh 'sed -i "/SERVICE_DOMAIN=/ s/=.*/=$SERVICE_DOMAIN/" ./env'
-        sh 'sed -i "/SERVICE_DOMAIN_EMAIL=/ s/=.*/=$SERVICE_DOMAIN_EMAIL/" ./env'
+        sh 'sed -i "/SERVICE_DOMAIN=/ s/=.*/=$SERVICE_DOMAIN/" ./.env'
+        sh 'sed -i "/SERVICE_DOMAIN_EMAIL=/ s/=.*/=$SERVICE_DOMAIN_EMAIL/" ./.env'
       }
     }
     stage('Build') {
