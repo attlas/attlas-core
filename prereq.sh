@@ -32,7 +32,7 @@ if [ "$1" == "jenkins" ]; then
   sudo systemctl start jenkins
 
   su -c "cd ~ && pwd && ssh-keygen -t rsa -b 4096" - jenkins
-  cp /var/lib/jenkins/.ssh/id_rsa.pub ./jenkins.rsa.pub
+  cp /var/lib/jenkins/.ssh/id_rsa.pub ./devops/jenkins.rsa.pub
 fi
 
 if [ "$1" == "maven" ]; then
