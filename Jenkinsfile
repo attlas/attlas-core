@@ -33,7 +33,7 @@ pipeline {
     stage('Deploy & Publish') {
       steps {
         sh './service-deploy.sh'
-        archive "./mobile/platforms/android/build/outputs/apk/*.apk"
+        archiveArtifacts artifacts: 'mobile/platforms/android/build/outputs/apk/*.apk'
       }
     }
     stage('Cleanup') {
