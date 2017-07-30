@@ -7,9 +7,9 @@ pipeline {
         sh 'cp ./.env.template ./.env'
         sh 'sed -i "/SERVICE_NAME=/ s/=.*/=$SERVICE_NAME/" ./.env'
         sh 'sed -i "/SERVICE_DOMAIN=/ s/=.*/=$SERVICE_DOMAIN/" ./.env'
-        sh 'sed -i "/SERVICE_DOMAIN_EMAIL=/ s/=.*/=\"$SERVICE_DOMAIN_EMAIL\"/" ./.env'
+        sh 'sed -i "/SERVICE_DOMAIN_EMAIL=/ s/=.*/=$SERVICE_DOMAIN_EMAIL/" ./.env'
         sh 'sed -i "/SERVICE_ID=/ s/=.*/=$SERVICE_ID/" ./.env'
-        sh 'sed -i "/SERVICE_DESC=/ s/=.*/=$SERVICE_DESC/" ./.env'
+        sh 'sed -i "/SERVICE_DESC=/ s/=.*/=\"$SERVICE_DESC\"/" ./.env'
       }
     }
     stage('Build') {
