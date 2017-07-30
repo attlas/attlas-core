@@ -1,6 +1,6 @@
 #!/bin/bash
 
-envFile=".env"
+envFile="./.env"
 
 if [ -f "$envFile" ]
 then

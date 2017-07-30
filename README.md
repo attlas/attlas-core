@@ -7,6 +7,7 @@
 * Clone repository
 * Execute <project_root>/devops/prereq.sh docker
 * Execute <project_root>/devops/prereq.sh jenkins
+* Execute <project_root>/devops/prereq.sh nodejs
 * Commit Jenkins SSH public key back to the repository
 
 #### Jenkins-Github
@@ -16,8 +17,16 @@
 * Add web-hook at Github project side http://<jenkinsHost>:8080/github-webhook/
 
 #### Jenkins-SonarQube
-* Execute 'docker-compose up -d' from <project_root>/devops/sonar folder
+* Execute '<project_root>/sonar-up.sh'
 * Login <host>:9000 with admin/admin and change password
+
+#### Jenkins-Nexus
+* Execute '<project_root>/nexus-up.sh'
+* Login <host>:8081 with admin/admin123 and change password
+
+#### Android
+* Execute <project_root>/devops/prereq.sh cordova
+* Execute <project_root>/devops/prereq.sh android
 
 ### Dev/Staging/Prod
 * Login into remote VM

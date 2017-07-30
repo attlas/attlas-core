@@ -3,7 +3,7 @@
 echo --- Update VM ---
 sudo apt-get update
 sudo apt-get -y upgrade
-sudo apt-get install -y mc
+sudo apt-get -y install mc
 
 echo --- Update/setup Java ---
 sudo apt-get install -y default-jre
@@ -44,4 +44,29 @@ if [ "$1" == "nodejs" ]; then
   sudo curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash 
   sudo apt-get -y install nodejs
   sudo apt-get -y install npm
+fi
+
+if [ "$1" == "cordova" ]; then
+  echo --- Install Cordova ---
+  sudo npm install -g cordova@latest
+
+  sudo wget https://services.gradle.org/distributions/gradle-3.4.1-bin.zip -O /tmp/gradle-3.4.1-bin.zip
+  sudo mkdir /opt/gradle
+  sudo unzip /tmp/gradle-3.4.1-bin.zip -d /opt/gradle
+fi
+
+if [ "$1" == "android" ]; then
+  echo --- Install Android tools ---
+  sudo mkdir /usr/lib/android-sdk
+  sudo wget https://dl.google.com/android/repository/tools_r25.2.3-linux.zip -O /tmp/tools_r25.2.3-linux.zip
+  sudo unzip /tmp/tools_r25.2.3-linux.zip -d /usr/lib/android-sdk
+  pushd /usr/lib/android-sdk/tools
+  sudo ./android update sdk --no-ui
+  popd
+  # adb
+  #? sudo apt-get -y install libc6:i386 libstdc++6:i386
+  # aapt
+  #? sudo apt-get install zlib1g:i386
+
+
 fi

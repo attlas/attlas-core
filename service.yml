@@ -1,11 +1,11 @@
 version: '2'
 services:
-  php:
+  web:
     build:
       context: ./devops/php
       args:
         - SERVICE_DOMAIN
-    image: ${SERVICE_DOMAIN}_php
+    image: ${SERVICE_NAME}-web
     depends_on:
       - db
     ports:
@@ -14,7 +14,7 @@ services:
   db:
     build: 
       context: ./devops/db
-    image: ${SERVICE_DOMAIN}_db
+    image: ${SERVICE_NAME}-db
     environment:
       - MYSQL_ROOT_PASSWORD
       - MYSQL_DATABASE
