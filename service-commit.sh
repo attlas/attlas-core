@@ -6,10 +6,8 @@ if [ -f "$envFile" ]
 then
   . $envFile
 
-  FOLDER=`echo ${PWD##*/} | sed -r 's/-//g'`
-
-  docker commit ${FOLDER}_web_1 ${SERVICE_NAME}-portal:${SERVICE_VERSION}
-  docker commit ${FOLDER}_db_1 ${SERVICE_NAME}-storage:${SERVICE_VERSION}
+  docker commit ${COMPOSE_PROJECT_NAME}_web_1 ${COMPOSE_PROJECT_NAME}-portal:${SERVICE_VERSION}
+  docker commit ${COMPOSE_PROJECT_NAME}_db_1 ${COMPOSE_PROJECT_NAME}-storage:${SERVICE_VERSION}
 
 else
   echo "'$envFile' not found."

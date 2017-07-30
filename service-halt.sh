@@ -6,8 +6,10 @@ if [ -f "$envFile" ]
 then
   . $envFile
 
-  docker stop web db
-  docker rm web db
+  docker stop ${COMPOSE_PROJECT_NAME}-web ${COMPOSE_PROJECT_NAME}-db
+  docker rm ${COMPOSE_PROJECT_NAME}-web ${COMPOSE_PROJECT_NAME}-db
+
+  docker rmi ${COMPOSE_PROJECT_NAME}-portal:${SERVICE_VERSION} ${COMPOSE_PROJECT_NAME}-storage:${SERVICE_VERSION}
 
 else
   echo "'$envFile' not found."

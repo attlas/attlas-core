@@ -6,7 +6,7 @@ pipeline {
       steps {
         sh '''
           cp ./.env.template ./.env
-          sed -i "/SERVICE_NAME=/ s/=.*/=$SERVICE_NAME/" ./.env
+          sed -i "/COMPOSE_PROJECT_NAME=/ s/=.*/=$COMPOSE_PROJECT_NAME/" ./.env
           sed -i "/SERVICE_DOMAIN=/ s/=.*/=$SERVICE_DOMAIN/" ./.env
           sed -i "/SERVICE_DOMAIN_EMAIL=/ s/=.*/=$SERVICE_DOMAIN_EMAIL/" ./.env
           sed -i "/SERVICE_ID=/ s/=.*/=$SERVICE_ID/" ./.env
