@@ -10,6 +10,7 @@ pipeline {
         sh 'sed -i "/SERVICE_DOMAIN_EMAIL=/ s/=.*/=$SERVICE_DOMAIN_EMAIL/" ./.env'
         sh 'sed -i "/SERVICE_ID=/ s/=.*/=$SERVICE_ID/" ./.env'
         sh 'sed -i "/SERVICE_DESC=/ s/=.*/=\"$SERVICE_DESC\"/" ./.env'
+        sh 'cat ./.env'
       }
     }
     stage('Build') {
