@@ -6,8 +6,8 @@ if [ -f "$envFile" ]
 then
   . $envFile
 
-  sudo docker stop web db
-  sudo docker rm web db
+  docker stop web db
+  docker rm web db
 
 else
   echo "'$envFile' not found."
