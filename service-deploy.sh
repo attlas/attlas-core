@@ -1,6 +1,6 @@
 #!/bin/bash
 
-return 0
+exit 0
 echo "[+] Deploying ..."
 
 echo " | [+] Waiting for service to start ..."
