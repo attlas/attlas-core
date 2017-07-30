@@ -30,9 +30,10 @@ pipeline {
         sh './service-up.sh -d'
       }
     }
-    stage('Deploy') {
+    stage('Deploy & Publish') {
       steps {
         sh './service-deploy.sh'
+        archive "./mobile/platforms/android/build/outputs/apk/*.apk"
       }
     }
     stage('Cleanup') {
