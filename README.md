@@ -9,14 +9,20 @@
 > git config --local user.name <developer name>
 > git config --local user.email <developer email>
 > git remote add upstream <master git reposiotry>
- 
 ```
+#### Frontend
+* Install dependencies
+```> frontend/npm i```
+
+#### Mobile
 * Add Cordova platforms
 ```> mobile/cordova platform add [android|browser]```
 * Build
 ```> mobile/cordova build [android|browser]```
 * Run
-```> mobile/cordova run [android|browser]```
+```> mobile/cordova run [android|browser [[--port=8001] [--target=Firefox]]]```
+* Debug
+* http://geeklearning.io/apache-cordova-and-remote-debugging-on-android/
 
 #### Linux
 #### Windows
