@@ -33,8 +33,8 @@ then
   #sed -i "s/%XASS_DOMAIN%/$XASS_DOMAIN/" ./cidd/php/$XASS_DOMAIN.conf
   #sed -i "s/%XASS_DOMAIN_EMAIL%/$XASS_DOMAIN_EMAIL/" ./cidd/php/$XASS_DOMAIN.conf
 
-  #docker-compose -f attlas.yml scale $LB_STATIC_NAME=$LB_STATIC_NUM
-  #docker-compose -f attlas.yml up $1
+  docker-compose -f attlas.yml scale $LB_STATIC_NAME=$LB_STATIC_NUM
+  docker-compose -f attlas.yml up $1
 
 else
   echo "'$envFile' not found."
