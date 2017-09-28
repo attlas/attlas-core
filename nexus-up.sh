@@ -1,3 +1,3 @@
 #!/bin/bash
 
-docker-compose -f nexus.yml up $1
+docker-compose -f ./cidd/nexus2.yml up $1
