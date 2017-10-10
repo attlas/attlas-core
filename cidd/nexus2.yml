@@ -1,6 +1,6 @@
-version: '2'
+version: '3'
 services:
   nexus:
-    build: ./devops/nexus
+    build: ./nexus2
     ports:
       - 8081:8081

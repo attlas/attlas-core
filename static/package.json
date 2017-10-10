@@ -1,8 +1,8 @@
 {
-  "name": "reputation-platform",
+  "name": "attlas",
   "version": "1.0.0",
   "private": true,
-  "description": "Reputation platform",
+  "description": "Attlas",
   "scripts": {
     "test:once": "karma start karma.conf.js --single-run",
     "build": "rimraf dist && webpack --config config/webpack.prod.js --bail",

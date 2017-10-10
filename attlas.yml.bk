@@ -1,8 +1,8 @@
-version: '2'
+version: '3'
 services:
   web:
     build:
-      context: ./devops/php
+      context: ./cidd/php
       args:
         - SERVICE_DOMAIN
     image: ${COMPOSE_PROJECT_NAME}-web
@@ -13,7 +13,7 @@ services:
       - 443:443
   db:
     build: 
-      context: ./devops/db
+      context: ./cidd/db
     image: ${COMPOSE_PROJECT_NAME}-db
     environment:
       - MYSQL_ROOT_PASSWORD

@@ -1,9 +1,9 @@
 # attlas-portal
 
-## CICD
+## CIDD
 
 ### Local dev environment
-* Clone forked master repository
+* Clone forked repository
 * Configure developer parameter for local repository
 ```
 > git config --local user.name <developer name>
@@ -12,7 +12,15 @@
 ```
 #### Frontend
 * Install dependencies
-```> frontend/npm i```
+```
+  > cd frontend
+  > npm i
+```
+* Build
+```
+  > cd frontend
+  > npm i
+```
 
 #### Mobile
 * Add Cordova platforms

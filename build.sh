@@ -2,13 +2,14 @@
 
 echo "[+] Building ..."
 
-echo " | [+] Frontend ..."
-pushd frontend
+echo " | [+] Static ..."
+pushd static
 npm i
 npm run build
 popd
-echo " | [-] Frontend ..."
+echo " | [-] Static ..."
 
+: << comment
 echo " | [+] Backend ..."
 rm -rf ./devops/php/dist
 pushd backend
@@ -29,4 +30,5 @@ cordova build android
 popd
 echo " | [-] Mobile"
 
+comment
 echo "[-] Building"

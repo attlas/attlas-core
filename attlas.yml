@@ -1,0 +1,17 @@
+version: '3'
+services:
+  lb:
+    build:
+      context: ./cidd/lb
+      args:
+        - XAAS_DOMAIN
+    image: ${COMPOSE_PROJECT_NAME}-lb
+    ports:
+      - 80:80
+      - 443:443
+    depends_on:
+      - static
+  static:
+    build:
+      context: ./cidd/static
+    image: ${COMPOSE_PROJECT_NAME}-static

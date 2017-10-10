@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import '../assets/css/styles.css';
 
 @Component({
-  selector: 'reputation-platform',
+  selector: 'attlas-platform',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
