@@ -15,3 +15,15 @@ services:
     build:
       context: ./cidd/static
     image: ${COMPOSE_PROJECT_NAME}-static
+  service:
+  rdbms:
+    build: 
+      context: ./cidd/db
+    image: ${COMPOSE_PROJECT_NAME}-db
+    environment:
+      - MYSQL_ROOT_PASSWORD
+      - MYSQL_DATABASE
+      - MYSQL_USER
+      - MYSQL_PASSWORD
+
+  graphdb:

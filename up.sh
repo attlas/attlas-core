@@ -16,7 +16,7 @@ then
   ALLSERVERS=''
   for i in $(seq 1 $LB_STATIC_NUM)
   do
-    ALLSERVERS="$ALLSERVERS\nserver attlas_${LB_STATIC_NAME}_$i;"
+    ALLSERVERS="$ALLSERVERS\nserver ${COMPOSE_PROJECT_NAME}_${LB_STATIC_NAME}_$i;"
   done
   sed -i "s/%ALLSERVERS%/$ALLSERVERS/" ./cidd/lb/dist/nginx.conf
 

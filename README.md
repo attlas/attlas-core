@@ -13,13 +13,13 @@
 #### Frontend
 * Install dependencies
 ```
-  > cd frontend
+  > cd static
   > npm i
 ```
 * Build
 ```
-  > cd frontend
-  > npm i
+  > cd static
+  > npm run build
 ```
 
 #### Mobile
@@ -45,7 +45,7 @@
 * Commit Jenkins SSH public key back to the repository
 
 #### Jenkins-Github
-* Check "GitHub hook trigger for GITScm polling" at Jenkins job configuration
+* Check "GitHub hook trigger for GITScm polling" inside Jenkins job configuration
 * ?Create personal access token
 * ?Add github server into Jenkins
 * Add web-hook at Github project side http://<jenkinsHost>:8080/github-webhook/
@@ -59,10 +59,10 @@
 * Login <host>:8081 with admin/admin123 and change password
 
 #### Android
-* Execute <project_root>/devops/prereq.sh cordova
-* Execute <project_root>/devops/prereq.sh android
+* Execute <project_root>/cidd/prereq.sh cordova
+* Execute <project_root>/cidd/prereq.sh android
 
 ### Staging/Prod
 * Login into remote VM
-* Add <project_root>/devops/jenkins.rsa.pub into authorized_keys
+* Add <project_root>/cidd/jenkins.rsa.pub into authorized_keys
 
