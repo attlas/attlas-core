@@ -7,16 +7,15 @@ pushd static
 npm i
 npm run build
 popd
-echo " | [-] Static ..."
+echo " | [-] Static"
+
+echo " | [+] Service ..."
+pushd service
+mvn clean package
+popd
+echo " | [-] Service"
 
 : << comment
-echo " | [+] Backend ..."
-rm -rf ./devops/php/dist
-pushd backend
-popd
-cp -r ./frontend/dist ./devops/php
-echo " | [-] Backend"
-
 echo " | [+] Mobile ..."
 export ANDROID_HOME=/usr/lib/android-sdk
 export PATH=$PATH:$ANDROID_HOME:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools

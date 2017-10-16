@@ -37,6 +37,7 @@ fi
 
 if [ "$1" == "maven" ]; then
   echo --- Install Maven ---
+  sudo apt-get -y install maven
 fi
 
 if [ "$1" == "nodejs" ]; then

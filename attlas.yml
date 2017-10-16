@@ -8,7 +8,7 @@ services:
     build:
       context: ./cidd/lb
       args:
-        - SERVICE_DOMAIN
+        - PROJECT_DOMAIN
     image: ${COMPOSE_PROJECT_NAME}-lb
     networks:
       - service-network
@@ -27,6 +27,8 @@ services:
   service:
     build:
       context: ./cidd/service
+      args:
+        - SERVICE_ARTIFACT
     image: ${COMPOSE_PROJECT_NAME}-service
     networks:
       - service-network
@@ -51,4 +53,4 @@ services:
     networks:
       - service-network
     volumes:
-      - "${SERVICE_HOME}/neo4j-data:/data"
+      - "${PROJECT_HOME}/neo4j-data:/data"
