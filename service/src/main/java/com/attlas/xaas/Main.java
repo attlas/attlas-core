@@ -6,20 +6,37 @@ import org.glassfish.jersey.server.ResourceConfig;
 
 import java.io.IOException;
 import java.net.URI;
+import java.util.Optional;
+import java.util.concurrent.CountDownLatch;
 
 /**
  * Main class.
  *
  */
 public class Main {
+
+    //
+    private static HttpServer server;
+    private static CountDownLatch exitEvent;
+
     // Base URI the Grizzly HTTP server will listen on
-    public static final String BASE_URI = "http://localhost:8182/myapp/";
+    public static final String BASE_URI;
+    private static final String protocol;
+    private static final Optional<String> host;
+    private static final Optional<String> port;
+
+    static{
+      protocol = "http://";
+      host = Optional.ofNullable(System.getenv("SERVICE_HOSTNAME"));
+      port = Optional.ofNullable(System.getenv("SERVICE_PORT"));
+      BASE_URI = protocol + host.orElse("localhost") + ":" + port.orElse("8182") + "/";
+    }
 
     /**
      * Starts Grizzly HTTP server exposing JAX-RS resources defined in this application.
      * @return Grizzly HTTP server.
      */
-    public static HttpServer startServer() {
+    public static HttpServer createServer() {
         // create a resource config that scans for JAX-RS resources and providers
         // in com.attlas package
         final ResourceConfig rc = new ResourceConfig().packages("com.attlas.xaas");
@@ -35,16 +52,30 @@ public class Main {
      * @throws IOException
      */
     public static void main(String[] args) throws IOException {
-        final HttpServer server = startServer();
-        server.start();
-        System.out.println(String.format("Jersey app started with WADL available at "
-                + "%sapplication.wadl\nHit enter to stop it...", BASE_URI));
-        //System.in.read();
+        //
+        System.out.println("Initiliazing Grizzly server..");
+        exitEvent = new CountDownLatch(1);
+        server = createServer();
+        // register shutdown hook
+        Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
+          @Override
+          public void run() {
+            System.out.println("Stopping server..");
+            server.stop();
+            exitEvent.countDown();
+          }
+        }, "shutdownHook"));
+       
         try {
-          Thread.currentThread().join();
+          server.start();
+          System.out.println(String.format("Jersey app started with WADL available at %sapplication.wadl", BASE_URI));
+          System.out.println("Press CTRL^C to exit..");
+          exitEvent.await();
+          System.out.println("Exiting service..");
+          //Thread.currentThread().join();
         } catch(InterruptedException e) {
+          //logger.error("There was an error while starting Grizzly HTTP server.", e);
         }
-        server.stop();
     }
 }
 

@@ -11,7 +11,7 @@ echo " | [-] Static"
 
 echo " | [+] Service ..."
 pushd service
-mvn clean package
+mvn clean install
 popd
 echo " | [-] Service"
 
