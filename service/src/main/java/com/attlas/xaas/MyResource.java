@@ -3,7 +3,12 @@ package com.attlas.xaas;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
+
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.UriInfo;
 
 /**
  * Root resource (exposed at "myresource" path)
@@ -19,7 +24,9 @@ public class MyResource {
    */
   @GET
   @Produces(MediaType.TEXT_PLAIN)
-  public String getIt() {
+  public String getIt(@Context UriInfo uriInfo) {
+    //String Uri = request.getRequestURL()+"?"+request.getQueryString();
+    System.out.println(uriInfo.getRequestUri());
     return "Got it!";
   }
 }

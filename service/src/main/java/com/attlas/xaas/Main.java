@@ -29,7 +29,7 @@ public class Main {
     protocol = "http://";
     host = Optional.ofNullable(System.getenv("SERVICE_HOSTNAME"));
     port = Optional.ofNullable(System.getenv("SERVICE_PORT"));
-    BASE_URI = protocol + host.orElse("localhost") + ":" + port.orElse("8182") + "/";
+    BASE_URI = protocol + host.orElse("localhost") + ":" + port.orElse("80") + "/";
   }
 
   /**
@@ -68,6 +68,7 @@ public class Main {
 
     try {
       server.start();
+      //System.out.println(server.dump());
       System.out.println(String.format("Jersey app started with WADL available at %sapplication.wadl", BASE_URI));
       System.out.println("Press CTRL^C to exit..");
       exitEvent.await();

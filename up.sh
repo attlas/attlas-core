@@ -13,25 +13,27 @@ then
   cp ./cidd/lb/nginx.conf.template ./cidd/lb/dist/nginx.conf
   # ...
   sed -i "s/%WORKER_PROCESSES%/$LB_STATIC_NUM/" ./cidd/lb/dist/nginx.conf
-  # ...
-  ALLSERVERS=''
+
+  # [+] load balancer
+  STATIC_SERVERS=''
   for i in $(seq 1 $LB_STATIC_NUM)
   do
-    ALLSERVERS="$ALLSERVERS\nserver ${COMPOSE_PROJECT_NAME}_${LB_STATIC_NAME}_$i;"
+    STATIC_SERVERS="$STATIC_SERVERS\nserver ${COMPOSE_PROJECT_NAME}_${LB_STATIC_NAME}_$i;"
   done
-  sed -i "s/%ALLSERVERS%/$ALLSERVERS/" ./cidd/lb/dist/nginx.conf
+  sed -i "s/%STATIC_SERVERS%/$STATIC_SERVERS/" ./cidd/lb/dist/nginx.conf
+
+  SERVICE_SERVERS=''
+  for i in $(seq 1 $LB_SERVICE_NUM)
+  do
+    SERVICE_SERVERS="$SERVICE_SERVERS\nserver ${COMPOSE_PROJECT_NAME}_${LB_SERVICE_NAME}_$i;"
+  done
+  sed -i "s/%SERVICE_SERVERS%/$SERVICE_SERVERS/" ./cidd/lb/dist/nginx.conf
+  #[-] load balancer
 
   # [+] static
   rm -rf ./cidd/static/dist
   cp -r ./static/dist ./cidd/static
   # [-] static
-
-  # configure apache
-  #cp ./cidd/apache.conf ./cidd/php/$XASS_DOMAIN.conf
-  #cp ./cidd/apache-php.ini ./cidd/php/php.ini
-
-  #sed -i "s/%XASS_DOMAIN%/$XASS_DOMAIN/" ./cidd/php/$XASS_DOMAIN.conf
-  #sed -i "s/%XASS_DOMAIN_EMAIL%/$XASS_DOMAIN_EMAIL/" ./cidd/php/$XASS_DOMAIN.conf
 
   # [+] service
   pushd service
@@ -42,8 +44,8 @@ then
   cp "./service/target/${SERVICE_ARTIFACT}" ./cidd/service/dist
   # [-] service
 
-  #docker-compose -f attlas.yml scale $LB_STATIC_NAME=$LB_STATIC_NUM $LB_SERVICE_NAME=$LB_SERVICE_NUM
-  #docker-compose -f attlas.yml up $1
+  docker-compose -f attlas.yml scale $LB_STATIC_NAME=$LB_STATIC_NUM $LB_SERVICE_NAME=$LB_SERVICE_NUM
+  docker-compose -f attlas.yml up $1
 
 else
   echo "'$envFile' not found."

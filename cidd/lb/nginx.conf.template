@@ -30,7 +30,7 @@ http {
   #include /etc/nginx/conf.d/*.conf;
 
   upstream static {
-%ALLSERVERS%
+%STATIC_SERVERS%
   }
 
   server {
@@ -40,4 +40,17 @@ http {
       proxy_pass http://static;
     }
   }
+
+  upstream service {
+%SERVICE_SERVERS%
+  }
+
+  server {
+    listen 8182;
+
+    location / {
+      proxy_pass http://service;
+    }
+  }
+
 }

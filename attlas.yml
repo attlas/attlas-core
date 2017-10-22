@@ -15,6 +15,7 @@ services:
     ports:
       - 80:80
       - 443:443
+      - 8182:8182
     depends_on:
       - static
       - service
@@ -29,6 +30,8 @@ services:
       context: ./cidd/service
       args:
         - SERVICE_ARTIFACT
+        - SERVICE_HOSTNAME
+        - SERVICE_PORT
     image: ${COMPOSE_PROJECT_NAME}-service
     networks:
       - service-network
