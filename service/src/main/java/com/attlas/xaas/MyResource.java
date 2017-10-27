@@ -10,12 +10,16 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
+
+import org.apache.log4j.Logger;
+
 /**
  * Root resource (exposed at "myresource" path)
  */
 @Path("myresource")
 public class MyResource {
 
+  private final static Logger logger = Logger.getLogger(MyResource.class);
   /**
    * Method handling HTTP GET requests. The returned object will be sent
    * to the client as "text/plain" media type.
@@ -26,7 +30,7 @@ public class MyResource {
   @Produces(MediaType.TEXT_PLAIN)
   public String getIt(@Context UriInfo uriInfo) {
     //String Uri = request.getRequestURL()+"?"+request.getQueryString();
-    System.out.println(uriInfo.getRequestUri());
+    logger.info(uriInfo.getRequestUri());
     return "Got it!";
   }
 }

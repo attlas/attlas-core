@@ -9,12 +9,15 @@ import java.net.URI;
 import java.util.Optional;
 import java.util.concurrent.CountDownLatch;
 
+import org.apache.log4j.Logger;
+
 /**
  * Main class.
  *
  */
 public class Main {
 
+  private final static Logger logger = Logger.getLogger(Main.class);
   //
   private static HttpServer server;
   private static CountDownLatch exitEvent;
@@ -53,14 +56,14 @@ public class Main {
    */
   public static void main(String[] args) throws IOException {
     //
-    System.out.println("Initiliazing Grizzly server..");
+    logger.info("Initiliazing Grizzly server ...");
     exitEvent = new CountDownLatch(1);
     server = createServer();
     // register shutdown hook
     Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
       @Override
       public void run() {
-        System.out.println("Stopping server..");
+        logger.info("Stopping server ...");
         server.stop();
         exitEvent.countDown();
       }
@@ -68,14 +71,13 @@ public class Main {
 
     try {
       server.start();
-      //System.out.println(server.dump());
-      System.out.println(String.format("Jersey app started with WADL available at %sapplication.wadl", BASE_URI));
-      System.out.println("Press CTRL^C to exit..");
+      logger.info(String.format("Jersey app started with WADL available at %sapplication.wadl", BASE_URI));
+      logger.info("Press CTRL^C to exit ...");
       exitEvent.await();
-      System.out.println("Exiting service..");
+      logger.info("Exiting service ...");
       //Thread.currentThread().join();
     } catch (InterruptedException e) {
-      //logger.error("There was an error while starting Grizzly HTTP server.", e);
+      logger.error("There was an error while starting Grizzly HTTP server.", e);
     }
   }
 }
