@@ -50,10 +50,21 @@ mvn archetype:generate -DarchetypeArtifactId=jersey-quickstart-grizzly2 -Darchet
 * Commit Jenkins SSH public key back to the repository
 
 #### Jenkins-Github
-* Check "GitHub hook trigger for GITScm polling" inside Jenkins job configuration
-* ?Create personal access token
-* ?Add github server into Jenkins
-* Add web-hook at Github project side http://<jenkinsHost>:8080/github-webhook/
+#### Issues
+* "ALPN callback dropped: SPDY and HTTP/2 are disabled. Is alpn-boot on the boot class path?"
+  * Get your Java version '''java -version #openjdk version "1.8.0_131"'''
+  * Find corresponding alpn boot library '''https://www.eclipse.org/jetty/documentation/9.4.x/alpn-chapter.html#alpn-versions #8.1.11.v20170118'''
+  * Download it from '''http://central.maven.org/maven2/org/mortbay/jetty/alpn/alpn-boot/ #/usr/lib/jvm'''
+  * Modify '''/etc/default/jenkins''' JAVA_ARGS adding '''-Xbootclasspath/p:/path/to/alpn-boot-8.1.11.v20170118.jar'''
+  * Restart Jenkins '''systemctl stop jenkins & systemctl start jenkins'''
+
+* Create access token with repo, admin:repo_hook, admin:org_hook
+* Install next plugins: GitHub Pull Request Builder
+* Configure "GitHub Pull Request Builder"& "GitHub" plugins using access token
+* Create new pipeline job, using cidd/Jenkinsfile
+* Check & configure "GitHub Pull Request Builder"
+* Check "GitHub hook trigger for GITScm polling"
+* ?Add web-hook at Github project side http://<jenkinsHost>:8080/github-webhook/
 
 #### Jenkins-SonarQube
 * Execute '<project_root>/sonar-up.sh'
@@ -70,4 +81,3 @@ mvn archetype:generate -DarchetypeArtifactId=jersey-quickstart-grizzly2 -Darchet
 ### Staging/Prod
 * Login into remote VM
 * Add <project_root>/cidd/jenkins.rsa.pub into authorized_keys
-
