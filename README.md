@@ -1,7 +1,10 @@
 # attlas-portal
 
 ## Create backend
+```
 mvn archetype:generate -DarchetypeArtifactId=jersey-quickstart-grizzly2 -DarchetypeGroupId=org.glassfish.jersey.archetypes -DinteractiveMode=false -DgroupId=com.attlas -DartifactId=service -Dpackage=com.attlas -DarchetypeVersion=2.17
+```
+
 ## CIDD
 
 ### Local dev environment
