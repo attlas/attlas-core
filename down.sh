@@ -1,3 +1,3 @@
 #!/bin/bash
 
-docker-compose down --rmi all
+docker-compose -f attlas.yml down --rmi all
