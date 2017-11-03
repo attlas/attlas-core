@@ -4,6 +4,7 @@ pipeline {
   stages {
     stage('Configure') {
       steps {
+        echo 'Configure'
 //
 //        sh '''
 //          cp ./.env.template ./.env
@@ -19,21 +20,25 @@ pipeline {
     }
     stage('Build') {
       steps {
+        echo 'Build'
 //        sh './service-build.sh'
       }
     }
     stage('Test') {
       steps {
+        echo 'Test'
 //        sh './service-test.sh'
       }
     }
-    stage('Up') {
+    stage('Up service') {
       steps {
+        echo 'Up service'
 //        sh './service-up.sh -d'
       }
     }
     stage('Deploy & Publish') {
       steps {
+        echo 'Deploy & Publish'
 //        sh './service-deploy.sh'
 //        archiveArtifacts artifacts: 'mobile/platforms/android/build/outputs/apk/*.apk'
       }
