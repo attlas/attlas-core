@@ -4,6 +4,7 @@ pipeline {
   stages {
     stage('Configure') {
       steps {
+/*/
         sh '''
           cp ./.env.template ./.env
           sed -i "/COMPOSE_PROJECT_NAME=/ s/=.*/=$COMPOSE_PROJECT_NAME/" ./.env
@@ -13,27 +14,28 @@ pipeline {
           sed -i "/SERVICE_DESC=/ s/=.*/=\\"$SERVICE_DESC\\"/" ./.env
           cat ./.env
         '''
+/*/
       }
     }
     stage('Build') {
       steps {
-        sh './service-build.sh'
+//        sh './service-build.sh'
       }
     }
     stage('Test') {
       steps {
-        sh './service-test.sh'
+//        sh './service-test.sh'
       }
     }
     stage('Up') {
       steps {
-        sh './service-up.sh -d'
+//        sh './service-up.sh -d'
       }
     }
     stage('Deploy & Publish') {
       steps {
-        sh './service-deploy.sh'
-        archiveArtifacts artifacts: 'mobile/platforms/android/build/outputs/apk/*.apk'
+//        sh './service-deploy.sh'
+//        archiveArtifacts artifacts: 'mobile/platforms/android/build/outputs/apk/*.apk'
       }
     }
     stage('Cleanup') {
