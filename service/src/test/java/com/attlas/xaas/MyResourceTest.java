@@ -15,7 +15,7 @@ import org.apache.log4j.Logger;
 
 public class MyResourceTest {
 
-  private final static Logger logger = Logger.getLogger(MyResourceTest.class);
+  private static final Logger logger = Logger.getLogger(MyResourceTest.class);
 
   private HttpServer server;
   private WebTarget target;

@@ -19,7 +19,7 @@ import org.apache.log4j.Logger;
 @Path("myresource")
 public class MyResource {
 
-  private final static Logger logger = Logger.getLogger(MyResource.class);
+  private static final Logger logger = Logger.getLogger(MyResource.class);
   /**
    * Method handling HTTP GET requests. The returned object will be sent
    * to the client as "text/plain" media type.

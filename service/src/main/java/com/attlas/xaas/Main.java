@@ -17,22 +17,22 @@ import org.apache.log4j.Logger;
  */
 public class Main {
 
-  private final static Logger logger = Logger.getLogger(Main.class);
+  private static final Logger logger = Logger.getLogger(Main.class);
   //
   private static HttpServer server;
   private static CountDownLatch exitEvent;
 
   // Base URI the Grizzly HTTP server will listen on
   public static final String BASE_URI;
-  private static final String protocol;
+  private static final String PROTOCOL;
   private static final Optional < String > host;
   private static final Optional < String > port;
 
   static {
-    protocol = "http://";
+    PROTOCOL = "http://";
     host = Optional.ofNullable(System.getenv("SERVICE_HOSTNAME"));
     port = Optional.ofNullable(System.getenv("SERVICE_PORT"));
-    BASE_URI = protocol + host.orElse("localhost") + ":" + port.orElse("80") + "/";
+    BASE_URI = PROTOCOL + host.orElse("localhost") + ":" + port.orElse("80") + "/";
   }
 
   /**
@@ -61,13 +61,10 @@ public class Main {
     exitEvent = new CountDownLatch(1);
     server = createServer();
     // register shutdown hook
-    Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
-      @Override
-      public void run() {
-        logger.info("Stopping server ...");
-        server.stop();
-        exitEvent.countDown();
-      }
+    Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+      logger.info("Stopping server ...");
+      server.stop();
+      exitEvent.countDown();
     }, "shutdownHook"));
 
     try {
@@ -76,9 +73,9 @@ public class Main {
       logger.info("Press CTRL^C to exit ...");
       exitEvent.await();
       logger.info("Exiting service ...");
-      //Thread.currentThread().join();
     } catch (InterruptedException e) {
       logger.error("There was an error while starting Grizzly HTTP server.", e);
+      Thread.currentThread().interrupt();
     }
   }
 }
