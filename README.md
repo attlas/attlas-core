@@ -62,13 +62,16 @@ mvn archetype:generate -DarchetypeArtifactId=jersey-quickstart-grizzly2 -Darchet
 * Install next plugins: GitHub Pull Request Builder
 * Configure "GitHub Pull Request Builder"& "GitHub" plugins using access token
 * Create new pipeline job, using cidd/Jenkinsfile
-* Check & configure "GitHub Pull Request Builder"
-* Check "GitHub hook trigger for GITScm polling"
-* ????Add web-hook at Github project side http://<jenkinsHost>:8080/github-webhook/
+* Check & configure "GitHub Pull Request Builder" & "GitHub hook trigger for GITScm polling"
+* Add web-hook at Github project side http://<jenkinsHost>:8080/github-webhook/ with secret text
 
 #### Jenkins-SonarQube
 * Execute '<project_root>/sonar-up.sh'
 * Login <host>:9000 with admin/admin and change password
+* Create auth token
+* Install "SonarQube Scanner for Jenkins" and "Sonar Quality Gates Plugin" Jenkins plugins
+* Configure Sonar instance and SonarRunner (tools) at Jenkins side
+
 
 #### Jenkins-Nexus
 * Execute '<project_root>/nexus-up.sh'
