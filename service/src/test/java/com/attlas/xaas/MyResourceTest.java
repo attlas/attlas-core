@@ -11,7 +11,11 @@ import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
+import org.apache.log4j.Logger;
+
 public class MyResourceTest {
+
+  private static final Logger logger = Logger.getLogger(MyResourceTest.class);
 
   private HttpServer server;
   private WebTarget target;

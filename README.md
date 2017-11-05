@@ -49,6 +49,12 @@ mvn archetype:generate -DarchetypeArtifactId=jersey-quickstart-grizzly2 -Darchet
 * Execute <project_root>/devops/prereq.sh nodejs
 * Commit Jenkins SSH public key back to the repository
 
+#### Jenkins-SonarQube
+* Execute '<project_root>/sonar-up.sh'
+* Login <host>:9000 with admin/admin and change password
+* Create auth token
+* Install "GitHub Plugin"
+
 #### Jenkins-Github
 #### Issues
 * "ALPN callback dropped: SPDY and HTTP/2 are disabled. Is alpn-boot on the boot class path?"
@@ -58,19 +64,13 @@ mvn archetype:generate -DarchetypeArtifactId=jersey-quickstart-grizzly2 -Darchet
   * Modify '''/etc/default/jenkins''' JAVA_ARGS adding '''-Xbootclasspath/p:/path/to/alpn-boot-8.1.11.v20170118.jar'''
   * Restart Jenkins '''systemctl stop jenkins & systemctl start jenkins'''
 
-* Create access token with repo, admin:repo_hook, admin:org_hook
-* Install next plugins: GitHub Pull Request Builder
-* Configure "GitHub Pull Request Builder"& "GitHub" plugins using access token
-* Create new pipeline job, using cidd/Jenkinsfile
-* Check & configure "GitHub Pull Request Builder" & "GitHub hook trigger for GITScm polling"
-* Add web-hook at Github project side http://<jenkinsHost>:8080/github-webhook/ with secret text
-
-#### Jenkins-SonarQube
-* Execute '<project_root>/sonar-up.sh'
-* Login <host>:9000 with admin/admin and change password
-* Create auth token
-* Install "SonarQube Scanner for Jenkins" and "Sonar Quality Gates Plugin" Jenkins plugins
+* Install "GitHub Pull Request Builder", "SonarQube Scanner for Jenkins" and "Sonar Quality Gates Plugin" Jenkins plugins
 * Configure Sonar instance and SonarRunner (tools) at Jenkins side
+* Create Github access token with repo, admin:repo_hook, admin:org_hook
+* Install next plugins: "GitHub Pull Request Builder" & "GitHub" to use access token
+* Create new pipeline job, using cidd/Jenkinsfile, +refs/heads/*:refs/remotes/origin/* +refs/pull/*:refs/remotes/origin/pr/*
+* Check & configure "GitHub Pull Request Builder" & "GitHub hook trigger for GITScm polling"
+
 
 
 #### Jenkins-Nexus
