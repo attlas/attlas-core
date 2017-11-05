@@ -19,8 +19,6 @@ public class Main {
 
   private static final Logger logger = Logger.getLogger(Main.class);
   //
-  private static HttpServer server;
-  private static CountDownLatch exitEvent;
 
   // Base URI the Grizzly HTTP server will listen on
   public static final String BASE_URI;
@@ -58,8 +56,8 @@ public class Main {
   public static void main(String[] args) throws IOException {
     //
     logger.info("Initiliazing Grizzly server using " + BASE_URI);
-    exitEvent = new CountDownLatch(1);
-    server = createServer();
+    CountDownLatch exitEvent = new CountDownLatch(1);
+    HttpServer server = createServer();
     // register shutdown hook
     Runtime.getRuntime().addShutdownHook(new Thread(() -> {
       logger.info("Stopping server ...");
