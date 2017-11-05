@@ -24,7 +24,7 @@ node {
   echo "org: ${org} repo: ${repo}"
   //
   sh '''cp ./.env.template ./.env'''
-  sed -i "/SERVICE_PORT=/ s/=.*/=8182/" ./.env
+  sh '''sed -i "/SERVICE_PORT=/ s/=.*/=8182/" ./.env'''
 
   load "./.env"
 
