@@ -11,7 +11,11 @@ import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
+import org.apache.log4j.Logger;
+
 public class MyResourceTest {
+
+  private final static Logger logger = Logger.getLogger(MyResourceTest.class);
 
   private HttpServer server;
   private WebTarget target;
@@ -31,6 +35,7 @@ public class MyResourceTest {
     // c.configuration().enable(new org.glassfish.jersey.media.json.JsonJaxbFeature());
 
     target = c.target(Main.BASE_URI);
+    logger.info(Main.BASE_URI);
   }
 
   @After

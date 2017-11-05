@@ -40,6 +40,7 @@ public class Main {
    * @return Grizzly HTTP server.
    */
   public static HttpServer createServer() {
+    logger.info("Grizzly server URL " + BASE_URI);
     // create a resource config that scans for JAX-RS resources and providers
     // in com.attlas package
     final ResourceConfig rc = new ResourceConfig().packages("com.attlas.xaas");
@@ -56,7 +57,7 @@ public class Main {
    */
   public static void main(String[] args) throws IOException {
     //
-    logger.info("Initiliazing Grizzly server ...");
+    logger.info("Initiliazing Grizzly server using " + BASE_URI);
     exitEvent = new CountDownLatch(1);
     server = createServer();
     // register shutdown hook
