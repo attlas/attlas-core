@@ -11,6 +11,7 @@ echo " | [-] Static"
 
 echo " | [+] Service ..."
 pushd service
+export SERVICE_PORT=8182
 mvn clean install
 popd
 echo " | [-] Service"
