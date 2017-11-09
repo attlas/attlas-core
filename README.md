@@ -1,5 +1,8 @@
 # @tlas XaaS
 
+## Prerequisites
+* ```apt-get -y install php7.0-cli```
+
 ## Create backend
 ```
 mvn archetype:generate -DarchetypeArtifactId=jersey-quickstart-grizzly2 -DarchetypeGroupId=org.glassfish.jersey.archetypes -DinteractiveMode=false -DgroupId=com.attlas -DartifactId=service -Dpackage=com.attlas -DarchetypeVersion=2.17
