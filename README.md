@@ -43,35 +43,7 @@ mvn archetype:generate -DarchetypeArtifactId=jersey-quickstart-grizzly2 -Darchet
 
 ### Build VM
 * Get Ubuntu VM (16.04)
-* Clone repository
-* Execute <project_root>/devops/prereq.sh docker
-* Execute <project_root>/devops/prereq.sh jenkins
-* Execute <project_root>/devops/prereq.sh nodejs
-* Commit Jenkins SSH public key back to the repository
-
-#### Jenkins-SonarQube
-* Execute '<project_root>/sonar-up.sh'
-* Login <host>:9000 with admin/admin and change password
-* Create auth token
-* Install "GitHub Plugin"
-
-#### Jenkins-Github
-#### Issues
-* "ALPN callback dropped: SPDY and HTTP/2 are disabled. Is alpn-boot on the boot class path?"
-  * Get your Java version '''java -version #openjdk version "1.8.0_131"'''
-  * Find corresponding alpn boot library '''https://www.eclipse.org/jetty/documentation/9.4.x/alpn-chapter.html#alpn-versions #8.1.11.v20170118'''
-  * Download it from '''http://central.maven.org/maven2/org/mortbay/jetty/alpn/alpn-boot/ #/usr/lib/jvm'''
-  * Modify '''/etc/default/jenkins''' JAVA_ARGS adding '''-Xbootclasspath/p:/path/to/alpn-boot-8.1.11.v20170118.jar'''
-  * Restart Jenkins '''systemctl stop jenkins & systemctl start jenkins'''
-
-* Install "GitHub Pull Request Builder", "SonarQube Scanner for Jenkins" and "Sonar Quality Gates Plugin" Jenkins plugins
-* Configure Sonar instance and SonarRunner (tools) at Jenkins side
-* Create Github access token with repo, admin:repo_hook, admin:org_hook
-* Install next plugins: "GitHub Pull Request Builder" & "GitHub" to use access token
-* Create new pipeline job, using cidd/Jenkinsfile, +refs/heads/*:refs/remotes/origin/* +refs/pull/*:refs/remotes/origin/pr/*
-* Check & configure "GitHub Pull Request Builder" & "GitHub hook trigger for GITScm polling"
-
-
+* Install jre/jdk, docker, jenkins, nodejs, maven
 
 #### Jenkins-Nexus
 * Execute '<project_root>/nexus-up.sh'
