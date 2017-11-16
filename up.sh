@@ -44,8 +44,8 @@ then
   cp "./service/target/${SERVICE_ARTIFACT}" ./cidd/service/dist
   # [-] service
 
-  docker-compose -f attlas.yml scale $LB_STATIC_NAME=$LB_STATIC_NUM $LB_SERVICE_NAME=$LB_SERVICE_NUM
-  docker-compose -f attlas.yml up $1
+  docker-compose -f attlas.yml up $1 --scale $LB_STATIC_NAME=$LB_STATIC_NUM --scale $LB_SERVICE_NAME=$LB_SERVICE_NUM
+  #docker-compose -f attlas.yml scale $LB_STATIC_NAME=$LB_STATIC_NUM $LB_SERVICE_NAME=$LB_SERVICE_NUM
 
 else
   echo "'$envFile' not found."
