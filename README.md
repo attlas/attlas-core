@@ -18,6 +18,16 @@ mvn archetype:generate -DarchetypeArtifactId=jersey-quickstart-grizzly2 -Darchet
 > git config --local user.email <developer email>
 > git remote add upstream <master git reposiotry>
 ```
+* clone git@github.com:swe-course/content.git
+* execute
+```
+> ./prereq.sh docker
+> ./prereq.sh maven
+> ./prereq.sh nodejs
+> ./prereq.sh cordova
+> ./prereq.sh android
+```
+
 #### Frontend
 * Install dependencies
 ```
