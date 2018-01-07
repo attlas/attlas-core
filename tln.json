@@ -2,5 +2,36 @@
   "attrs": {
   },
   "components":[
+    {
+      "id":"services",
+      "components":[
+        {
+          "id":"api",
+          "inherits":["java/maven"],
+          "stages":{
+            "compile":{},
+            "install":{}
+          }
+        }
+      ]
+    },
+    {
+      "id":"static",
+      "components":[
+        {
+          "id":"landing",
+          "inherits":["angular"],
+          "stages":{
+            "build":{
+              "script":[]
+            }
+          }
+        },
+        {
+          "id":"client",
+          "inherits":["angular"]
+        }
+      ]
+    }
   ]
 }
