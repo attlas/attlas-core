@@ -1,0 +1,43 @@
+{
+  "attrs": {
+  },
+  "components":[
+    {
+      "id":"services",
+      "components":[
+        {
+          "id":"api",
+          "inherits":["java/maven"],
+          "stages":{
+            "build":{}
+          }
+        }
+      ]
+    },
+    {
+      "id":"static",
+      "components":[
+        {
+          "id":"landing",
+          "inherits":["angular"],
+          "stages":{
+            "install":{
+              "command":"npm install"
+            },
+            "build":{}
+          }
+        },
+        {
+          "id":"client",
+          "inherits":["angular"],
+          "stages":{
+            "install":{
+              "command":"npm install"
+            },
+            "build":{}
+          }
+        }
+      ]
+    }
+  ]
+}
