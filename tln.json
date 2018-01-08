@@ -9,8 +9,7 @@
           "id":"api",
           "inherits":["java/maven"],
           "stages":{
-            "compile":{},
-            "install":{}
+            "build":{}
           }
         }
       ]
@@ -22,14 +21,21 @@
           "id":"landing",
           "inherits":["angular"],
           "stages":{
-            "build":{
-              "script":[]
-            }
+            "install":{
+              "command":"npm install"
+            },
+            "build":{}
           }
         },
         {
           "id":"client",
-          "inherits":["angular"]
+          "inherits":["angular"],
+          "stages":{
+            "install":{
+              "command":"npm install"
+            },
+            "build":{}
+          }
         }
       ]
     }
