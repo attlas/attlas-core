@@ -8,14 +8,7 @@ services:
     build:
       context: ./services/lb
       args:
-        - COMPOSE_PROJECT_NAME
-        - LB_STATIC_WEB_NAME
-        - LB_STATIC_WEB_NUM
-        - LB_SERVICES_API_NAME
-        - LB_SERVICES_API_NUM
-        - WEB_PORT
-        - WEB_PORTS
-        - API_PORT
+        - PROJECT_DOMAIN
     image: ${COMPOSE_PROJECT_NAME}-lb
     networks:
       - attlas-network
