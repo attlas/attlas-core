@@ -2,4 +2,4 @@
 
 export $(cat ./../../.env | grep -v ^# | xargs)
 
-mvn clean install
+mvn exec:java

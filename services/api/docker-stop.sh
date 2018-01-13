@@ -2,4 +2,5 @@
 
 export $(cat ./../../.env | grep -v ^# | xargs)
 
-mvn clean install
+docker stop com.attlas.api
+docker rmi com.attlas.api

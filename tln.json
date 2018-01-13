@@ -9,7 +9,8 @@
           "id":"api",
           "inherits":["java/maven"],
           "stages":{
-            "build":{}
+            "build":{},
+            "exec":{}
           }
         }
       ]
@@ -18,17 +19,7 @@
       "id":"static",
       "components":[
         {
-          "id":"landing",
-          "inherits":["angular"],
-          "stages":{
-            "install":{
-              "command":"npm install"
-            },
-            "build":{}
-          }
-        },
-        {
-          "id":"client",
+          "id":"web",
           "inherits":["angular"],
           "stages":{
             "install":{

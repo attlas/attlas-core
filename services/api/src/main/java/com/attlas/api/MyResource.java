@@ -1,4 +1,4 @@
-package com.attlas.xaas;
+package com.attlas.api;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;

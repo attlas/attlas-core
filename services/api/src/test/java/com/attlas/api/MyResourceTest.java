@@ -1,4 +1,4 @@
-package com.attlas.xaas;
+package com.attlas.api;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
