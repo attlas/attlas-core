@@ -1,20 +1,5 @@
 #!/bin/bash
 
-echo "[+] Building ..."
-
-echo " | [+] Static ..."
-pushd static
-npm i
-npm run build
-popd
-echo " | [-] Static"
-
-echo " | [+] Service ..."
-pushd service
-mvn clean install
-popd
-echo " | [-] Service"
-
 : << comment
 echo " | [+] Mobile ..."
 export ANDROID_HOME=/usr/lib/android-sdk
@@ -30,4 +15,3 @@ popd
 echo " | [-] Mobile"
 
 comment
-echo "[-] Building"

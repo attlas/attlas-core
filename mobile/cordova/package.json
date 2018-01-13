@@ -1,7 +1,7 @@
 {
     "name": "com.rplatform.mclient",
     "displayName": "Reputation Platform",
-    "version": "1.0.0",
+    "version": "18.1.0-SNAPSHOT",
     "description": "A sample Apache Cordova application that responds to the deviceready event.",
     "main": "index.js",
     "scripts": {
