@@ -11,6 +11,8 @@ import java.util.concurrent.CountDownLatch;
 
 import org.apache.log4j.Logger;
 
+import com.attlas.api.Goals;
+
 /**
  * Main class.
  *

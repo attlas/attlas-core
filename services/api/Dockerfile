@@ -8,6 +8,9 @@ ENV API_ARTIFACT $API_ARTIFACT
 ENV API_HOSTNAME $API_HOSTNAME
 ENV API_PORT $API_PORT
 
-RUN echo ${API_ARTIFACT}
+RUN apk --update --no-cache add curl
 COPY ./target/${API_ARTIFACT} /
+
+HEALTHCHECK --interval=5s --timeout=3s CMD curl --fail http://localhost:${API_PORT}/healthcheck || exit 1
+
 CMD exec java -jar /${API_ARTIFACT}

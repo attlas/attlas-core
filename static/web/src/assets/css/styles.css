@@ -1,4 +1,8 @@
 body {
-    background: #F0F0F0;
-    color: black;
+  background: white;
+  color: black;
+}
+
+attlas-platform {
+  color:green;
 }
