@@ -1,4 +1,4 @@
-FROM openjdk:8u131-jre-alpine
+FROM openjdk:8u151-jre-alpine
 
 ARG API_ARTIFACT
 ARG API_HOSTNAME

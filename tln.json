@@ -5,6 +5,11 @@
     "cleanup":{
       "command":"docker volume rm $(docker volume ls -qf dangling=true)"
     },
+    "prereq":{
+      "script":[
+"npm install -g @angular/cli"
+      ]
+    },
     "up":{
       "script":[
 "export $(cat ./.env | grep -v ^# | xargs)",
