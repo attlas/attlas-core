@@ -10,8 +10,7 @@ import java.util.Optional;
 import java.util.concurrent.CountDownLatch;
 
 import org.apache.log4j.Logger;
-
-import com.attlas.api.Goals;
+import com.owlike.genson.ext.jaxrs.GensonJsonConverter;
 
 /**
  * Main class.
@@ -44,6 +43,7 @@ public class Main {
     // create a resource config that scans for JAX-RS resources and providers
     // in com.attlas package
     final ResourceConfig rc = new ResourceConfig().packages("com.attlas.api");
+    rc.register(GensonJsonConverter.class);
 
     // create and start a new instance of grizzly http server
     // exposing the Jersey application at BASE_URI
