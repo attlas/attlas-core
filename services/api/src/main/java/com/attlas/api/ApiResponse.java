@@ -3,12 +3,11 @@ package com.attlas.api;
 import java.util.List;
 import java.util.ArrayList;
 
-import javax.ws.rs.core.Response.Status;
-
 public class ApiResponse {
   //
-  private int status = 0;
-  public int getStatus() { return this.status; }
+  private int code = 0;
+  public int getCode() { return this.code; }
+  public boolean isSucceeded() { return (this.code == 0); }
   //
   private String message = "";
   public String getMessage() { return this.message; }
@@ -26,22 +25,22 @@ public class ApiResponse {
    *
    */
   public static ApiResponse build() {
-    return build(Status.OK, "");
+    return build(0, "");
   }
   /**
    *
    */
-  public static ApiResponse build(final Status status) {
+  public static ApiResponse build(final int code) {
     ApiResponse response = new ApiResponse();
-    response.status = status.getStatusCode();
+    response.code = code;
     return response;
   }
 
   /**
    *
    */
-  public static ApiResponse build(final Status status, final String message) {
-    ApiResponse response = ApiResponse.build(status);
+  public static ApiResponse build(final int code, final String message) {
+    ApiResponse response = ApiResponse.build(code);
     response.message = message;
     return response;
   }
@@ -50,7 +49,7 @@ public class ApiResponse {
    *
    */
   public static ApiResponse build(final String message) {
-    ApiResponse response = ApiResponse.build(Status.OK);
+    ApiResponse response = ApiResponse.build(0);
     response.message = message;
     return response;
   }
@@ -58,8 +57,8 @@ public class ApiResponse {
   /**
    *
    */
-  public static ApiResponse buildList(final Status status, final String message, final List<Object> data) {
-    ApiResponse response = build(status, message);
+  public static ApiResponse buildList(final int code, final String message, final List<Object> data) {
+    ApiResponse response = build(code, message);
     response.data = data;
     return response;
   }
@@ -68,7 +67,7 @@ public class ApiResponse {
    *
    */
   public static ApiResponse buildList(final List<Object> data) {
-    ApiResponse response = build(Status.OK, "");
+    ApiResponse response = build(0, "");
     response.data = data;
     return response;
   }

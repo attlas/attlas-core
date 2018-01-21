@@ -2,9 +2,13 @@ package com.attlas.api;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import javax.ws.rs.core.Response;
 
 import java.util.Optional;
 import org.apache.log4j.Logger;
+import com.owlike.genson.Genson;
+
+import com.attlas.api.ApiResponse;
 
 /**
  * Main class.
@@ -16,23 +20,34 @@ public class Utils {
 
   /**
    */
-  public static boolean exec(final String[] args){
+  public static ApiResponse exec(final String[] args){
     logger.info("[+] Executing: " + String.join(" ", args));
     int exitVal = -1;
+    String result = "";
     try {
       Process p = Runtime.getRuntime().exec(args);
       exitVal = p.waitFor();
       BufferedReader reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
       String line = "";
       while ((line = reader.readLine())!= null) {
-        System.out.println(" | " + line);
-        logger.info(" | " + line);
+        result += line;
       }
     } catch (Exception e) {
+      exitVal = Response.Status.INTERNAL_SERVER_ERROR.getStatusCode();
+      result = e.getMessage();
       logger.error("Execution error", e);
     }
+    logger.info("Exit code: " + (new Integer(exitVal)).toString());
+    logger.info("Output: " + result);
     logger.info("[-]");
-    return (exitVal == 0);
+    if (exitVal == 0){
+      try{
+        return ApiResponse.build((new Genson()).deserialize(result, Object.class));
+      } catch (Exception e) {
+        return ApiResponse.build(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode(), e.getMessage());
+      }
+    }
+    return ApiResponse.build(exitVal, "Exit code: " + (new Integer(exitVal)).toString() + " " + result);
   }
 
 }

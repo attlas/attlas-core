@@ -25,6 +25,7 @@ import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.PathSegment;
 
 import org.apache.log4j.Logger;
+import com.owlike.genson.Genson;
 
 import com.attlas.api.ApiResponse;
 import com.attlas.api.Goals;
@@ -47,8 +48,15 @@ public class GoalsResource {
   @Produces(MediaType.APPLICATION_JSON)
   public Response createGoal(@Context UriInfo uriInfo, GoalInfo goalInfo) {
     logger.info(uriInfo.getRequestUri());
-    Utils.exec(new String[]{"python", "./scripts/flows/matchit/match/main.py", "{\"streams\":[\"c c++ java\",\"Java c c++ Tomcat\"]}"});
-    return Response.status(Response.Status.CREATED).entity(ApiResponse.build(Goals.add(goalInfo))).build();
+    ApiResponse r = Utils.exec(new String[]{
+                      "python",
+                      "./scripts/flows/matchit/match/main.py",
+                      (new Genson()).serialize(goalInfo.getParameters())
+                    });
+    if (r.isSucceeded()){
+      return Response.status(Response.Status.CREATED).entity(r).build();
+    }
+    return Response.status(Response.Status.BAD_REQUEST).entity(r).build();
   }
 
 }
