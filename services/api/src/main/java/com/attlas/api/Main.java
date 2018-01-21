@@ -12,6 +12,8 @@ import java.util.concurrent.CountDownLatch;
 import org.apache.log4j.Logger;
 import com.owlike.genson.ext.jaxrs.GensonJsonConverter;
 
+import com.attlas.api.CORSFilter;
+
 /**
  * Main class.
  *
@@ -44,6 +46,7 @@ public class Main {
     // in com.attlas package
     final ResourceConfig rc = new ResourceConfig().packages("com.attlas.api");
     rc.register(GensonJsonConverter.class);
+    rc.register(new CORSFilter());
 
     // create and start a new instance of grizzly http server
     // exposing the Jersey application at BASE_URI

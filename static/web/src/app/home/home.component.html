@@ -16,27 +16,46 @@
     </form>
   </div>
 </nav>
+<form name="form" (ngSubmit)="f.form.valid && match()" #f="ngForm" novalidate>
+  <div class="container-fluid" style="padding-top:16px">
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="form-group">
+          <label for="comment">Interviewer</label>
+          <textarea class="form-control" rows="10" id="interviewer" name="interviewer" [(ngModel)]="model.interviewer" #interviewer="ngModel" required></textarea>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="form-group">
+          <label for="comment">Interviewee</label>
+          <textarea class="form-control" rows="10"  id="interviewee" name="interviewee" [(ngModel)]="model.interviewee" #interviewer="ngModel" required></textarea>
+        </div>
+      </div>
+    </div>
 
-<div class="container-fluid" style="padding-top:16px">
-  <div class="row">
-    <div class="col-sm-6">
-      <div class="form-group">
-        <label for="comment">Interviewer</label>
-        <textarea class="form-control" rows="10" id="comment"></textarea>
+    <div *ngIf="error" class="row text-center">
+      <div class="offset-sm-3 col-sm-6">
+        <div class="alert alert-danger" role="alert">
+          {{error}}
+        </div>
       </div>
     </div>
-    <div class="col-sm-6">
-      <div class="form-group">
-        <label for="comment">Interviewee</label>
-        <textarea class="form-control" rows="10" id="comment"></textarea>
+
+    <div *ngIf="value >= 0" class="row text-center">
+      <div class="offset-sm-3 col-sm-6">
+        <div class="alert" [ngClass]="{'alert-success': value >= 80, 'alert-secondary': value < 80 }" role="alert">
+          Matching value is {{value}}%
+        </div>
+      </div>
+    </div>
+
+    <div class="row text-center">
+      <div class="offset-sm-5 col-sm-2">
+         <button [disabled]="matching" type="submit" class="btn btn-lg btn-info">
+          <img *ngIf="matching" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+          Match</button>
       </div>
     </div>
   </div>
-  <div class="row text-center">
-    <div class="offset-sm-5 col-sm-2">
-       <button type="submit" class="btn btn-lg btn-info">
-        <img class="d-none" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
-        Match</button>
-    </div>
-  </div>
-</div>
+</form>
+

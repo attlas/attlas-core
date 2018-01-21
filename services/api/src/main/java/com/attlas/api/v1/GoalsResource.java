@@ -53,10 +53,11 @@ public class GoalsResource {
                       "./scripts/flows/matchit/match/main.py",
                       (new Genson()).serialize(goalInfo.getParameters())
                     });
+    Response.Status status = Response.Status.BAD_REQUEST;
     if (r.isSucceeded()){
-      return Response.status(Response.Status.CREATED).entity(r).build();
+      status = Response.Status.CREATED;
     }
-    return Response.status(Response.Status.BAD_REQUEST).entity(r).build();
+    return Response.status(status).entity(r).build();
   }
 
 }
