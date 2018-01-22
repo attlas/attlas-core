@@ -24,12 +24,18 @@
           <label for="comment">Interviewer</label>
           <textarea class="form-control" rows="10" id="interviewer" name="interviewer" [(ngModel)]="model.interviewer" #interviewer="ngModel" required></textarea>
         </div>
+        <span *ngFor="let tag of interviewerTags">
+          <span class="badge badge-pill" [ngClass]="{'badge-success': intersectionTags.indexOf(tag) > -1, 'badge-light': intersectionTags.indexOf(tag) <= -1 }">{{tag}}</span>
+        </span>
       </div>
       <div class="col-sm-6">
         <div class="form-group">
           <label for="comment">Interviewee</label>
           <textarea class="form-control" rows="10"  id="interviewee" name="interviewee" [(ngModel)]="model.interviewee" #interviewer="ngModel" required></textarea>
         </div>
+        <span *ngFor="let tag of intervieweeTags">
+          <span class="badge badge-pill" [ngClass]="{'badge-success': intersectionTags.indexOf(tag) > -1, 'badge-light': intersectionTags.indexOf(tag) <= -1 }">{{tag}}</span>
+        </span>
       </div>
     </div>
 
@@ -40,9 +46,15 @@
         </div>
       </div>
     </div>
-
+    <hr/>
     <div *ngIf="value >= 0" class="row text-center">
       <div class="offset-sm-3 col-sm-6">
+        <div>
+          <span *ngFor="let tag of intersectionTags">
+            <span class="badge badge-pill badge-success">{{tag}}</span>
+          </span>
+        </div>
+        <br/>
         <div class="alert" [ngClass]="{'alert-success': value >= 80, 'alert-secondary': value < 80 }" role="alert">
           Matching value is {{value}}%
         </div>

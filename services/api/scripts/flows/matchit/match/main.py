@@ -77,7 +77,7 @@ def main(args=None):
           result += float(rLen) / float(arr2Len)
         result /= m
       #
-      print(json.dumps({"value" : result}))
+      print(json.dumps({"value" : result, "foundTags" : [arr1, arr2], "intersection" : r }))
     except:
       print(consts.CONST_ERROR_INVALID_DATA_FORMAT['message'])
       sys.exit(consts.CONST_ERROR_INVALID_DATA_FORMAT['code'])

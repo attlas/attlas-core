@@ -13,6 +13,9 @@ export class HomeComponent implements OnInit {
   matching = false;
   error = "";
   value = -1;
+  interviewerTags = []
+  intervieweeTags = []
+  intersectionTags = []
 
   constructor(private http: HttpClient) {
   }
@@ -34,6 +37,9 @@ export class HomeComponent implements OnInit {
         // Successful responses call the first callback.
         data => {
           this.value = Math.round(data["data"][0]["value"] * 1000) / 10;
+          this.interviewerTags = data["data"][0]["foundTags"][0]
+          this.intervieweeTags = data["data"][0]["foundTags"][1]
+          this.intersectionTags = data["data"][0]["intersection"]
           console.log(data)
           this.matching = false;
         },
