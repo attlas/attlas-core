@@ -13,14 +13,28 @@ export class HomeComponent implements OnInit {
   matching = false;
   error = "";
   value = -1;
-  interviewerTags = []
-  intervieweeTags = []
-  intersectionTags = []
+  interviewerTags = [];
+  intervieweeTags = [];
+  intersectionTags = [];
+  cleverstaffVacancies = [];
 
   constructor(private http: HttpClient) {
   }
 
   ngOnInit() {
+/*
+    this.http.get('http://46.101.7.84:8182/api/v1/docs')
+      .subscribe(
+        // Successful responses call the first callback.
+        data => {
+          this.cleverstaffVacancies = data['data'][0];
+          console.log(this.cleverstaffVacancies)
+        },
+        // Errors will call this callback instead:
+        err => {
+        }
+      );
+*/
   }
   /**
    *

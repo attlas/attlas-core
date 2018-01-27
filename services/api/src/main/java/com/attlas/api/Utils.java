@@ -26,12 +26,13 @@ public class Utils {
     String result = "";
     try {
       Process p = Runtime.getRuntime().exec(args);
-      exitVal = p.waitFor();
       BufferedReader reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
       String line = "";
       while ((line = reader.readLine())!= null) {
         result += line;
       }
+      exitVal = p.waitFor();
+      logger.info("Finished: " + exitVal);
     } catch (Exception e) {
       exitVal = Response.Status.INTERNAL_SERVER_ERROR.getStatusCode();
       result = e.getMessage();

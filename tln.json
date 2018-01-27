@@ -7,8 +7,8 @@
     },
     "prereq":{
       "script":[
-"npm install -g @angular/cli",
-"apr-get install python-jsonschema"
+        "npm install -g @angular/cli",
+        "apr-get -y install python-jsonschema python-requests"
       ]
     },
     "up":{

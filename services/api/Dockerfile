@@ -8,7 +8,7 @@ ENV API_ARTIFACT $API_ARTIFACT
 ENV API_HOSTNAME $API_HOSTNAME
 ENV API_PORT $API_PORT
 
-RUN apk --update --no-cache add curl python py-pip && pip install jsonschema
+RUN apk --update --no-cache add curl python py-pip && pip install jsonschema requests
 
 COPY ./target/${API_ARTIFACT} /
 RUN mkdir scripts

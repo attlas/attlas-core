@@ -35,29 +35,41 @@ import com.attlas.api.Utils;
 /**
  * 
  */
-@Path("api/v1/goals")
-public class GoalsResource {
+@Path("api/v1/docs")
+public class DocsResource {
 
-  private static final Logger logger = Logger.getLogger(GoalsResource.class);
+  private static final Logger logger = Logger.getLogger(DocsResource.class);
 
   /**
-   * Create goal
+   * Get docs
    */
-  @POST
-  @Consumes(MediaType.APPLICATION_JSON)
+  @GET
   @Produces(MediaType.APPLICATION_JSON)
-  public Response createGoal(@Context UriInfo uriInfo, GoalInfo goalInfo) {
+  public Response getDocs(@Context UriInfo uriInfo, @QueryParam("pathTo") String pathTo) {
     logger.info(uriInfo.getRequestUri());
     ApiResponse r = Utils.exec(new String[]{
                       "python",
-                      "./scripts/flows/match/main.py",
-                      (new Genson()).serialize(goalInfo.getParameters())
+                      "./scripts/contacts/cleverstaff/main.py"
                     });
     Response.Status status = Response.Status.BAD_REQUEST;
     if (r.isSucceeded()){
-      status = Response.Status.CREATED;
+      status = Response.Status.OK;
     }
     return Response.status(status).entity(r).build();
+  }
+
+  /**
+   * Get docs
+   */
+  @GET
+  @Path("{docId}")
+  @Produces(MediaType.APPLICATION_JSON)
+  public Response createGoal(@Context UriInfo uriInfo, @PathParam("id") String id) {
+    logger.info(uriInfo.getRequestUri());
+    return Response
+            .ok()
+            .entity("documet id:" + id)
+            .build();
   }
 
 }
