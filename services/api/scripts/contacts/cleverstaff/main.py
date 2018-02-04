@@ -21,7 +21,7 @@ def main(args=None):
     #
     url = 'https://cleverstaff.net/hr/public/getVacancies?alias=skyworker'
     response = requests.get(url)
-    i = 5
+    i = 1000
     if (response.status_code == 200):
       data = response.json()
       for vacancy in data['objects']:

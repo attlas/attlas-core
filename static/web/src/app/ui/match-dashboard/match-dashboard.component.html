@@ -1,0 +1,26 @@
+<div *ngIf="matchResult.value >= 0" class="row bg-light">
+  <div class="col-sm-6">
+    <p class="text-right">
+      <span *ngFor="let tag of matchResult.lTags">
+        <span class="badge badge-pill" [ngClass]="{'badge-success': matchResult.iTags.indexOf(tag) > -1, 'badge-light': matchResult.iTags.indexOf(tag) <= -1 }">{{tag}}</span>
+      </span>
+    </p>
+  </div>
+  <div class="col-sm-6">
+    <p class="text-left">
+      <span *ngFor="let tag of matchResult.rTags">
+        <span class="badge badge-pill" [ngClass]="{'badge-success': matchResult.iTags.indexOf(tag) > -1, 'badge-light': matchResult.iTags.indexOf(tag) <= -1 }">{{tag}}</span>
+      </span>
+    </p>
+  </div>
+  <div class="offset-sm-3 col-sm-6 text-center">
+    <p [ngClass]="{'text-success': matchResult.value >= 80, 'text-secondary': matchResult.value < 80 }">
+      Matching value is {{matchResult.value}}%
+    </p>
+    <p class="text-center">
+      <span *ngFor="let tag of matchResult.iTags">
+        <span class="badge badge-pill badge-success">{{tag}}</span>
+      </span>
+    </p>
+  </div>
+</div>

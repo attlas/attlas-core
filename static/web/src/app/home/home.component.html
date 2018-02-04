@@ -1,130 +1,68 @@
 <app-navbar></app-navbar>
-
-<div class="progress" style="height:2px">
-  <div class="progress-bar bg-info" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-</div>
-
-
-<ng-template #content let-c="close" let-d="dismiss">
-  <div class="modal-header">
-    <h4 class="modal-title">Modal title</h4>
-    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    <p>One fine body&hellip;</p>
-  </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-outline-dark" (click)="c('Close click')">Close</button>
-  </div>
-</ng-template>
-
-<button class="btn btn-lg btn-outline-primary" (click)="open(content)">Launch demo modal</button>
-<pre>{{closeResult}}</pre>
-
-<ngb-tabset>
-  <ngb-tab title="Simple">
-    <ng-template ngbTabContent>
-      <p>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth
-      master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh
-      dreamcatcher synth. Cosby sweater eu banh mi, qui irure terry richardson ex squid. Aliquip placeat salvia cillum
-      iphone. Seitan aliquip quis cardigan american apparel, butcher voluptate nisi qui.</p>
-    </ng-template>
-  </ngb-tab>
-  <ngb-tab>
-    <ng-template ngbTabTitle><b>Fancy</b> title</ng-template>
-    <ng-template ngbTabContent>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid.
-      <p>Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table
-      craft beer twee. Qui photo booth letterpress, commodo enim craft beer mlkshk aliquip jean shorts ullamco ad vinyl
-      cillum PBR. Homo nostrud organic, assumenda labore aesthetic magna delectus mollit. Keytar helvetica VHS salvia
-      yr, vero magna velit sapiente labore stumptown. Vegan fanny pack odio cillum wes anderson 8-bit, sustainable jean
-      shorts beard ut DIY ethical culpa terry richardson biodiesel. Art party scenester stumptown, tumblr butcher vero
-      sint qui sapiente accusamus tattooed echo park.</p>
-    </ng-template>
-  </ngb-tab>
-  <ngb-tab title="Disabled" [disabled]="true">
-    <ng-template ngbTabContent>
-      <p>Sed commodo, leo at suscipit dictum, quam est porttitor sapien, eget sodales nibh elit id diam. Nulla facilisi. Donec egestas ligula vitae odio interdum aliquet. Duis lectus turpis, luctus eget tincidunt eu, congue et odio. Duis pharetra et nisl at faucibus. Quisque luctus pulvinar arcu, et molestie lectus ultrices et. Sed diam urna, egestas ut ipsum vel, volutpat volutpat neque. Praesent fringilla tortor arcu. Vivamus faucibus nisl enim, nec tristique ipsum euismod facilisis. Morbi ut bibendum est, eu tincidunt odio. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Mauris aliquet odio ac lorem aliquet ultricies in eget neque. Phasellus nec tortor vel tellus pulvinar feugiat.</p>
-    </ng-template>
-  </ngb-tab>
-</ngb-tabset>
-
-
-
+<app-progress-bar></app-progress-bar>
+<app-error-message [errorText]="matchResult.error"></app-error-message>
 <form name="form" (ngSubmit)="f.form.valid && match()" #f="ngForm" novalidate>
-  <div class="container-fluid" style="padding-top:16px">
+  <div class="container-fluid" style="padding-top:24px">
 
     <div class="row">
       <div class="col-sm-6">
-        <nav>
-          <div class="nav nav-tabs" id="nav-tab" role="tablist">
-            <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Manual</a>
-            <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false"> <img style="height:24px" src="https://cleverstaff.net/external/img/svg/logo-choozen.svg"></a>
-          </div>
-        </nav>
-        <div class="tab-content" id="nav-tabContent">
-          <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-            <div class="form-group input-offset">
-              <textarea class="form-control" rows="10" id="interviewer" name="interviewer" [(ngModel)]="model.interviewer" #interviewer="ngModel" required></textarea>
-            </div>
-            <span *ngFor="let tag of interviewerTags">
-              <span class="badge badge-pill" [ngClass]="{'badge-success': intersectionTags.indexOf(tag) > -1, 'badge-light': intersectionTags.indexOf(tag) <= -1 }">{{tag}}</span>
-            </span>
-          </div>
-          <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-            <ul class="list-group">
-              <li *ngFor="let vacancy of cleverstaffVacancies" class="list-group-item">{{vacancy.title}}</li>
-            </ul>
-          </div>
-        </div>
+        <ngb-tabset>
+          <ngb-tab>
+            <ng-template ngbTabTitle>
+              <div (click)="changeMode(0)">Vacancy</div>
+            </ng-template>
+            <ng-template ngbTabContent>
+              <div class="input-offset">
+                <div class="form-group">
+                  <textarea class="form-control" rows="10" id="interviewer" name="interviewer" [(ngModel)]="model.interviewer" #interviewer="ngModel" required></textarea>
+                </div>
+              </div>
+            </ng-template>
+          </ngb-tab>
+          <ngb-tab>
+            <ng-template ngbTabTitle>
+              <img (click)="changeMode(1) "class="cleverstaff-logo" src="https://cleverstaff.net/external/img/svg/logo-choozen.svg">
+              ({{cleverstaffVacancies.length}})
+            </ng-template>
+            <ng-template ngbTabContent>
+              <div class="input-offset">
+                <p class="text-center text-info"  *ngIf="cleverstaffVacancies.length == 0">
+                  <br/>
+                  <span>In this mode, service will automatically export all available vacancies and use them for matching</span>
+                </p>
+                <ul class="list-group">
+                  <li *ngFor="let vacancy of cleverstaffMatches" class="list-group-item">{{vacancy.title}}<span class="badge badge-success float-right" (click)="showMatchResult(vacancy.matchResult)">{{vacancy.matchResult.value}}%</span></li>
+                </ul>
+              </div>
+            </ng-template>
+          </ngb-tab>
+        </ngb-tabset>
       </div>
       <div class="col-sm-6">
-        <nav>
-          <div class="nav nav-tabs" id="nav-tab" role="tablist">
-            <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Manual</a>
-          </div>
-        </nav>
-        <div class="tab-content" id="nav-tabContent">
-          <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-            <div class="form-group input-offset">
-              <textarea class="form-control" rows="10"  id="interviewee" name="interviewee" [(ngModel)]="model.interviewee" #interviewer="ngModel" required></textarea>
-            </div>
-            <span *ngFor="let tag of intervieweeTags">
-              <span class="badge badge-pill" [ngClass]="{'badge-success': intersectionTags.indexOf(tag) > -1, 'badge-light': intersectionTags.indexOf(tag) <= -1 }">{{tag}}</span>
-            </span>
-          </div>
-        </div>
+        <ngb-tabset>
+          <ngb-tab title="Resume">
+            <ng-template ngbTabContent>
+              <div class="input-offset">
+                <div class="form-group">
+                  <textarea class="form-control" rows="10"  id="interviewee" name="interviewee" [(ngModel)]="model.interviewee" #interviewer="ngModel" required></textarea>
+                </div>
+              </div>
+            </ng-template>
+          </ngb-tab>
+        </ngb-tabset>
       </div>
     </div>
-
-    <div *ngIf="error" class="row text-center">
-      <div class="offset-sm-3 col-sm-6">
-        <div class="alert alert-danger" role="alert">
-          {{error}}
-        </div>
-      </div>
-    </div>
-    <hr/>
-    <div *ngIf="value >= 0" class="row text-center">
-      <div class="offset-sm-3 col-sm-6">
-        <div>
-          <span *ngFor="let tag of intersectionTags">
-            <span class="badge badge-pill badge-success">{{tag}}</span>
-          </span>
-        </div>
-        <br/>
-        <div class="alert" [ngClass]="{'alert-success': value >= 80, 'alert-secondary': value < 80 }" role="alert">
-          Matching value is {{value}}%
-        </div>
-      </div>
-    </div>
-
+    <!-- Matching results -->
+    <app-match-dashboard [matchResult]="matchResult"></app-match-dashboard>
+    <!-- Match -->
     <div class="row text-center">
       <div class="offset-sm-5 col-sm-2">
-         <button [disabled]="matching" type="submit" class="btn btn-lg btn-info">
-          <img *ngIf="matching" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
-          Match</button>
+        <p>
+        <br/>
+          <button [disabled]="matching" type="submit" class="btn btn-lg btn-info">
+            <img *ngIf="matching" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+            Match</button>
+        </p>
       </div>
     </div>
   </div>

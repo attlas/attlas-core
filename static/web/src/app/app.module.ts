@@ -10,14 +10,21 @@ import { routing } from './app.routing';
 import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
 import { NavbarComponent } from './ui/navbar/navbar.component';
+import { ProgressBarComponent } from './ui/progress-bar/progress-bar.component';
 
+import { ProgressService } from './services/progress.service';
+import { MatchDashboardComponent } from './ui/match-dashboard/match-dashboard.component';
+import { ErrorMessageComponent } from './ui/error-message/error-message.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     HomeComponent,
-    NavbarComponent
+    NavbarComponent,
+    ProgressBarComponent,
+    MatchDashboardComponent,
+    ErrorMessageComponent
   ],
   imports: [
     BrowserModule,
@@ -26,7 +33,9 @@ import { NavbarComponent } from './ui/navbar/navbar.component';
     NgbModule.forRoot(),
     HttpClientModule
   ],
-  providers: [],
+  providers: [
+    ProgressService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
