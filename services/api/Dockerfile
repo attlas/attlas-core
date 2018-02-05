@@ -1,13 +1,18 @@
-FROM openjdk:8u131-jre-alpine
+FROM openjdk:8u151-jre-alpine
 
-ARG SERVICE_ARTIFACT
-ARG SERVICE_HOSTNAME
-ARG SERVICE_PORT
+ARG API_ARTIFACT
+ARG API_HOSTNAME
+ARG API_PORT
 
-ENV SERVICE_ARTIFACT $SERVICE_ARTIFACT
-ENV SERVICE_HOSTNAME $SERVICE_HOSTNAME
-ENV SERVICE_PORT $SERVICE_PORT
+ENV API_ARTIFACT $API_ARTIFACT
+ENV API_HOSTNAME $API_HOSTNAME
+ENV API_PORT $API_PORT
 
-COPY ./dist/${SERVICE_ARTIFACT} /
-EXPOSE  $SERVICE_PORT
-CMD exec java -jar /${SERVICE_ARTIFACT}
+RUN apk --update --no-cache add curl python py-pip && pip install jsonschema requests
+
+COPY ./target/${API_ARTIFACT} /
+RUN mkdir scripts
+COPY ./scripts /scripts
+HEALTHCHECK --interval=5s --timeout=3s CMD curl --fail http://localhost:${API_PORT}/healthcheck || exit 1
+
+CMD exec java -jar /${API_ARTIFACT}

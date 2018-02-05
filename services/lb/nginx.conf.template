@@ -34,7 +34,7 @@ http {
   }
 
   server {
-    listen 80;
+    listen %WEB_PORT%;
 
     location / {
       proxy_pass http://static;
@@ -46,7 +46,7 @@ http {
   }
 
   server {
-    listen 8182;
+    listen %API_PORT%;
 
     location / {
       proxy_pass http://service;
