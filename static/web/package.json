@@ -11,6 +11,16 @@
     "e2e": "ng e2e"
   },
   "private": true,
+  "browserslist": [
+    "Chrome >= 45",
+    "Firefox >= 38",
+    "Edge >= 12",
+    "Explorer >= 10",
+    "iOS >= 9",
+    "Safari >= 9",
+    "Android >= 4.4",
+    "Opera >= 30"
+  ],
   "dependencies": {
     "@angular/animations": "^5.1.0",
     "@angular/common": "^5.1.0",
@@ -22,13 +32,14 @@
     "@angular/platform-browser-dynamic": "^5.1.0",
     "@angular/router": "^5.1.0",
     "@ng-bootstrap/ng-bootstrap": "^1.0.0",
-    "bootstrap": "^4.0.0-beta.3",
+    "bootstrap": "^4.0.0",
     "core-js": "^2.4.1",
     "rxjs": "^5.5.6",
     "zone.js": "^0.8.19"
   },
   "devDependencies": {
-    "@angular/cli": "1.6.4",
+    "@angular-devkit/core": "^0.3.1",
+    "@angular/cli": "^1.6.8",
     "@angular/compiler-cli": "^5.1.0",
     "@angular/language-service": "^5.1.0",
     "@types/jasmine": "~2.8.3",

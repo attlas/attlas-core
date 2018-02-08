@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpResponse, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
+import { environment } from '../../environments/environment';
+
 import { MatchResult } from '../utils/match-result'
 import { MatchParam } from '../utils/match-param'
 import { ProgressService } from '../services/progress.service';
@@ -39,7 +41,7 @@ export class HomeComponent implements OnInit {
    *
    */
   getApiEndpoint(path: string): string {
-    return 'http://46.101.7.84:8182/api/v1' + path;
+    return environment.backendApiUrl + path;
   }
   /**
    *
@@ -73,7 +75,7 @@ export class HomeComponent implements OnInit {
               this.matchCleverStaff(interviewee);
             },
             err => {
-              this.finalize("Backend service is unavailable");
+              this.finalize("Backend communication error");
             }
           );
       }
@@ -84,7 +86,7 @@ export class HomeComponent implements OnInit {
     let param: MatchParam = new MatchParam();
     param.stream = interviewee;
     if (this.cleverstaffVacancies.length) {
-      this.matchStreams(this.cleverstaffVacancies[param.index]['desc'], interviewee, this.matchMode1, param);
+      this.matchStreams(this.cleverstaffVacancies[param.index]['descr'], interviewee, this.matchMode1, param);
     } else {
       this.finalize();
     }
@@ -111,7 +113,7 @@ export class HomeComponent implements OnInit {
         },
         err => {
           let r = new MatchResult();
-          r.error = "Backend service is unavailable";
+          r.error = "Backend communication error";
           callback.bind(this)(r, param);
         }
       );
@@ -153,7 +155,7 @@ export class HomeComponent implements OnInit {
       // check next item in vacancies
       param.index++;
       if (param.index < this.cleverstaffVacancies.length){
-        this.matchStreams(this.cleverstaffVacancies[param.index]['desc'], param.stream, this.matchMode1, param);
+        this.matchStreams(this.cleverstaffVacancies[param.index]['descr'], param.stream, this.matchMode1, param);
       } else {
         this.finalize();
       }
