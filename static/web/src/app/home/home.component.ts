@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpResponse, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
+import { environment } from '../../environments/environment';
+
 import { MatchResult } from '../utils/match-result'
 import { MatchParam } from '../utils/match-param'
 import { ProgressService } from '../services/progress.service';
@@ -39,7 +41,7 @@ export class HomeComponent implements OnInit {
    *
    */
   getApiEndpoint(path: string): string {
-    return 'http://46.101.7.84:8182/api/v1' + path;
+    return environment.backendApiUrl + path;
   }
   /**
    *
