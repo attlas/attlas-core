@@ -1,6 +1,7 @@
 # @tlas XaaS
 
 ## Prerequisites
+* Install Angular CLI ```https://github.com/angular/angular-cli```
 * ```apt-get -y install php7.0-cli```
 
 ## Create backend
