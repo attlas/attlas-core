@@ -61,6 +61,13 @@
       "id":"static",
       "components":[
         {
+          "id":"client",
+          "subtree":{
+            "repo":"https://github.com/project-talan/tln-angular.git",
+            "branch":"master"
+          }
+        },
+        {
           "id":"web",
           "inherits":["angular"],
           "stages":{
