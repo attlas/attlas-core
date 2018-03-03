@@ -35,8 +35,24 @@
           "id":"api",
           "inherits":["java/maven"],
           "stages":{
-            "build":{},
-            "exec":{}
+            "build":{
+              "cmds":[
+                "export $(cat ./../../.env | grep -v ^# | xargs)",
+                "mvn clean install"
+              ]
+            },
+            "build-prod":{
+              "cmds":[
+                "export $(cat ./../../.env | grep -v ^# | xargs)",
+                "mvn clean install"
+              ]
+            },
+            "exec":{
+              "cmds":[
+                "export $(cat ./../../.env | grep -v ^# | xargs)",
+                "mvn exec:java"
+              ]
+            }
           }
         }
       ]
