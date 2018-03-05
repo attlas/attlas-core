@@ -29,6 +29,26 @@
   },
   "components":[
     {
+      "id":"mobile",
+      "components":[
+        {
+          "id":"cordova",
+          "env":{
+            "dl":"https://dl.google.com/android/repository/sdk-tools-linux-3859397.zip",
+            "sdkmanager":"",
+            "gradle":""
+          },
+          "stages":{
+            "prereq":{
+              "cmds":[
+                "npm install -g cordova"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
       "id":"services",
       "components":[
         {

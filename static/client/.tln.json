@@ -19,7 +19,14 @@
     },
     "build-prod":{
       "cmds":[
-        "ng build --prod"
+        "ng build --prod --env=prod"
+      ]
+    },
+    "build-mobile":{
+      "cmds":[
+        "ng build --prod --env=prod --base-href . --output-path ../../mobile/cordova/www/",
+        "#ng build --base-href . --output-path ../../mobile/cordova/www/",
+        "sed -i -e 's|</app-root>|</app-root><script type=\"text/javascript\" src=\"cordova.js\"></script>|g' ../../mobile/cordova/www/index.html"
       ]
     },
     "serve":{
