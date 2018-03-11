@@ -1,3 +1,24 @@
-<p>
-  login works!
-</p>
+<div class="container">
+  <div class="row" style="height:100vh">
+    <div class="border offset-sm-2 col-sm-8 offset-md-3 col-md-6 offset-lg-4 col-lg-4 bg-light">
+      <a routerLink="/home">
+        <div class="text-center" style="height: 18vh;padding-top: 5vh">
+          <img style="height:80px" src="assets/images/logo.png">
+        </div>
+      </a>
+      <hr/>
+      <div class="container">
+        <div class="row">
+          <div class="col-3 provider-cell text-center"  *ngFor="let provider of providers">
+            <img class="provider-icon" [attr.src]="'assets/images/providers/' + provider + '.png'">
+          </div>
+        </div>
+      </div>
+      <hr/>
+      <div class="form-check">
+        <input type="checkbox" class="form-check-input" id="exampleCheck1" checked>
+        <label class="form-check-label" for="exampleCheck1">Remember me</label>
+      </div>
+    </div>
+  </div>
+</div>
