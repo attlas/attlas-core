@@ -1,39 +1,48 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  selector: 'app-bind',
+  templateUrl: './bind.component.html',
+  styleUrls: ['./bind.component.css']
 })
-export class LoginComponent implements OnInit {
+export class BindComponent implements OnInit {
+  expanded: boolean = false;
   providers: String[] = [
     'facebook',
     'linkedin',
     'github',
     'stackexchange',
+    'google',
+    'twitter',
+    'glassdoor',
+    'slack',
     'coursera',
     'foursquare',
-    'glassdoor',
     'paypal',
     'soundcloud',
     'telegram',
     'whatsapp',
     'dropbox',
     'gdrive.google',
-    'google',
     'live.microsoft',
     'skype',
-    'twitter',
     'instagram',
     'onedrive.microsoft',
-    'slack',
     'steam',
     'viber'
   ]
+  readonly providersToShow: number = 8;
 
   constructor() { }
 
   ngOnInit() {
   }
+
+  /**
+   */
+  showMoreLess() {
+    this.expanded = !this.expanded;
+  }
+
 
 }

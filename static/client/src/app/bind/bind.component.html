@@ -1,6 +1,6 @@
 <div class="container">
   <div class="row" style="height:100vh">
-    <div class="border offset-sm-2 col-sm-8 offset-md-3 col-md-6 offset-lg-4 col-lg-4 bg-light">
+    <div class="border offset-1 col-10 offset-sm-2 col-sm-8 offset-md-3 col-md-6 offset-lg-4 col-lg-4 bg-light">
       <a routerLink="/home">
         <div class="text-center" style="height: 18vh;padding-top: 5vh">
           <img style="height:80px" src="assets/images/logo.png">
@@ -9,8 +9,13 @@
       <hr/>
       <div class="container">
         <div class="row">
-          <div class="col-3 provider-cell text-center"  *ngFor="let provider of providers">
-            <img class="provider-icon" [attr.src]="'assets/images/providers/' + provider + '.png'">
+          <div class="col-3 provider-cell text-center"  *ngFor="let provider of providers; let i = index">
+            <img *ngIf="i<providersToShow || expanded" class="provider-icon" [attr.src]="'assets/images/providers/' + provider + '.png'">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12 text-right">
+            <button type="button" class="btn btn-link" (click)="showMoreLess()">{{expanded?'less...':'more...'}}</button>
           </div>
         </div>
       </div>
