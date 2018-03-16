@@ -1,4 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpClient, HttpHeaders, HttpResponse, HttpParams } from '@angular/common/http';
+import { Observable } from 'rxjs';
+
+import { environment } from './../../environments/environment';
+
+import { ProgressService } from './../services/progress.service';
+import { LoggingService } from './../services/logging.service';
+
 
 @Component({
   selector: 'app-home',
@@ -31,9 +39,11 @@ export class HomeComponent implements OnInit {
     'viber'
   ]
 
-  constructor() { }
+  constructor(private http: HttpClient, private loggingService: LoggingService, private progressService: ProgressService) { 
+  }
 
   ngOnInit() {
+    this.progressService.init(0, 50, 100);
   }
 
 }
