@@ -1,0 +1,13 @@
+{
+  "name": "attlas-service-auth",
+  "version": "18.3.0-SNAPSHOT",
+  "description": "attlas-service-auth",
+  "author": "Vladyslav Kurmaz <vladislav.kurmaz@gmail.com>",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js"
+  },
+  "dependencies": {
+    "express": "^4.16.1"
+  }
+}

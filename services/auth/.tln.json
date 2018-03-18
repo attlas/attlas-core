@@ -1,0 +1,27 @@
+{
+  "stages":{
+    "serve":{
+      "cmds":[
+        "npm start"
+      ]
+    },
+    "docker-run":{
+      "cmds":[
+        "export STATIC_AUTH_HOSTNAME=0.0.0.0",
+        "export STATIC_AUTH_PORT=8080",
+        "export STATIC_AUTH_PORTS=8443",
+        "docker build --build-arg STATIC_AUTH_HOSTNAME=$STATIC_AUTH_HOSTNAME \\",
+        "             --build-arg STATIC_AUTH_PORT=$STATIC_AUTH_PORT \\",
+        "             --build-arg STATIC_AUTH_PORTS=$STATIC_AUTH_PORTS \\",
+        "             -t attlas-auth:latest .",
+        "docker run -d --rm -p $STATIC_AUTH_PORT:$STATIC_AUTH_PORT -p $STATIC_AUTH_PORTS:$STATIC_AUTH_PORTS --name attlas-auth attlas-auth:latest"
+      ]
+    },
+    "docker-stop":{
+      "cmds":[
+        "docker stop attlas-auth",
+        "docker rmi attlas-auth:latest"
+      ]
+    }
+  }
+}
