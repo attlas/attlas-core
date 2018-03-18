@@ -1,15 +1,21 @@
 {
   "stages":{
+    "prereq":{
+      "cmds":[
+        "npm install oauthio --save",
+        "npm install cors --save",
+        "npm install express-session --save"
+      ]
+    },
     "serve":{
       "cmds":[
+        "export $(cat ./.env | grep -v ^# | xargs)",
         "npm start"
       ]
     },
     "docker-run":{
       "cmds":[
-        "export STATIC_AUTH_HOSTNAME=0.0.0.0",
-        "export STATIC_AUTH_PORT=8080",
-        "export STATIC_AUTH_PORTS=8443",
+        "export $(cat ./.env | grep -v ^# | xargs)",
         "docker build --build-arg STATIC_AUTH_HOSTNAME=$STATIC_AUTH_HOSTNAME \\",
         "             --build-arg STATIC_AUTH_PORT=$STATIC_AUTH_PORT \\",
         "             --build-arg STATIC_AUTH_PORTS=$STATIC_AUTH_PORTS \\",

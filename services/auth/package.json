@@ -2,12 +2,20 @@
   "name": "attlas-service-auth",
   "version": "18.3.0-SNAPSHOT",
   "description": "attlas-service-auth",
+  "license": "MIT",
   "author": "Vladyslav Kurmaz <vladislav.kurmaz@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/attlas/attlas-core.git"
+  },
   "main": "src/server.js",
   "scripts": {
     "start": "node src/server.js"
   },
   "dependencies": {
-    "express": "^4.16.1"
+    "cors": "^2.8.4",
+    "express": "^4.16.1",
+    "express-session": "^1.15.6",
+    "oauthio": "^0.3.5"
   }
 }
