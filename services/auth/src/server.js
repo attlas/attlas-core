@@ -28,15 +28,15 @@ app.get('/', (req, res) => {
   res.send('Hello world\n<a href="/signin">signin</a>');
 });
 
-app.get('/signin', OAuth.auth('facebook', 'http://46.101.7.84:8080/oauth/redirect'));
+app.get('/signin', OAuth.auth('google', 'http://localhost:8080/oauth/redirect'));
 
 app.get('/oauth/redirect', OAuth.redirect(function(result, req, res) {
     if (result instanceof Error) {
-        res.send(500, "error: " + result.message);
+        res.status(500).send("error: " + result.message);
     }
     result.me().done(function(me) {
         console.log(me);
-        res.send(200, JSON.stringify(me));
+        res.status(200).send(JSON.stringify(me));
     });
 }));
 

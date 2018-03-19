@@ -107,3 +107,4 @@ typings/
 
 # SonarQube output
 .scannerwork
+secrets*.*

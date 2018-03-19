@@ -15,6 +15,7 @@ import { ProgressBarComponent } from './ctrls/progress-bar/progress-bar.componen
 
 import { ProgressService } from './services/progress.service';
 import { LoggingService } from './services/logging.service';
+import { BindService } from './services/bind.service';
 
 
 @NgModule({
@@ -35,7 +36,8 @@ import { LoggingService } from './services/logging.service';
   ],
   providers:[
     ProgressService,
-    LoggingService
+    LoggingService,
+    BindService
   ],
   bootstrap: [AppComponent]
 })
