@@ -14,7 +14,6 @@ import { MsgbarComponent } from './ctrls/msgbar/msgbar.component';
 import { ProgressBarComponent } from './ctrls/progress-bar/progress-bar.component';
 
 import { ProgressService } from './services/progress.service';
-import { LoggingService } from './services/logging.service';
 import { BindService } from './services/bind.service';
 
 
@@ -36,7 +35,6 @@ import { BindService } from './services/bind.service';
   ],
   providers:[
     ProgressService,
-    LoggingService,
     BindService
   ],
   bootstrap: [AppComponent]

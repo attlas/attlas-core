@@ -1,9 +1,6 @@
-<div *ngIf="notification.message" class="p-2 mb-2 bg-danger text-white text-center">
+<div *ngIf="show && notification.message" class="p-2 mb-2 bg-danger text-white text-center fixed-top">
   {{notification.message}}
-  <!--button type="button" class="close text-white" data-dismiss="alert" aria-label="Close">
+  <button type="button" (click)="show = !show" class="close text-white" data-dismiss="alert" aria-label="Close">
     <span aria-hidden="true">&times;</span>
-  </button-->
-  <!--button type="button" class="close" aria-label="Close">
-    <span aria-hidden="true">&times;</span>
-  </button-->
+  </button>
 </div>
