@@ -8,7 +8,6 @@ import { Router } from '@angular/router';
 })
 export class BindComponent implements OnInit {
   expanded: boolean = false;
-  userID: String = "";
   providers: String[] = [
     'facebook',
     'linkedin',
@@ -33,7 +32,7 @@ export class BindComponent implements OnInit {
     'steam',
     'viber'
   ]
-  readonly providersToShow: number = 8;
+  readonly providersToShow: number = 6;
 
   constructor(private router: Router) { }
 
@@ -45,38 +44,5 @@ export class BindComponent implements OnInit {
   showMoreLess() {
     this.expanded = !this.expanded;
   }
-  /**
-   */
-  login() {
-    /*
-    FB.Event.subscribe('auth.statusChange', (response => {
-      console.log(response);
-      if (response.status === 'connected') {
-      }
-    }));
-    */
-    FB.getLoginStatus((response) => {
-      if (response.status === 'connected') {
-        console.log(response);
-        this.userID = response.authResponse.userID;
-        this.router.navigate(['home']);
-      } else {
-        FB.login((loginResponse)=>{
-          console.log(loginResponse);
-          //this.router.navigate(['home']);
-        }, {
-            scope: 'public_profile,email,user_friends',
-            return_scopes: true
-          }
-        );
-      }
-    });
-  }
-  
-  verify(){
-    console.log(this.userID);
-    this.router.navigate(['home']);
-  }
-
 
 }
