@@ -1,4 +1,4 @@
-'use strict';
+'use strict'; 
 
 const express = require('express');
 const session = require('express-session'); 
@@ -12,15 +12,17 @@ const PORTS = (process.env.STATIC_AUTH_PORTS == undefined)?(443):(process.env.ST
 // App
 const app = express();
 app.use(session({
-    secret: 'gaNyqujJpVA6xEaTCFCTNwAhFn3ajhTaUnFhvuU2gWgz6G6sYAqVEaySepEXu2qaqphQYPNcJPWs3pkxQrsDSgjQrRPbCfj2HdBh4FWn8dC5bgXVKrGPWsPtxmg6XgCk',
+    secret: process.env.STATIC_AUTH_SECRET,
     resave: false,
     saveUninitialized: true
 }));
 app.use(cors());
 
+console.log(process.env)
+
 var OAuth = require('oauthio');
 // Initialize the SDK
-OAuth.initialize('LrEAX_SoGlaQHhF5Nx25MVoGHyE', 'pxKBe561dI1csTQIWr2VIF9MxkA');
+OAuth.initialize(process.env.STATIC_AUTH_PUBLIC_KEY, process.env.STATIC_AUTH_SECRET_KEY);
 //var twitter = OAuth.create('twitter');
 
 // Routers
@@ -28,7 +30,7 @@ app.get('/', (req, res) => {
   res.send('Hello world\n<a href="/signin">signin</a>');
 });
 
-app.get('/signin', OAuth.auth('google', 'http://localhost:8080/oauth/redirect'));
+app.get('/signin', OAuth.auth('google', `http://${HOST}:${PORT}/oauth/redirect`));
 
 app.get('/oauth/redirect', OAuth.redirect(function(result, req, res) {
     if (result instanceof Error) {
