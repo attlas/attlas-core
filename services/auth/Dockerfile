@@ -20,5 +20,7 @@ COPY ./src ./src
 RUN npm install
 # RUN npm install --only=production
 
-EXPOSE 8080
+EXPOSE $STATIC_AUTH_PORT
+EXPOSE $STATIC_AUTH_PORTS
+
 CMD [ "npm", "start" ]
