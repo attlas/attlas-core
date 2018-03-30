@@ -17,8 +17,8 @@ COPY package*.json ./
 COPY ./src ./src
 
 # Install app dependencies
-RUN npm install
-# RUN npm install --only=production
+#RUN npm install
+RUN npm install --only=production
 
 EXPOSE $STATIC_AUTH_PORT
 EXPOSE $STATIC_AUTH_PORTS

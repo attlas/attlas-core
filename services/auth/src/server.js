@@ -2,47 +2,148 @@
 
 const express = require('express');
 const session = require('express-session'); 
+const sessionFileStore = require('session-file-store')(session);
 const cors = require('cors')
+const fs = require('fs')
+const querystring = require("querystring");
+const randomstring = require("randomstring");
+const cache = require('memory-cache');
+//
+// apps modules
+const context = require('./context')
 
-// Constants
-const HOST = (process.env.STATIC_AUTH_HOSTNAME == undefined)?('127.0.0.1'):(process.env.STATIC_AUTH_HOSTNAME);
-const PORT = (process.env.STATIC_AUTH_PORT == undefined)?(80):(process.env.STATIC_AUTH_PORT);
-const PORTS = (process.env.STATIC_AUTH_PORTS == undefined)?(443):(process.env.STATIC_AUTH_PORTS);
 
 // App
 const app = express();
 app.use(session({
-    secret: process.env.STATIC_AUTH_SECRET,
+    credentials : {},
+    store: new sessionFileStore({}),
+    secret: context.getAuthSecret(),
     resave: false,
     saveUninitialized: true
 }));
 app.use(cors());
 
-console.log(process.env)
-
-var OAuth = require('oauthio');
+var oauth = require('oauthio');
 // Initialize the SDK
-OAuth.initialize(process.env.STATIC_AUTH_PUBLIC_KEY, process.env.STATIC_AUTH_SECRET_KEY);
+oauth.initialize(context.getAuthPublicKey(), context.getAuthSecretKey());
 //var twitter = OAuth.create('twitter');
 
-// Routers
-app.get('/', (req, res) => {
-  res.send('Hello world\n<a href="/signin">signin</a>');
-});
-
-app.get('/signin', OAuth.auth('google', `http://${HOST}:${PORT}/oauth/redirect`));
-
-app.get('/oauth/redirect', OAuth.redirect(function(result, req, res) {
-    if (result instanceof Error) {
-        res.status(500).send("error: " + result.message);
+// Top level API entry
+var apiRouter = express.Router();
+apiRouter.get('/', (req, res) => {
+  const v1 = context.buildEndpointUsingBase(req.baseUrl, 'v1');
+  res.status(200).json(context.buildResponseData({
+    'refs':{
+      'latest':v1,
+      'v1':v1
     }
+  }));
+})
+// V1 routers
+var apiV1Router = express.Router();
+// get available endpoints
+apiV1Router.get('/', (req, res) => {
+  res.status(200).json(context.buildResponseData({
+    'refs':{
+      'auth':{
+        'enum':context.buildEndpointUsingBase(req.baseUrl, 'auth'),
+        'status':context.buildEndpointUsingBase(req.baseUrl, 'auth', '${providerId}'),
+        'bind':context.buildEndpointUsingBase(req.baseUrl, 'auth', '${providerId}'),
+        'unbind':context.buildEndpointUsingBase(req.baseUrl, 'auth', '${providerId}')
+      }
+    }
+  }));
+});
+// get auth providers status, get list of providers
+apiV1Router.get('/auth', (req, res) => {
+  var providers = [
+    {providerId:'facebook', connected:false},
+    {providerId:'linkedin', connected:false},
+    {providerId:'github', connected:false},
+    {providerId:'stackexchange', connected:false},
+    {providerId:'google', connected:false},
+    {providerId:'paypal', connected:false},
+    {providerId:'twitter', connected:false}
+  ];
+  console.log(req.session);
+  providers.forEach(function(provider) {
+    provider.connected = false;
+    if (req.session.credentials) {
+      provider.connected = provider.providerId in req.session.credentials;
+    }
+  });
+  res.status(200).json(context.buildResponseData(providers));
+});
+//
+// authenticate
+apiV1Router.get('/auth/:id', function(req, res, next) {
+  // TODO process provider id error
+  var rs = randomstring.generate({length: 32,charset: 'alphabetic'});
+  cache.put(rs, req.query.callback, context.getAuthTimeout(), function(key, value) {
+    console.log('[CACHE] ' + key + ' expired');
+  });
+  oauth.auth(req.params.id, context.buildEndpoint('api', 'v1', 'oauth', 'redirect', rs))(req, res, next);
+});
+//
+// authentication callback
+apiV1Router.get('/oauth/redirect/:id', oauth.redirect(function(result, req, res) {
+  console.log('redirect ' + req.params.id);
+  console.log(result);
+  if (result instanceof Error) {
+    res.status(500).send(context.buildResponseCodeMsg(500, result.message));
+  }
+  //
+  const providerId = result.provider;
+  const cb = cache.get(req.params.id);
+  if (cb) {
+    console.log('2');
+    cache.del(req.params.id);
+    const credentials = result.getCredentials();
+    console.log(req.session);
+    console.log(credentials);
+    if (req.session.credentials == undefined){
+      req.session.credentials = {}
+    }
+    req.session.credentials[providerId] = credentials;
     result.me().done(function(me) {
-        console.log(me);
-        res.status(200).send(JSON.stringify(me));
+      res.status(200).send(context.buildResponseData(me));
     });
+  } else {
+    res.status(500).send(context.buildResponseCodeMsg(500, 'Authentication session expired'));
+  }
 }));
 
+apiRouter.use('/v1', apiV1Router);
+app.use('/api', apiRouter);
 
-app.listen(PORT, HOST);
-console.log(`Running on http://${HOST}:${PORT}`);
-console.log(`Running on https://${HOST}:${PORTS}`);
+app.get('/', (req, res) => {
+  res.send('Hello world\n<a href="/api/v1/auth/linkedin?callback=http://localhost/callback">Bind</a>');
+});
+
+app.get('/api', function (req, res){
+    //var data = JSON.parse(req.body);
+    //data contains field "message", containing the message to post
+    //const credentials = JSON.parse(fs.readFileSync(reg.session.id, 'utf8'));
+    oauth.auth('linkedin', req.session, {
+      credentials: req.session.credentials
+    })
+//    oauth.auth('facebook', req.session)
+        .then(function (request_object) {
+            console.log(request_object);
+            return request_object.get('/v2/me', {
+//                message: 'test'
+//                message: data.message
+            });
+        })
+        .then(function (r) {
+           res.status(200).send('<pre>' + JSON.stringify(r) + '</pre>');
+        })
+        .fail(function (e) {
+            console.log(e);
+            res.status(400).send('An error occured while posting the message');
+        });
+});
+
+app.listen(context.getPort(), context.getHost());
+console.log('Running on ' + context.getHTTPEndpoint());
