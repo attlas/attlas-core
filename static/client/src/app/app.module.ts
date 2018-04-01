@@ -12,10 +12,12 @@ import { HomeComponent } from './home/home.component';
 import { NavbarComponent } from './ctrls/navbar/navbar.component';
 import { MsgbarComponent } from './ctrls/msgbar/msgbar.component';
 import { ProgressBarComponent } from './ctrls/progress-bar/progress-bar.component';
+import { ErrorPanelComponent } from './ctrls/error-panel/error-panel.component';
 
 import { ProgressService } from './services/progress.service';
 import { BindService } from './services/bind.service';
-
+import { AuthGuardService } from './services/auth-guard.service';
+import { LoadingPanelComponent } from './ctrls/loading-panel/loading-panel.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,9 @@ import { BindService } from './services/bind.service';
     HomeComponent,
     NavbarComponent,
     MsgbarComponent,
-    ProgressBarComponent
+    ProgressBarComponent,
+    ErrorPanelComponent,
+    LoadingPanelComponent
   ],
   imports: [
     BrowserModule,
@@ -35,7 +39,8 @@ import { BindService } from './services/bind.service';
   ],
   providers:[
     ProgressService,
-    BindService
+    BindService,
+    AuthGuardService
   ],
   bootstrap: [AppComponent]
 })

@@ -1,16 +1,8 @@
 
-.logo-cell {
-  height: 92px;
-  padding: 16px 0px 0px 0px;
-}
-
 .logo-img {
-  height: 80px;
+  width: 96px;
 }
 
-.provider-cell {
-  padding: 8px 0px 8px 0px;
-}
 .provider-icon {
   width: 56px;
 }

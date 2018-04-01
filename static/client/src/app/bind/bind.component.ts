@@ -37,13 +37,14 @@ export class BindComponent implements OnInit {
   readonly providersToShow: number = 6;
 
   constructor(private router: Router, private bindService: BindService) {
-    console.log('bind-component:create');
   }
 
   ngOnInit() {
-    console.log('bind-component:init');
-    console.log('bind-component:create-error');
-    this.bindService.error('error');
+    this.bindService.getProviders().subscribe(
+      (v:any) => {console.log('Observer got a next value: ' + JSON.stringify(v))},
+      err => console.error('Observer got an error: ' + err),
+      () => console.log('Observer got a complete notification')
+    );
   }
 
   /**

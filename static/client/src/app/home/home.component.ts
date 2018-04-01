@@ -3,10 +3,10 @@ import { HttpClient, HttpHeaders, HttpResponse, HttpParams } from '@angular/comm
 import { Observable } from 'rxjs';
 
 import { environment } from './../../environments/environment';
+import { hosts } from './../../environments/hosts';
 
 import { ProgressService } from './../services/progress.service';
 import { BindService } from './../services/bind.service';
-
 
 @Component({
   selector: 'app-home',

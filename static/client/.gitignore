@@ -107,4 +107,6 @@ typings/
 
 # SonarQube output
 .scannerwork
+
 secrets*.*
+hosts.ts

@@ -15,17 +15,13 @@ export class MsgbarComponent implements OnInit {
   show: boolean = true;
 
   constructor(private bindService: BindService) {
-    console.log('msgbar-component:create');
     this.bindService.change.subscribe(notification => {
-    console.log('msgbar-component:recv');
       this.notification = notification;
       this.show = true;
-      console.log(this.notification);
     });
   }
 
   ngOnInit() {
-    console.log('msgbar-component:init');
   }
 
 

@@ -22,7 +22,10 @@ app.use(session({
     resave: false,
     saveUninitialized: true
 }));
-app.use(cors());
+app.use(cors({
+  origin: '*',
+  optionsSuccessStatus: 200
+}));
 
 var oauth = require('oauthio');
 // Initialize the SDK
@@ -66,7 +69,6 @@ apiV1Router.get('/auth', (req, res) => {
     {providerId:'paypal', connected:false},
     {providerId:'twitter', connected:false}
   ];
-  console.log(req.session);
   providers.forEach(function(provider) {
     provider.connected = false;
     if (req.session.credentials) {
@@ -88,8 +90,6 @@ apiV1Router.get('/auth/:id', function(req, res, next) {
 //
 // authentication callback
 apiV1Router.get('/oauth/redirect/:id', oauth.redirect(function(result, req, res) {
-  console.log('redirect ' + req.params.id);
-  console.log(result);
   if (result instanceof Error) {
     res.status(500).send(context.buildResponseCodeMsg(500, result.message));
   }
@@ -97,11 +97,8 @@ apiV1Router.get('/oauth/redirect/:id', oauth.redirect(function(result, req, res)
   const providerId = result.provider;
   const cb = cache.get(req.params.id);
   if (cb) {
-    console.log('2');
     cache.del(req.params.id);
     const credentials = result.getCredentials();
-    console.log(req.session);
-    console.log(credentials);
     if (req.session.credentials == undefined){
       req.session.credentials = {}
     }
@@ -118,7 +115,7 @@ apiRouter.use('/v1', apiV1Router);
 app.use('/api', apiRouter);
 
 app.get('/', (req, res) => {
-  res.send('Hello world\n<a href="/api/v1/auth/linkedin?callback=http://localhost/callback">Bind</a>');
+  res.send('Hello world\n<a href="/api/v1/auth/twitter?callback=http://localhost/callback">Bind</a>');
 });
 
 app.get('/api', function (req, res){

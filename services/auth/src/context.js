@@ -1,12 +1,12 @@
 (function() {
-  const host = (process.env.STATIC_AUTH_HOSTNAME == undefined)?('127.0.0.1'):(process.env.STATIC_AUTH_HOSTNAME);
-  const port = (process.env.STATIC_AUTH_PORT == undefined)?(80):(process.env.STATIC_AUTH_PORT);
-  const ports = (process.env.STATIC_AUTH_PORTS == undefined)?(443):(process.env.STATIC_AUTH_PORTS);
+  const host = (process.env.SERVICES_AUTH_HOST == undefined)?('127.0.0.1'):(process.env.SERVICES_AUTH_HOST);
+  const port = (process.env.SERVICES_AUTH_PORT == undefined)?(80):(process.env.SERVICES_AUTH_PORT);
+  const ports = (process.env.SERVICES_AUTH_PORTS == undefined)?(443):(process.env.SERVICES_AUTH_PORTS);
   const version = (process.env.PROJECT_VERSION == undefined)?('0.1.0'):(process.env.PROJECT_VERSION);
 
-  const authSecret = process.env.STATIC_AUTH_SECRET;
-  const authPublicKey = process.env.STATIC_AUTH_PUBLIC_KEY;
-  const authSecretKey = process.env.STATIC_AUTH_SECRET_KEY;
+  const authSecret = process.env.SERVICES_AUTH_SECRET;
+  const authPublicKey = process.env.SERVICES_AUTH_PUBLIC_KEY;
+  const authSecretKey = process.env.SERVICES_AUTH_SECRET_KEY;
 
 
   //

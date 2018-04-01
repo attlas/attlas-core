@@ -1,7 +1,7 @@
 {
-  "name": "attlas-service-auth",
-  "version": "18.3.0-SNAPSHOT",
-  "description": "attlas-service-auth",
+  "name": "attlas-services-auth",
+  "version": "18.4.0-SNAPSHOT",
+  "description": "attlas-services-auth",
   "license": "MIT",
   "author": "Vladyslav Kurmaz <vladislav.kurmaz@gmail.com>",
   "repository": {
