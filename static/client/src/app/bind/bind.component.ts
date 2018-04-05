@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import {BindService } from './../services/bind.service'
+import { Provider, ProvidersResponse } from './../models/providers'
+
+import { BindService } from './../services/bind.service'
 
 @Component({
   selector: 'app-bind',
@@ -9,8 +11,12 @@ import {BindService } from './../services/bind.service'
   styleUrls: ['./bind.component.css']
 })
 export class BindComponent implements OnInit {
+  loading: boolean = false;
+  error: string = "";
+  
   expanded: boolean = false;
-  providers: String[] = [
+  providers: Provider[] = [
+  /*
     'facebook',
     'linkedin',
     'github',
@@ -33,6 +39,7 @@ export class BindComponent implements OnInit {
     'onedrive.microsoft',
     'steam',
     'viber'
+    */
   ]
   readonly providersToShow: number = 6;
 
@@ -40,10 +47,26 @@ export class BindComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.getProviders();
+  }
+  
+  getProviders() {
+    this.loading = true;
+    this.error = "";
     this.bindService.getProviders().subscribe(
-      (v:any) => {console.log('Observer got a next value: ' + JSON.stringify(v))},
-      err => console.error('Observer got an error: ' + err),
-      () => console.log('Observer got a complete notification')
+      (v) => {
+        console.log('Observer got a next value: ' + JSON.stringify(v));
+        this.providers = v;
+      },
+      (err) => {
+        //console.error('Observer got an error: ' + err)
+        this.loading = false;
+        this.error = err;
+      },
+      () => {
+        //console.log('Observer got a complete notification')
+        this.loading = false;
+      }
     );
   }
 

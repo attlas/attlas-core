@@ -1,10 +1,12 @@
 'use strict'; 
 
 const express = require('express');
+const helmet = require('helmet');
 const session = require('express-session'); 
 const sessionFileStore = require('session-file-store')(session);
-const cors = require('cors')
-const fs = require('fs')
+const csrf = require('csurf');
+const cors = require('cors');
+const fs = require('fs');
 const querystring = require("querystring");
 const randomstring = require("randomstring");
 const cache = require('memory-cache');
@@ -15,17 +17,28 @@ const context = require('./context')
 
 // App
 const app = express();
+app.use(helmet());
 app.use(session({
-    credentials : {},
     store: new sessionFileStore({}),
     secret: context.getAuthSecret(),
+    name : 'attlas.session.id',
     resave: false,
     saveUninitialized: true
 }));
+app.use(csrf());
+app.use(function(req, res, next) {
+  res.locals._csrf = req.csrfToken();
+  next();
+});
+
 app.use(cors({
-  origin: '*',
+  origin: 'http://localhost:4200',
+  credentials: true,
   optionsSuccessStatus: 200
 }));
+
+//The first way to mitigate CSRF attacks is to disable cross-origin requests.
+// If you're going to allow CORS, only allow it on OPTIONS, HEAD, GET as they are not supposed to have side-effects.
 
 var oauth = require('oauthio');
 // Initialize the SDK
@@ -103,9 +116,19 @@ apiV1Router.get('/oauth/redirect/:id', oauth.redirect(function(result, req, res)
       req.session.credentials = {}
     }
     req.session.credentials[providerId] = credentials;
+    //
+    /*
+    if (res.session.credentials == undefined){
+      res.session.credentials = {}
+    }
+    res.session.credentials[providerId] = credentials;
+    */
+    res.redirect(cb);
+    /*
     result.me().done(function(me) {
       res.status(200).send(context.buildResponseData(me));
     });
+    */
   } else {
     res.status(500).send(context.buildResponseCodeMsg(500, 'Authentication session expired'));
   }
@@ -113,9 +136,8 @@ apiV1Router.get('/oauth/redirect/:id', oauth.redirect(function(result, req, res)
 
 apiRouter.use('/v1', apiV1Router);
 app.use('/api', apiRouter);
-
 app.get('/', (req, res) => {
-  res.send('Hello world\n<a href="/api/v1/auth/twitter?callback=http://localhost/callback">Bind</a>');
+  res.send('Hello world\n<a href="/api/v1/auth/twitter?callback=/">Bind</a>');
 });
 
 app.get('/api', function (req, res){

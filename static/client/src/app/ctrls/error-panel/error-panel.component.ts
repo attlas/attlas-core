@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-error-panel',
@@ -6,6 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./error-panel.component.css']
 })
 export class ErrorPanelComponent implements OnInit {
+
+  @Input('error') errorMessage: string = "";
 
   constructor() { }
 

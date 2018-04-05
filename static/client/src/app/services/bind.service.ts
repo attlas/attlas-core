@@ -1,11 +1,12 @@
 import { Injectable, Output, EventEmitter } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpResponse, HttpParams, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import 'rxjs/add/operator/map';
 import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
-import { catchError, retry } from 'rxjs/operators';
+import { catchError, map, retry } from 'rxjs/operators';
 
 import { Notification } from './../models/notification'
+import { ApiResponse } from './../models/api-response'
+import { Provider, ProvidersResponse } from './../models/providers'
 
 @Injectable()
 export class BindService {
@@ -19,20 +20,12 @@ export class BindService {
   }
 
 
-  getProviders(): Observable<any> {
-    return this.http.get('http://localhost:8080/api/v1/auth')
+  getProviders(): Observable<Provider[]> {
+    return this.http.get<ProvidersResponse>('http://localhost:8080/api/v1/auth', {withCredentials : true})
       .pipe(
-        (r) => {
-          return r;
-        },
+        map(res => res.data),
         catchError(this.handleError)
-        /*
-        catchError((err, caught) => {
-          console.log('error');
-          return Observable.empty();
-        })
-        */
-      )
+      );
   }
     
 private handleError(error: HttpErrorResponse) {

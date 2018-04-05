@@ -1,8 +1,18 @@
 
 .logo-img {
-  width: 96px;
+  width: 64px;
 }
 
 .provider-icon {
   width: 56px;
+}
+
+.circle {
+  position: relative;
+  border-radius: 50%;
+  border-width: 2px !important;
+  width: 16px;
+  height: 16px;
+  left:8px;
+  top:-56px;
 }
