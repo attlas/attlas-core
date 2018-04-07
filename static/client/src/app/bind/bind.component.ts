@@ -13,7 +13,7 @@ import { BindService } from './../services/bind.service'
 export class BindComponent implements OnInit {
   loading: boolean = false;
   error: string = "";
-  
+
   expanded: boolean = false;
   providers: Provider[] = [
   /*
@@ -49,25 +49,27 @@ export class BindComponent implements OnInit {
   ngOnInit() {
     this.getProviders();
   }
-  
+
   getProviders() {
     this.loading = true;
     this.error = "";
+    this.providers = [];
     this.bindService.getProviders().subscribe(
       (v) => {
-        console.log('Observer got a next value: ' + JSON.stringify(v));
         this.providers = v;
       },
       (err) => {
-        //console.error('Observer got an error: ' + err)
         this.loading = false;
         this.error = err;
       },
       () => {
-        //console.log('Observer got a complete notification')
         this.loading = false;
       }
     );
+  }
+  /**/
+  getProviderBindLink(providerId: string): string {
+    return this.bindService.getProviderBindLink(providerId);
   }
 
   /**

@@ -8,6 +8,7 @@ import { Notification } from './../models/notification'
 import { ApiResponse } from './../models/api-response'
 import { Provider, ProvidersResponse } from './../models/providers'
 
+import { hosts } from './../../environments/hosts'
 @Injectable()
 export class BindService {
 
@@ -19,13 +20,29 @@ export class BindService {
     this.token = currentUser && currentUser.token;
   }
 
-
+  /**/
   getProviders(): Observable<Provider[]> {
-    return this.http.get<ProvidersResponse>('http://localhost:8080/api/v1/auth', {withCredentials : true})
+    return this.http.get<ProvidersResponse>(this.getBindEndpoint('/auth'), {withCredentials : true})
       .pipe(
         map(res => res.data),
         catchError(this.handleError)
       );
+  }
+
+  /**/
+  getProviderBindLink(providerId: string) {
+    return this.getBindEndpoint('/auth/' + providerId + '?callback=http://localhost:4200/bind');
+  }
+
+  unbind(): void {
+    // clear token remove user from local storage to log user out
+    this.token = null;
+    localStorage.removeItem('currentUser');
+  }
+
+  /**/
+  private getBindEndpoint(endpoint: string): string {
+    return hosts.bindServiceHost + '/api/v1' + endpoint;
   }
     
 private handleError(error: HttpErrorResponse) {
@@ -43,35 +60,6 @@ private handleError(error: HttpErrorResponse) {
   return new ErrorObservable(
     'Something bad happened; please try again later.');
 };    
-
-  bind(providerId: string)/*: Observable<boolean>*/ {
-  /*
-        return this.http.post('/api/authenticate', JSON.stringify({ username: username, password: password }))
-            .map((response: Response) => {
-                // login successful if there's a jwt token in the response
-                let token = response.json() && response.json().token;
-                if (token) {
-                    // set token property
-                    this.token = token;
-
-                    // store username and jwt token in local storage to keep user logged in between page refreshes
-                    localStorage.setItem('currentUser', JSON.stringify({ username: username, token: token }));
-
-                    // return true to indicate successful login
-                    return true;
-                } else {
-                    // return false to indicate failed login
-                    return false;
-                }
-            });
-            */
-    }
-
-  unbind(): void {
-    // clear token remove user from local storage to log user out
-    this.token = null;
-    localStorage.removeItem('currentUser');
-  }
 
   error(message: String){
     let notification = new Notification();

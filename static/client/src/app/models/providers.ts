@@ -5,6 +5,6 @@ export class Provider {
   connected: boolean;
 };
 
-export class ProvidersResponse {
+export class ProvidersResponse extends ApiResponse {
   data: Provider[];
 };

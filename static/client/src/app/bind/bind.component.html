@@ -15,7 +15,8 @@
         </div>
         <div class="row" *ngIf="!(loading || error)">
           <div class="col-3 text-center p-0"  *ngFor="let provider of providers; let i = index">
-            <a [attr.href]="'http://localhost:8080/api/v1/auth/' + provider.providerId + '?callback=http://localhost:4200/bind'" *ngIf="i<providersToShow || expanded">
+            <a class="" href="{{getProviderBindLink(provider.providerId)}}" *ngIf="i<providersToShow || expanded">
+            <!--a [attr.href]="'http://localhost:8080/api/v1/auth/' + provider.providerId + '?callback=http://localhost:4200/bind'" *ngIf="i<providersToShow || expanded"-->
               <img  class="provider-icon" [attr.src]="'assets/images/providers/' + provider.providerId + '.png'">
               <div *ngIf="provider.connected" class="bg-info border border-light circle"></div>
             </a>
