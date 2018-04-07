@@ -1,3 +1,0 @@
-export const hosts = {
-  bindServiceHost: 'http://${SERVICES_AUTH_HOST}:${SERVICES_AUTH_PORT}'
-};

@@ -37,6 +37,28 @@ app.use(cors({
   optionsSuccessStatus: 200
 }));
 
+/*
+app.use(cors({
+  exposedHeaders: ['Content-Length', 'X-Foo', 'X-Bar'],
+}));
+
+var allowedOrigins = ['http://localhost:3000',
+                      'http://yourapp.com'];
+app.use(cors({
+  origin: function(origin, callback){
+    // allow requests with no origin 
+    // (like mobile apps or curl requests)
+    if(!origin) return callback(null, true);
+    if(allowedOrigins.indexOf(origin) === -1){
+      var msg = 'The CORS policy for this site does not ' +
+                'allow access from the specified Origin.';
+      return callback(new Error(msg), false);
+    }
+    return callback(null, true);
+  }
+}));
+*/
+
 //The first way to mitigate CSRF attacks is to disable cross-origin requests.
 // If you're going to allow CORS, only allow it on OPTIONS, HEAD, GET as they are not supposed to have side-effects.
 

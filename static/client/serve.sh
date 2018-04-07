@@ -1,4 +1,4 @@
 #!/bin/bash -e
 export $(cat ./../../.env | grep -v ^# | xargs)
-envsubst < src/environments/hosts.ts.template > src/environments/hosts.ts
-ng server --host=0.0.0.0
+envsubst < src/environments/consts.ts.template > src/environments/consts.ts
+ng server --host=${STATIC_CLIENT_LISTEN} --port=${STATIC_CLIENT_PORT}
