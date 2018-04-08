@@ -16,29 +16,35 @@ export class BindService {
   @Output() change: EventEmitter<Notification> = new EventEmitter();
 
   constructor(private http: HttpClient) {
-    // set token if saved in local storage
-    var currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    this.token = currentUser && currentUser.token;
   }
 
   /**/
   getProviders(): Observable<Provider[]> {
+    localStorage.removeItem(CONSTS.STORAGE.USER);
     return this.http.get<ProvidersResponse>(this.getBindEndpoint('/auth'), {withCredentials : true})
       .pipe(
-        map(res => res.data),
+        map(res => {
+          let p = res.data.find(provider => provider.connected);
+          if (p) {
+            localStorage.setItem(CONSTS.STORAGE.USER, 'authenticated');
+          }
+          return res.data;
+        }),
         catchError(this.handleError)
       );
+  }
+  
+  /**/
+  isAuthenticated(): boolean {
+    if (localStorage.getItem(CONSTS.STORAGE.USER)) {
+      return true;
+    }
+    return false;
   }
 
   /**/
   getProviderBindLink(providerId: string) {
     return this.getBindEndpoint(`/auth/${providerId}?callback=${CONSTS.HOSTS.SELF}/bind`);
-  }
-
-  unbind(): void {
-    // clear token remove user from local storage to log user out
-    this.token = null;
-    localStorage.removeItem('currentUser');
   }
 
   /**/
@@ -67,7 +73,5 @@ export class BindService {
     notification.message = message;
     this.change.emit(notification);
   }
-  //
-  private token: string = null;
 
 }

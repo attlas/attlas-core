@@ -1,6 +1,6 @@
 <div class="container">
   <div class="row" style="height:100vh">
-    <div class="border offset-1 col-10 offset-sm-2 col-sm-8 offset-md-3 col-md-6 offset-lg-4 col-lg-4 bg-light">
+    <div class="offset-1 col-10 offset-sm-2 col-sm-8 offset-md-3 col-md-6 offset-lg-4 col-lg-4 bg-light border">
       <a routerLink="/home">
         <div class="text-center">
           <img class="logo-img pt-4 pb-4" src="assets/images/logo.png">
@@ -26,6 +26,7 @@
           </div>
         </div>
       </div>
+      <app-nav-panel [options]="navButtons" *ngIf="isAuthenticated()"></app-nav-panel>
     </div>
   </div>
 </div>

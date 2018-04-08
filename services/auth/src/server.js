@@ -186,5 +186,5 @@ app.get('/api', function (req, res){
         });
 });
 
-app.listen(context.getPort(), context.getHost());
-console.log('Running on ' + context.getHTTPEndpoint());
+app.listen(context.getPort(), context.getLstn());
+console.log('Running on ' + context.getLstnEndpoint());

@@ -18,6 +18,7 @@ import { ProgressService } from './services/progress.service';
 import { BindService } from './services/bind.service';
 import { AuthGuardService } from './services/auth-guard.service';
 import { LoadingPanelComponent } from './ctrls/loading-panel/loading-panel.component';
+import { NavPanelComponent } from './ctrls/nav-panel/nav-panel.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { LoadingPanelComponent } from './ctrls/loading-panel/loading-panel.compo
     MsgbarComponent,
     ProgressBarComponent,
     ErrorPanelComponent,
-    LoadingPanelComponent
+    LoadingPanelComponent,
+    NavPanelComponent
   ],
   imports: [
     BrowserModule,
