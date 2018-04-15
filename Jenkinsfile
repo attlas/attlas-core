@@ -51,10 +51,7 @@ node {
   try {
     stage('Build & Unit test') {
       //
-      sh "pushd static/client"
-      sh "npm i"
       sh "./build.sh"
-      sh "popd"
       //
     }
     //
