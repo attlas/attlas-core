@@ -1,4 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
+
 import { NgModule } from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule }   from '@angular/forms';
@@ -19,6 +22,7 @@ import { BindService } from './services/bind.service';
 import { AuthGuardService } from './services/auth-guard.service';
 import { LoadingPanelComponent } from './ctrls/loading-panel/loading-panel.component';
 import { NavPanelComponent } from './ctrls/nav-panel/nav-panel.component';
+import { ReferralComponent } from './referral/referral.component';
 
 @NgModule({
   declarations: [
@@ -30,10 +34,13 @@ import { NavPanelComponent } from './ctrls/nav-panel/nav-panel.component';
     ProgressBarComponent,
     ErrorPanelComponent,
     LoadingPanelComponent,
-    NavPanelComponent
+    NavPanelComponent,
+    ReferralComponent
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
+    NgxChartsModule,
     FormsModule,
     HttpClientModule,
     routing,
