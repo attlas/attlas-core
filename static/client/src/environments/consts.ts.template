@@ -1,0 +1,9 @@
+export const CONSTS = {
+  HOSTS: {
+    SELF: 'http://${STATIC_CLIENT_HOST}:${STATIC_CLIENT_PORT}',
+    BIND_SERVICE: 'http://${SERVICES_AUTH_HOST}:${SERVICES_AUTH_PORT}'
+  },
+  STORAGE: {
+    USER: 'currentUser'
+  }
+};

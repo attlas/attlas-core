@@ -1,0 +1,62 @@
+{
+  "env": {
+  },
+  "stages":{
+    "build":{
+      "shell":[
+        "ng build"
+      ]
+    },
+    "test":{
+      "shell":[
+        "ng test --code-coverage"
+      ]
+    },
+    "lint":{
+      "shell":[
+        "ng lint --format=prose --type-check=true"
+      ]
+    },
+    "build-prod":{
+      "shell":[
+        "ng build --prod --env=prod"
+      ]
+    },
+    "build-mobile":{
+      "shell":[
+        "export $(cat ./../../.env | grep -v ^# | xargs)",
+        "export SERVICES_AUTH_HOST=$(ipconfig getifaddr en0)",
+        "envsubst < src/environments/consts.ts.template > src/environments/consts.ts",
+        "ng build --prod --env=prod --base-href . --output-path ../../mobile/cordova/www/",
+        "sed -i -e 's|</app-root>|</app-root><script type=\"text/javascript\" src=\"cordova.js\"></script>|g' ../../mobile/cordova/www/index.html"
+      ]
+    },
+    "serve":{
+      "shell":[
+        "export $(cat ./../../.env | grep -v ^# | xargs)",
+        "envsubst < src/environments/consts.ts.template > src/environments/consts.ts",
+        "ng server --host=${STATIC_CLIENT_LISTEN} --port=${STATIC_CLIENT_PORT}"
+      ]
+    },
+    "sonar":{
+      "shell":[
+        "~/projects/sonar-scanner-3.0.3.778/bin/sonar-scanner -X"
+      ]
+    },
+    "docker-run":{
+      "shell":[
+        "docker build --build-arg STATIC_CLIENT_HOST=$STATIC_STATIS_HOST \\",
+        "             --build-arg STATIC_STATIC_PORT=$STATIC_STATIC_PORT \\",
+        "             --build-arg STATIC_STATIC_PORTS=$STATIC_STATIC_PORTS \\",
+        "             -t tln-static-client:latest .",
+        "docker run -d --rm -p $STATIC_STATIC_PORT:$STATIC_STATIC_PORT -p $STATIC_STATIC_PORTS:$STATIC_STATIC_PORTS --name tln-STATIC tln-static-client:latest"
+      ]
+    },
+    "docker-stop":{
+      "shell":[
+        "docker stop tln-static-client",
+        "docker rmi tln-static-client:latest"
+      ]
+    }
+  }
+}

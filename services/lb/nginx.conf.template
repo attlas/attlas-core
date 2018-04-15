@@ -34,7 +34,7 @@ http {
   }
 
   server {
-    listen %WEB_PORT%;
+    listen %CLIENT_PORT%;
 
     location / {
       proxy_pass http://static;

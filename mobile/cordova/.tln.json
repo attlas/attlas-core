@@ -1,0 +1,24 @@
+{
+  "env": {
+  },
+  "stages":{
+    "build":{
+      "shell":[
+        "export $(cat ./../../.env | grep -v ^# | xargs)",
+        "cordova build android"
+      ]
+    },
+    "install":{
+      "shell":[
+        "export $(cat ./../../.env | grep -v ^# | xargs)",
+        "adb install platforms/android/app/build/outputs/apk/debug/app-debug.apk"
+      ]
+    },
+    "uninstall":{
+      "shell":[
+        "export $(cat ./../../.env | grep -v ^# | xargs)",
+        "adb uninstall $PROJECT_ID"
+      ]
+    }
+  }
+}
