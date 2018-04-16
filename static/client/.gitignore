@@ -110,4 +110,4 @@ typings/
 
 secrets*.*
 hosts.ts
-#sonar-project.properties
+sonar-project.properties
