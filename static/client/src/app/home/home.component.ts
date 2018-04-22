@@ -60,7 +60,7 @@ export class HomeComponent implements OnInit {
       },
       'find-person'
     );
-    this.navButtons.primary.initButton('info', 'light');
+    this.navButtons.primary.initButton('info', undefined);
     //*/
     //*
     this.navButtons.secondary.initAction(
@@ -69,17 +69,17 @@ export class HomeComponent implements OnInit {
        },
       'consultant'
     );
-    this.navButtons.secondary.initButton('secondary', 'light');
+    this.navButtons.secondary.initButton('secondary', undefined);
     //*/
-    //*
+    /*/
     this.navButtons.advanced.initAction(
       null,
       '',
       '...'
     );
     this.navButtons.advanced.initButton('light', 'light');
-    //*/
-    this.navButtons.build(false, 'lg');
+    /*/
+    this.navButtons.build('lg');
   }
 
   ngOnInit() {
