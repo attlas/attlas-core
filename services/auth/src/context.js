@@ -38,6 +38,12 @@
   //
   module.exports.buildResponse = function(code, message, data) { return {code:code, message:message, data:data}; }
   module.exports.buildResponseData = function(data) { return this.buildResponse(0, '', data); }
-  module.exports.buildResponseCodeMessage = function(code, message) { return this.buildResponse(code, message, null); }
+  module.exports.buildResponseCodeMsg = function(code, message) { return this.buildResponse(code, message, null); }
+  //
+  module.exports.printServerInfo = function() {
+    console.log('@tlas auth service');
+    console.log('Host   ' + this.getHTTPEndpoint());
+    console.log('Listen ' + this.getLstnEndpoint());
+  }
 
 }());

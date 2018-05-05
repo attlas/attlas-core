@@ -1,14 +1,16 @@
 import { RouterModule, Routes } from '@angular/router';
 
 import { BindComponent } from './bind/bind.component';
+import { HudComponent } from './hud/hud.component';
+import { FeedComponent } from './feed/feed.component';
 import { HomeComponent } from './home/home.component';
-import { ReferralComponent } from './referral/referral.component';
 import { AuthGuardService } from './services/auth-guard.service';
 
 const routes: Routes = [
+  { path: '', component: HomeComponent },
   { path: 'bind', component: BindComponent },
-  { path: 'referral', component: ReferralComponent },
-  { path: '', component: HomeComponent, canActivate: [AuthGuardService] },
+  { path: 'hud', component: HudComponent, canActivate: [AuthGuardService] },
+  { path: 'feed', component: FeedComponent, canActivate: [AuthGuardService] },
 
   // otherwise redirect to home
   { path: '**', redirectTo: '' }

@@ -125,34 +125,35 @@ apiV1Router.get('/auth/:id', function(req, res, next) {
 //
 // authentication callback
 apiV1Router.get('/oauth/redirect/:id', oauth.redirect(function(result, req, res) {
+  // error from oauth.io
   if (result instanceof Error) {
     res.status(500).send(context.buildResponseCodeMsg(500, result.message));
-  }
-  //
-  const providerId = result.provider;
-  const cb = cache.get(req.params.id);
-  if (cb) {
-    cache.del(req.params.id);
-    const credentials = result.getCredentials();
-    if (req.session.credentials == undefined){
-      req.session.credentials = {}
-    }
-    req.session.credentials[providerId] = credentials;
-    //
-    /*
-    if (res.session.credentials == undefined){
-      res.session.credentials = {}
-    }
-    res.session.credentials[providerId] = credentials;
-    */
-    res.redirect(cb);
-    /*
-    result.me().done(function(me) {
-      res.status(200).send(context.buildResponseData(me));
-    });
-    */
   } else {
-    res.status(500).send(context.buildResponseCodeMsg(500, 'Authentication session expired'));
+    const providerId = result.provider;
+    const cb = cache.get(req.params.id);
+    if (cb) {
+      cache.del(req.params.id);
+      const credentials = result.getCredentials();
+      if (req.session.credentials == undefined){
+        req.session.credentials = {}
+      }
+      req.session.credentials[providerId] = credentials;
+      //
+      /*
+      if (res.session.credentials == undefined){
+        res.session.credentials = {}
+      }
+      res.session.credentials[providerId] = credentials;
+      */
+      res.redirect(cb);
+      /*
+      result.me().done(function(me) {
+        res.status(200).send(context.buildResponseData(me));
+      });
+      */
+    } else {
+      res.status(500).send(context.buildResponseCodeMsg(500, 'Authentication session expired'));
+    }
   }
 }));
 
@@ -187,4 +188,4 @@ app.get('/api', function (req, res){
 });
 
 app.listen(context.getPort(), context.getLstn());
-console.log('Running on ' + context.getLstnEndpoint());
+context.printServerInfo();

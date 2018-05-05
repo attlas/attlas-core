@@ -8,11 +8,11 @@
 }
 
 .circle {
-  position: relative;
+  position: absolute;
   border-radius: 50%;
   border-width: 2px !important;
   width: 16px;
   height: 16px;
-  left: 4px;
-  top:-56px;
+  left: 8px;
+  top:0px;
 }
