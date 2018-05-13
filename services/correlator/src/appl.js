@@ -1,7 +1,7 @@
 'use strict';
 
 // global consts
-const prjName = 'nodejs';
+const prjName = 'correlator';
 const prjNameCap = prjName.toUpperCase();
 const prjEnvPrefix = `SERVICES_${prjNameCap}`;
 
@@ -24,6 +24,7 @@ appl.get('/healthcheck', (req, res) => {
   var v = appl.params.getAllVariables();
   res.json(reply.build(0, 'up&running', v));
 });
+appl.params.printParams();
 //
 var server = appl.listen(appl.params.get('port'), appl.params.get('lstn'), () => {
   const host = server.address().address;
