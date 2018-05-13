@@ -12,7 +12,7 @@ describe("Server", () => {
     server.close();
   });
   describe("GET /", () => {
-  var data = {};
+    var data = {};
     beforeAll((done) => {
       req.get(context.getHTTPEndpoint(), (error, response, body) => {
         console.log(body);
