@@ -1,8 +1,13 @@
 <div class="card rounded-0 mt-3">
-  <div class="card-header">
-     IT liquidity
+  <div class="card-header font-weight-bold">
+    <img class="app-icon" src="assets/images/icons/liquidity-3.png">
+    IT liquidity
+    <button class="btn btn-link float-right m-0 p-0 d-block d-sm-none" (click)="toggleCollapse()">
+      <img *ngIf="isCollapsed()" src="assets/images/octicons/chevron-right.svg">
+      <img *ngIf="!isCollapsed()" src="assets/images/octicons/chevron-up.svg">
+    </button>
   </div>
-  <div class="card-body m-0 p-0">
+  <div *ngIf="!isCollapsed()" class="card-body m-0 p-0">
     <ngx-charts-line-chart
       [scheme]="colorScheme"
       [results]="single"
@@ -17,10 +22,9 @@
       [autoScale]="autoScale"
       (select)="onSelect($event)">
     </ngx-charts-line-chart>
-    <a href="#" class="card-link float-right p-1">more details</a>
-    <!--a href="#" class="btn btn-primary">Go somewhere</a-->
+    <div>&nbsp;</div>
   </div>
-  <div class="card-footer text-muted text-center">
-    Your score is <span class="badge badge-pill badge-info">52%</span> based on <span class="badge badge-pill badge-info">+2K</span> opened vacancies
+  <div *ngIf="!isCollapsed()" class="card-footer text-muted">
+    Your current score is <span class="badge badge-pill badge-info">52%</span> based on <span class="badge badge-pill badge-info">2K+</span> opened vacancies
   </div>
 </div>

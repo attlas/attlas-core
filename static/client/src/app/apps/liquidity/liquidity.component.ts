@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 
+import { BaseApp } from './../base-app';
+
 @Component({
   selector: 'app-liquidity',
   templateUrl: './liquidity.component.html',
   styleUrls: ['./liquidity.component.css']
 })
-export class LiquidityComponent implements OnInit {
+export class LiquidityComponent extends BaseApp implements OnInit {
 
   single = [
     {
@@ -34,6 +36,7 @@ export class LiquidityComponent implements OnInit {
   autoScale = true;
 
   constructor() {
+    super();
     for(let i= 0; i<120; i++){
       this.single[0].series.push({name:i, value: 
         25 + 50*Math.sin(i/50)
@@ -47,11 +50,12 @@ export class LiquidityComponent implements OnInit {
   ngOnInit() {
   }
 
+  onSelect(event) {
+    console.log(event);
+  }
+  
   private randomInt(min, max){
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
   
-  onSelect(event) {
-    console.log(event);
-  }
 }

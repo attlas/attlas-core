@@ -1,8 +1,13 @@
 <div class="card rounded-0 mt-3">
-  <div class="card-header">
+  <div class="card-header font-weight-bold">
+    <img class="app-icon" src="assets/images/icons/referral-3.png">
     Referral Grid
+    <button class="btn btn-link float-right m-0 p-0 d-block d-sm-none" (click)="toggleCollapse()">
+      <img *ngIf="isCollapsed()" src="assets/images/octicons/chevron-right.svg">
+      <img *ngIf="!isCollapsed()" src="assets/images/octicons/chevron-up.svg">
+    </button>
   </div>
-  <ul class="list-group list-group-flush">
+  <ul *ngIf="!isCollapsed()" class="list-group list-group-flush">
     <li class="list-group-item">Senior DevOps Engineer<span class="badge badge-pill badge-info float-right">20$</span></li>
     <li class="list-group-item">Middle C++ developer<span class="badge badge-pill badge-info float-right">15$</span></li>
     <li class="list-group-item">Delivery manager<span class="badge badge-pill badge-info float-right">10$</span></li>

@@ -1,12 +1,14 @@
 <div class="card rounded-0 mt-3">
-  <div class="card-header">
+  <div class="card-header font-weight-bold">
+    <img class="app-icon" src="assets/images/icons/career-1.png">
     IT career guide
-    <button type="button" class="close" aria-label="Close">
-      <span aria-hidden="true">&times;</span>
+    <button class="btn btn-link float-right m-0 p-0 d-block d-sm-none" (click)="toggleCollapse()">
+      <img *ngIf="isCollapsed()" src="assets/images/octicons/chevron-right.svg">
+      <img *ngIf="!isCollapsed()" src="assets/images/octicons/chevron-up.svg">
     </button>
   </div>
-  <ul class="list-group list-group-flush">
-    <li class="list-group-item"><a href="#" class="btn btn-primary btn-block">Find a Patron</a></li>
-    <li class="list-group-item"><a href="#" class="btn btn-primary btn-block">Become a Patron</a></li>
+  <ul *ngIf="!isCollapsed()" class="list-group list-group-flush">
+    <li class="list-group-item"><button type="button" class="btn btn-block btn-primary" disabled>Find a Patron</button></li>
+    <li class="list-group-item"><button type="button" class="btn btn-block btn-primary" disabled>Become a Patron</button></li>
   </ul>
 </div>
