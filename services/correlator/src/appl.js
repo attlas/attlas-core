@@ -8,12 +8,16 @@ const prjEnvPrefix = `SERVICES_${prjNameCap}`;
 // common modules
 const express = require('express');
 require('dotenv').config();
+const bodyParser = require('body-parser');
 
 // project specific modules
 //
+var v1 = require('./api/v1/impl');
 
 // appl
 const appl = express();
+appl.use(bodyParser.json());
+
 const reply = require('./utils/reply')();
 appl.params = require('./utils/params')(prjName, { 
   host:   { env:`${prjEnvPrefix}_HOST`, def:'localhost' },
@@ -27,6 +31,9 @@ appl.get('/healthcheck', (req, res) => {
   var v = appl.params.getAllVariables();
   res.json(reply.build(0, 'up&running', v));
 });
+
+appl.use('/api/v1', v1);
+
 //
 var server = appl.listen(appl.params.get('port'), appl.params.get('lstn'), () => {
   const host = server.address().address;
