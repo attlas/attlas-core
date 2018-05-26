@@ -54,23 +54,19 @@ appl.route('/healthcheck')
   .get( (req, res) => {
     return res.json(reply.success(appl.params.getAllVariables()));
   })
-  .post( 
-    (req, res, next) => {
-      if (!jsv.validate('healthCheckSchema', req.body)){
-        return res.json(reply.fail(jsv.errors('healthCheckSchema')));
-      }
-      next();
-    },
+  .post(
+    helpers.validateReqBody(jsv, 'healthCheckSchema'),
     (req, res) => {
       return res.json(reply.success({key:"value"}));
     }
   );
 appl.use('/api/v1', v1.getRouter());
-//
+
+// start http server
 var server = appl.listen(appl.params.get('port'), appl.params.get('lstn'), () => {
   const host = server.address().address;
   const port = server.address().port;
   console.log(`Server is listening http://${host}:${port}`);
 });
 module.exports = { server:server, params:appl.params };
-//
+
