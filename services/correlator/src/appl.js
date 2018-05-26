@@ -36,7 +36,7 @@ jsv.compile('healthCheckSchema', healthCheckSchema);
 // API response composer
 const reply = require('./utils/reply')();
 // helpers
-const helpers = require('./utils/reply')(jsv, reply);
+const helpers = require('./utils/helpers')(jsv, reply);
 
 // service parameters
 appl.params = require('./utils/params')(prjName, { 
