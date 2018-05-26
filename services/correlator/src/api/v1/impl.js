@@ -1,29 +1,32 @@
-var express = require('express')
-const reply = require('./../../utils/reply')();
+module.exports = function(express, jsv, reply, helpers) {
 
-const router = express.Router()
-const notImplRouter = express.Router();
-const goalsRouter = express.Router();
+  this.router = express.Router();
+  this.notImplRouter = express.Router();
+  this.goalsRouter = express.Router();
 
-notImplRouter.route('/').all(function(req, res, next) {
-  next(new Error('not implemented'));
-});
+  this. notImplRouter.route('/').all(function(req, res, next) {
+    next(new Error('not implemented'));
+  });
 
-// goals
-goalsRouter.route('/*')
-  // get all goals
-  .get(function (req, res) {
-    res.json(reply.success(req.params[0]));
-  })
-  // create new goal
-  .post(function (req, res) {
-    return res.json(reply.success(req.body));
-  })
-;
+  // goals
+  this.goalsRouter.route('/*')
+    // get all goals
+    .get(function (req, res) {
+      res.json(reply.success(req.params[0]));
+    })
+    // create new goal
+    .post(function (req, res) {
+      return res.json(reply.success(req.body));
+    });
 
-router.use('/contacts', notImplRouter);
-router.use('/goals', goalsRouter);
-router.use('/flows', notImplRouter);
-router.use('/docs', notImplRouter);
+  this.router.use('/contacts', notImplRouter);
+  this.router.use('/goals', goalsRouter);
+  this.router.use('/flows', notImplRouter);
+  this.router.use('/docs', notImplRouter);
+  //
+  this.getRouter = function() {
+    return this.router;
+  }
+  return this;
+}
 
-module.exports = router;

@@ -35,6 +35,8 @@ jsv.compile('healthCheckSchema', healthCheckSchema);
 
 // API response composer
 const reply = require('./utils/reply')();
+// helpers
+const helpers = require('./utils/reply')(jsv, reply);
 
 // service parameters
 appl.params = require('./utils/params')(prjName, { 
@@ -46,7 +48,7 @@ appl.params = require('./utils/params')(prjName, {
 });
 
 //
-const v1 = require('./api/v1/impl');
+const v1 = require('./api/v1/impl')(express, jsv, reply, helpers);
 // heakthcheck endpoint
 appl.route('/healthcheck')
   .get( (req, res) => {
@@ -63,7 +65,7 @@ appl.route('/healthcheck')
       return res.json(reply.success({key:"value"}));
     }
   );
-appl.use('/api/v1', v1);
+appl.use('/api/v1', v1.getRouter());
 //
 var server = appl.listen(appl.params.get('port'), appl.params.get('lstn'), () => {
   const host = server.address().address;
