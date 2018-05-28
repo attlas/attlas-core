@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 
 import { Notification } from './../../models/notification';
 
-import { LoggingService } from './../../services/logging.service';
+import { BindService } from './../../services/bind.service';
 
 @Component({
   selector: 'app-msgbar',
@@ -12,13 +12,16 @@ import { LoggingService } from './../../services/logging.service';
 export class MsgbarComponent implements OnInit {
 
   notification: Notification = new Notification();
+  show: boolean = true;
 
-  constructor(private loggingService: LoggingService) { }
+  constructor(private bindService: BindService) {
+    this.bindService.change.subscribe(notification => {
+      this.notification = notification;
+      this.show = true;
+    });
+  }
 
   ngOnInit() {
-    this.loggingService.change.subscribe(notification => {
-      this.notification = notification;
-    });
   }
 
 

@@ -35,6 +35,7 @@
           "id":"cordova",
           "env":{
             "dl":"https://dl.google.com/android/repository/sdk-tools-linux-3859397.zip",
+            "a":"brew cask install android-platform-tools",
             "sdkmanager":"",
             "gradle":""
           },
@@ -90,6 +91,7 @@
           "stages":{
             "build":{},
             "build-prod":{},
+            "sonar":{},
             "serve":{}
           }
         }

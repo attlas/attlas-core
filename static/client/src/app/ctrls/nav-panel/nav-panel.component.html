@@ -1,0 +1,32 @@
+<div class="container-fluid p-0 m-0 border-top" style="position:absolute;bottom:0px;left:0px">
+  <div class="row bg-light" *ngIf="isPopupMenuVisible() && options.advanced.isVisible()">
+    <div class="col-12 p-1">
+      <a class="dropdown-item" href="#">Contacts</a>
+      <a class="dropdown-item" href="#">Goals</a>
+      <a class="dropdown-item" href="#">Docs</a>
+      <a class="dropdown-item" href="#">Funds</a>
+      <!--div class="dropdown-divider"></div-->
+    </div>
+  </div>
+  <div class="row m-0">
+    <div class="p-0" [ngClass]="options.advanced.getColClasses()" *ngIf="options.advanced.isVisible()">
+      <button type="button" [ngClass]="options.advanced.getButtonClasses()" (click)="togglePopupMenu()" class="btn-block rounded-0">
+        <img class="img-fluid nav-button-icon" [attr.src]="options.advanced.getIcon('assets/images/icons')">
+        {{options.advanced.getText()}}
+      </button>
+    </div>
+    <div class="p-0" [ngClass]="options.secondary.getColClasses()" *ngIf="options.secondary.isVisible()">
+      <button type="button" [ngClass]="options.secondary.getButtonClasses()" (click)="options.secondary.callAction()" class="btn-block rounded-0">
+        <img class="img-fluid nav-button-icon" [attr.src]="options.secondary.getIcon('assets/images/icons')">
+        {{options.secondary.getText()}}
+      </button>
+    </div>
+    <div class="p-0" [ngClass]="options.primary.getColClasses()" *ngIf="options.primary.isVisible()">
+      <button type="button" [ngClass]="options.primary.getButtonClasses()" (click)="options.primary.callAction()" class="btn-block rounded-0">
+        <img class="img-fluid nav-button-icon" [attr.src]="options.primary.getIcon('assets/images/icons')">
+        {{options.primary.getText()}}
+      </button>
+    </div>
+  </div>
+  <!--a routerLink="/bind">Bind</a-->
+</div>

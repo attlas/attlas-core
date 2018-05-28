@@ -1,6 +1,18 @@
-.provider-cell{
-  padding: 8px 0px 8px 0px;
+
+.logo-img {
+  width: 64px;
 }
-.provider-icon{
+
+.provider-icon {
   width: 56px;
+}
+
+.circle {
+  position: absolute;
+  border-radius: 50%;
+  border-width: 2px !important;
+  width: 16px;
+  height: 16px;
+  left: 8px;
+  top:0px;
 }

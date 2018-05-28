@@ -3,57 +3,63 @@
   },
   "stages":{
     "build":{
-      "cmds":[
+      "shell":[
         "ng build"
       ]
     },
     "test":{
-      "cmds":[
+      "shell":[
         "ng test --code-coverage"
       ]
     },
     "lint":{
-      "cmds":[
+      "shell":[
         "ng lint --format=prose --type-check=true"
       ]
     },
     "build-prod":{
-      "cmds":[
+      "shell":[
         "ng build --prod --env=prod"
       ]
     },
     "build-mobile":{
-      "cmds":[
+      "shell":[
+        "export $(cat ./../../.env | grep -v ^# | xargs)",
+        "export SERVICES_AUTH_HOST=$(ipconfig getifaddr en0)",
+        "envsubst < src/environments/consts.ts.template > src/environments/consts.ts",
         "ng build --prod --env=prod --base-href . --output-path ../../mobile/cordova/www/",
-        "sed -i -e 's|</app-root>|</app-root><script type=\"text/javascript\" src=\"cordova.js\"></script>|g' ../../mobile/cordova/www/index.html"
+        "sed -i -e \"s|</app-root>|$(cat ./cordova.patch)|g\" ../../mobile/cordova/www/index.html"
       ]
     },
     "serve":{
-      "cmds":[
-        "ng server --host=0.0.0.0"
+      "shell":[
+        "export $(cat ./../../.env | grep -v ^# | xargs)",
+        "export SERVICES_AUTH_HOST=$(ipconfig getifaddr en0)",
+        "envsubst < src/environments/consts.ts.template > src/environments/consts.ts",
+        "ng server --host=${STATIC_CLIENT_LISTEN} --port=${STATIC_CLIENT_PORT}"
       ]
     },
     "sonar":{
-      "cmds":[
-        "~/projects/sonar-scanner-3.0.3.778/bin/sonar-scanner -X"
+      "shell":[
+        "export $(cat ./../../.env | grep -v ^# | xargs)",
+        "envsubst < sonar-project.properties.template > sonar-project.properties",
+        "#~/projects/sonar-scanner-3.0.3.778/bin/sonar-scanner -X",
+        "sonar-scanner"
       ]
     },
     "docker-run":{
-      "cmds":[
-        "export STATIC_ANGULAR_HOSTNAME=0.0.0.0",
-        "export STATIC_ANGULAR_PORT=80",
-        "export STATIC_ANGULAR_PORTS=443",
-        "docker build --build-arg STATIC_ANGULAR_HOSTNAME=$STATIC_ANGULAR_HOSTNAME \\",
-        "             --build-arg STATIC_ANGULAR_PORT=$STATIC_ANGULAR_PORT \\",
-        "             --build-arg STATIC_ANGULAR_PORTS=$STATIC_ANGULAR_PORTS \\",
-        "             -t tln-angular:latest .",
-        "docker run -d --rm -p $STATIC_ANGULAR_PORT:$STATIC_ANGULAR_PORT -p $STATIC_ANGULAR_PORTS:$STATIC_ANGULAR_PORTS --name tln-angular tln-angular:latest"
+      "shell":[
+        "docker build --build-arg STATIC_CLIENT_HOST=$STATIC_STATIS_HOST \\",
+        "             --build-arg STATIC_STATIC_PORT=$STATIC_STATIC_PORT \\",
+        "             --build-arg STATIC_STATIC_PORTS=$STATIC_STATIC_PORTS \\",
+        "             -t tln-static-client:latest .",
+        "docker run -d --rm -p $STATIC_STATIC_PORT:$STATIC_STATIC_PORT -p $STATIC_STATIC_PORTS:$STATIC_STATIC_PORTS --name tln-STATIC tln-static-client:latest"
       ]
     },
     "docker-stop":{
-      "cmds":[
-        "docker stop tln-angular",
-        "docker rmi tln-angular:latest"
+      "shell":[
+        "docker stop tln-static-client",
+        "docker rmi tln-static-client:latest"
       ]
     }
   }

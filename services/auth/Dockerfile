@@ -1,4 +1,4 @@
-FROM node:9.8.0-alpine
+FROM node:9.10.1-alpine
 
 ARG STATIC_AUTH_HOSTNAME
 ARG STATIC_AUTH_PORT
@@ -17,8 +17,10 @@ COPY package*.json ./
 COPY ./src ./src
 
 # Install app dependencies
-RUN npm install
-# RUN npm install --only=production
+#RUN npm install
+RUN npm install --only=production
 
-EXPOSE 8080
+EXPOSE $STATIC_AUTH_PORT
+EXPOSE $STATIC_AUTH_PORTS
+
 CMD [ "npm", "start" ]

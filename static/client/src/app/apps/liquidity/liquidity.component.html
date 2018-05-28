@@ -1,0 +1,30 @@
+<div class="card rounded-0 mt-3">
+  <div class="card-header font-weight-bold">
+    <img class="app-icon" src="assets/images/icons/liquidity-3.png">
+    IT liquidity
+    <button class="btn btn-link float-right m-0 p-0 d-block d-sm-none" (click)="toggleCollapse()">
+      <img *ngIf="isCollapsed()" src="assets/images/octicons/chevron-right.svg">
+      <img *ngIf="!isCollapsed()" src="assets/images/octicons/chevron-up.svg">
+    </button>
+  </div>
+  <div *ngIf="!isCollapsed()" class="card-body m-0 p-0">
+    <ngx-charts-line-chart
+      [scheme]="colorScheme"
+      [results]="single"
+      [gradient]="gradient"
+      [xAxis]="showXAxis"
+      [yAxis]="showYAxis"
+      [legend]="showLegend"
+      [showXAxisLabel]="showXAxisLabel"
+      [showYAxisLabel]="showYAxisLabel"
+      [xAxisLabel]="xAxisLabel"
+      [yAxisLabel]="yAxisLabel"
+      [autoScale]="autoScale"
+      (select)="onSelect($event)">
+    </ngx-charts-line-chart>
+    <div>&nbsp;</div>
+  </div>
+  <div *ngIf="!isCollapsed()" class="card-footer text-muted">
+    Your current score is <span class="badge badge-pill badge-info">52%</span> based on <span class="badge badge-pill badge-info">2K+</span> opened vacancies
+  </div>
+</div>
