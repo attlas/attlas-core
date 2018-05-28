@@ -1,4 +1,4 @@
-FROM node:9.8.0-alpine
+FROM node:9.10.1-alpine
 
 ARG STATIC_AUTH_HOSTNAME
 ARG STATIC_AUTH_PORT
