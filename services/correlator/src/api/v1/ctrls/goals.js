@@ -1,30 +1,16 @@
 
 class Goal {
   //
-  constructor(params) {
-    this.params = params;
-    this.result = {};
-    this.errors = [];
+  constructor(data) {
+    this.data = data;
   }
   //
-  execute(flow) {
+  execute(flow, context) {
     return new Promise((resolve, reject) => {
-      let result = {data:[1,2,3]};
-      let errors = ['error'];
-      if (true){
-        resolve(result);
-      }else{
-        reject(errors);
-      }
+      flow.fork(context, this.data.params)
+        .then(r => resolve(r))
+        .catch(e => reject(e));
     });
-  }
-  //
-  getResult() {
-    return this.result;
-  }
-  //
-  getErrors() {
-    return this.errors;
   }
 }
 

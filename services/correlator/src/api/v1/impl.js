@@ -29,6 +29,7 @@ module.exports = function(express, jsv, reply, helpers) {
   //
   this.context = {
     home: __dirname,
+    jsv: jsv,
     contacts: this.contacts,
     goals: this.goals,
     flows: this.flows,
@@ -42,24 +43,15 @@ module.exports = function(express, jsv, reply, helpers) {
     })
     // create new goal
     .post(helpers.validateReqBody(jsv, goal.GoalParamSchemaId), function (req, res) {
-      console.log(this.context);
-      const params = req.body;
-      const flow = this.flows.getFlowById(this.context.home, params.flowId);
-      if (flow) {
-        const goal = this.goals.createGoal(req.body);
-        return goal.execute(flow)
-          .then(r => {
-            console.log(r);
-            return r;
+      const data = req.body;
+      this.flows.createFlowById(this.context.home, data.flowId)
+        .then( flow => {
+          const goal = this.goals.createGoal(data);
+          return goal.execute(flow, context)
+            .then(r => res.json(reply.success(r)))
+            .catch(e => res.json(reply.fail(e)));
           })
-          .then(r => {
-            return res.json(reply.success(r));
-          })
-          .catch(e =>{
-            return res.json(reply.fail(e));
-          });
-      }
-      return res.json(reply.fail([`flow id: '${params.flowId}' is unknown`]));
+        .catch(e => res.json(reply.fail(e)));
     });
 
   //this.router.use('/contacts', notImplRouter);

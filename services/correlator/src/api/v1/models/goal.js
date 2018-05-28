@@ -19,7 +19,7 @@ module.exports.GoalParamSchema = {
       "description": "Flow input parameters"
     }
   },
-  "required": ["flowId", "async"]
+  "required": ["flowId", "async", "params"]
 };
 
 module.exports.Goal = class Goal {

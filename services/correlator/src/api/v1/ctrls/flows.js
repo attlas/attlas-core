@@ -5,6 +5,10 @@ class Flow {
   constructor(entry) {
     this.entry = entry;
   }
+  //
+  fork(context, params) {
+    return this.entry(context, params);
+  }
 }
 
 module.exports.Flows = class Flows {
@@ -12,16 +16,17 @@ module.exports.Flows = class Flows {
   constructor() {
   }
   //
-  getFlowById(home, flowId) {
-    const file = path.join(home, 'flows', flowId, 'main.js');
-    try {
-      fs.accessSync(file);
-      console.log(file);
-      const script = require(file);
-      return new Flow(script);
-    } catch (e) {
-      return null;
-    }
-    return null;
+  createFlowById(home, flowId) {
+    return new Promise( (resolve, reject) => {
+      const id = flowId.replace(/\./g, '-');
+      const file = path.join(home, 'data', 'flows', id, 'impl.js');
+      try {
+        fs.accessSync(file);
+        resolve(new Flow(require(file)));
+      } catch (e) {
+        console.log(`script '${file}' not found`);
+        reject([`flow id: '${flowId}' is unknown`]);
+      }
+    });
   }
 }
