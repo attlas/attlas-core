@@ -1,20 +1,20 @@
 {
   "stages":{
     "prereq":{
-      "cmds":[
+      "shell":[
         "npm install oauthio --save",
         "npm install cors --save",
         "npm install express-session --save"
       ]
     },
     "serve":{
-      "cmds":[
+      "shell":[
         "export $(cat ./.env | grep -v ^# | xargs)",
         "npm start"
       ]
     },
     "docker-run":{
-      "cmds":[
+      "shell":[
         "export $(cat ./.env | grep -v ^# | xargs)",
         "docker build --build-arg STATIC_AUTH_HOSTNAME=$STATIC_AUTH_HOSTNAME \\",
         "             --build-arg STATIC_AUTH_PORT=$STATIC_AUTH_PORT \\",
@@ -24,7 +24,7 @@
       ]
     },
     "docker-stop":{
-      "cmds":[
+      "shell":[
         "docker stop attlas-auth",
         "docker rmi attlas-auth:latest"
       ]
