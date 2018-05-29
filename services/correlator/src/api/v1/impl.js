@@ -14,6 +14,7 @@ module.exports = function(express, jsv, reply, helpers) {
   this.router = express.Router();
   //this.notImplRouter = express.Router();
   this.goalsRouter = express.Router();
+  this.docsRouter = express.Router();
   //
   // compile schemas
   jsv.compile(goal.GoalParamSchemaId, goal.GoalParamSchema);
@@ -22,42 +23,49 @@ module.exports = function(express, jsv, reply, helpers) {
     next(new Error('not implemented'));
   });*/
   // Execution context
-  this.contacts = new contacts.Contacts();
-  this.goals = new goals.Goals();
-  this.flows = new flows.Flows();
-  this.docs = new docs.Docs();
-  //
+  const home = __dirname;
   this.context = {
-    home: __dirname,
     jsv: jsv,
-    contacts: this.contacts,
-    goals: this.goals,
-    flows: this.flows,
-    docs: this.docs};
+    contacts: new contacts.Contacts(home),
+    goals: new goals.Goals(home),
+    flows: new flows.Flows(home),
+    docs: new docs.Docs(home)
+   };
 
+  //----------------------------------------------------------------------------
   // goals
   this.goalsRouter.route('/*')
     // get all goals
-    .get(function (req, res) {
-      return res.json(reply.success(req.params[0]));
-    })
+    //.get(function (req, res) {
+    //  return res.json(reply.success(req.params[0]));
+    //})
     // create new goal
     .post(helpers.validateReqBody(jsv, goal.GoalParamSchemaId), function (req, res) {
       const data = req.body;
-      this.flows.createFlowById(this.context.home, data.flowId)
+      this.context.flows.createFlowById(data.flowId)
         .then( flow => {
-          const goal = this.goals.createGoal(data);
+          const goal = this.context.goals.createGoal(data);
           return goal.execute(flow, context)
             .then(r => res.json(reply.success(r)))
-            .catch(e => res.json(reply.fail(e)));
+            .catch(e => res.status(400).json(reply.fail(e)));
           })
-        .catch(e => res.json(reply.fail(e)));
+        .catch(e => res.status(400).json(reply.fail(e)));
+    });
+  //----------------------------------------------------------------------------
+  // docs
+  this.docsRouter.route('/*')
+    // get all goals
+    .get(function (req, res) {
+      const id = req.params[0];
+      this.context.docs.getDocById(id)
+        .then( doc => res.json(reply.success(doc.contents())))
+        .catch(e => res.status(400).json(reply.fail(`Invalid request parameter: '${id}'`)));
     });
 
   //this.router.use('/contacts', notImplRouter);
   this.router.use('/goals', goalsRouter);
   //this.router.use('/flows', notImplRouter);
-  //this.router.use('/docs', notImplRouter);
+  this.router.use('/docs', docsRouter);
   //
   this.getRouter = function() {
     return this.router;

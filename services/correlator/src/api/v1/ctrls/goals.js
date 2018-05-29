@@ -1,3 +1,5 @@
+'use strict';
+const BaseCtrl = require('./base_ctrl.js');
 
 class Goal {
   //
@@ -14,9 +16,10 @@ class Goal {
   }
 }
 
-module.exports.Goals = class Goals {
+module.exports.Goals = class Goals extends BaseCtrl{
   //
-  constructor() {
+  constructor(home) {
+    super(home);
   }
   //
   createGoal(goalParams) {

@@ -1,5 +1,8 @@
+'use strict';
+
 const path = require('path');
 const fs = require('fs');
+const BaseCtrl = require('./base_ctrl.js');
 
 class Flow {
   constructor(entry) {
@@ -11,15 +14,16 @@ class Flow {
   }
 }
 
-module.exports.Flows = class Flows {
+module.exports.Flows = class Flows extends BaseCtrl{
   //
-  constructor() {
+  constructor(home) {
+    super(home);
   }
   //
-  createFlowById(home, flowId) {
+  createFlowById(flowId) {
     return new Promise( (resolve, reject) => {
       const id = flowId.replace(/\./g, '-');
-      const file = path.join(home, 'data', 'flows', id, 'impl.js');
+      const file = path.join(this.getHome(), 'data', 'flows', id, 'impl.js');
       try {
         fs.accessSync(file);
         resolve(new Flow(require(file)));
