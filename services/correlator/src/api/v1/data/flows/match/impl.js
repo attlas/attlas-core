@@ -1,12 +1,11 @@
 module.exports = function(context, params) {
   return new Promise( (resolve, reject) => {
-    resolve([
-    {
-      stream1Id:'s1',
-      stream2Id:'s2',
-      tags:['c++', 'java'],
-      value:53.5
-    }
-    ]);
+    //
+    context.docs.getDocById('tags/skills.hard.json')
+      .then( (doc) => {
+        resolve(doc.contents());
+      })
+      .catch(e => reject(`Matching algorithm execution error`));
+    //
   });
 }

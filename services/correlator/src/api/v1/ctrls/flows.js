@@ -29,6 +29,7 @@ module.exports.Flows = class Flows extends BaseCtrl{
         resolve(new Flow(require(file)));
       } catch (e) {
         console.log(`script '${file}' not found`);
+        console.log(e);
         reject([`flow id: '${flowId}' is unknown`]);
       }
     });

@@ -10,12 +10,15 @@ class Doc {
   }
   //
   contents() {
-    const data = fs.readFileSync(this.location, 'utf8');
-    return JSON.parse(data);
+    return fs.readFileSync(this.location, 'utf8');
+  }
+  //
+  json() {
+    return JSON.parse(this.contents());
   }
 }
 
-module.exports.Docs = class Docs  extends BaseCtrl {
+module.exports.Docs = class Docs extends BaseCtrl {
   //
   constructor(home) {
     super(home);

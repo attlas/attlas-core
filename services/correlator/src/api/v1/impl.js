@@ -54,11 +54,11 @@ module.exports = function(express, jsv, reply, helpers) {
   //----------------------------------------------------------------------------
   // docs
   this.docsRouter.route('/*')
-    // get all goals
+    // get doc
     .get(function (req, res) {
       const id = req.params[0];
       this.context.docs.getDocById(id)
-        .then( doc => res.json(reply.success(doc.contents())))
+        .then( doc => res.json(reply.success(doc.json())))
         .catch(e => res.status(400).json(reply.fail(`Invalid request parameter: '${id}'`)));
     });
 
