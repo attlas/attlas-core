@@ -18,7 +18,7 @@ module.exports = class TagsCloud {
   }
   //
   parse(text) {
-    const delims = [' ', ',', '.', ';', ':', '|', '\'', '"'];
+    const delims = [' ', ',', '.', ';', ':', '|', '\'', '\\', '/', '"'];
     let r = {};
     const lt = text.toLowerCase();
     const ltLen = lt.length;
