@@ -1,8 +1,8 @@
 sonar.host.url=${SONARQUBE_HOST}
 sonar.login=${SONARQUBE_TOKEN}
 
-sonar.projectKey=${COMPOSE_PROJECT_NAME}:static-client
-sonar.projectName=${COMPOSE_PROJECT_NAME}:static-client
+sonar.projectKey=${PROJECT_KEY}
+sonar.projectName=${PROJECT_NAME}
 sonar.projectVersion=${PROJECT_VERSION}
 sonar.sourceEncoding=UTF-8
 sonar.sources=src

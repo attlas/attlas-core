@@ -2,8 +2,16 @@
   "env": {
   },
   "stages":{
+    "prereq":{
+      "shell":[
+        "envsubst > sonar-project.properties < sonar-project.properties.template",
+        "envsubst > .env < .env.template",
+        "npm i"
+      ]
+    },
     "build":{
       "shell":[
+        "export $(cat ./.env | grep -v ^# | xargs)",
         "ng build"
       ]
     },
@@ -24,8 +32,8 @@
     },
     "build-mobile":{
       "shell":[
-        "export $(cat ./../../.env | grep -v ^# | xargs)",
-        "export SERVICES_AUTH_HOST=$(ipconfig getifaddr en0)",
+        "export $(cat ./.env | grep -v ^# | xargs)",
+        "export PROJECT_PARAM_AUTH_HOST=$(ipconfig getifaddr en0)",
         "envsubst < src/environments/consts.ts.template > src/environments/consts.ts",
         "ng build --prod --env=prod --base-href . --output-path ../../mobile/cordova/www/",
         "sed -i -e \"s|</app-root>|$(cat ./cordova.patch)|g\" ../../mobile/cordova/www/index.html"
@@ -33,33 +41,41 @@
     },
     "serve":{
       "shell":[
-        "export $(cat ./../../.env | grep -v ^# | xargs)",
-        "export SERVICES_AUTH_HOST=$(ipconfig getifaddr en0)",
+        "export $(cat ./.env | grep -v ^# | xargs)",
+        "export PROJECT_PARAM_HOST=$(ipconfig getifaddr en0)",
         "envsubst < src/environments/consts.ts.template > src/environments/consts.ts",
-        "ng server --host=${STATIC_CLIENT_LISTEN} --port=${STATIC_CLIENT_PORT}"
+        "ng server --host=${PROJECT_PARAM_LSTN} --port=${PROJECT_PARAM_PORT}"
       ]
     },
     "sonar":{
       "shell":[
-        "export $(cat ./../../.env | grep -v ^# | xargs)",
+        "export $(cat ./.env | grep -v ^# | xargs)",
         "envsubst < sonar-project.properties.template > sonar-project.properties",
         "#~/projects/sonar-scanner-3.0.3.778/bin/sonar-scanner -X",
         "sonar-scanner"
       ]
     },
+    "docker-build":{
+      "shell":[
+        "export $(cat ./.env | grep -v ^# | xargs)",
+        "docker build --build-arg PROJECT_PARAM_HOST=$PROJECT_PARAM_HOST \\",
+        "             --build-arg PROJECT_PARAM_LSTN=$PROJECT_PARAM_LSTN \\",
+        "             --build-arg PROJECT_PARAM_PORT=$PROJECT_PARAM_PORT \\",
+        "             --build-arg PROJECT_PARAM_PORTS=$PROJECT_PARAM_PORTS \\",
+        "             -t ${PROJECT_KEY}:${PROJECT_VERSION} ."
+      ]
+    },
     "docker-run":{
       "shell":[
-        "docker build --build-arg STATIC_CLIENT_HOST=$STATIC_STATIS_HOST \\",
-        "             --build-arg STATIC_STATIC_PORT=$STATIC_STATIC_PORT \\",
-        "             --build-arg STATIC_STATIC_PORTS=$STATIC_STATIC_PORTS \\",
-        "             -t tln-static-client:latest .",
-        "docker run -d --rm -p $STATIC_STATIC_PORT:$STATIC_STATIC_PORT -p $STATIC_STATIC_PORTS:$STATIC_STATIC_PORTS --name tln-STATIC tln-static-client:latest"
+        "export $(cat ./.env | grep -v ^# | xargs)",
+        "docker run -d --rm -p $PROJECT_PARAM_PORT:80 -p $PROJECT_PARAM_PORTS:443 --name ${PROJECT_KEY} ${PROJECT_KEY}:${PROJECT_VERSION}"
       ]
     },
     "docker-stop":{
       "shell":[
-        "docker stop tln-static-client",
-        "docker rmi tln-static-client:latest"
+        "export $(cat ./.env | grep -v ^# | xargs)",
+        "docker stop ${PROJECT_KEY}",
+        "docker rmi ${PROJECT_KEY}:${PROJECT_VERSION}"
       ]
     }
   }
