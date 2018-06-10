@@ -6,12 +6,12 @@
     "module": "commonjs",
     "types": [
       "jasmine",
-      "node",
-      "facebook-js-sdk"
+      "node"
     ]
   },
   "files": [
-    "test.ts"
+    "test.ts",
+    "polyfills.ts"
   ],
   "include": [
     "**/*.spec.ts",
