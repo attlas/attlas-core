@@ -1,6 +1,6 @@
 #!/bin/bash
 
 pushd static/client
-npm i
+./prereq.sh
 ./build.sh
 popd
