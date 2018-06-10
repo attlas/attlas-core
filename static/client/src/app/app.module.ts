@@ -22,7 +22,11 @@ import { BindService } from './services/bind.service';
 import { AuthGuardService } from './services/auth-guard.service';
 import { LoadingPanelComponent } from './ctrls/loading-panel/loading-panel.component';
 import { NavPanelComponent } from './ctrls/nav-panel/nav-panel.component';
-import { ReferralComponent } from './referral/referral.component';
+import { HudComponent } from './hud/hud.component';
+import { FeedComponent } from './feed/feed.component';
+import { LiquidityComponent } from './apps/liquidity/liquidity.component';
+import { PatronComponent } from './apps/patron/patron.component';
+import { ReferralComponent } from './apps/referral/referral.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +39,10 @@ import { ReferralComponent } from './referral/referral.component';
     ErrorPanelComponent,
     LoadingPanelComponent,
     NavPanelComponent,
+    HudComponent,
+    FeedComponent,
+    LiquidityComponent,
+    PatronComponent,
     ReferralComponent
   ],
   imports: [

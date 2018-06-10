@@ -1,0 +1,16 @@
+{
+  "flowId":"dissect/tags",
+  "async" : false,
+  "params": {
+    "text":"As part of the R&D Incubator team, I was involved in process of monitoring ITSM (ITSM - IT Service Management) trends and PoCs development.
+    During this period, I successfully developed and promoted a set of PoCs in geolocation, predictive analytics and wearable areas.
+    I played key role during development of ‚Rendering subsystem for Antonov AN-148 avia simulator‚.
+    Huge, waterfall based project joined together engineers from different domains.
+    I was responsible not only for subsystem design and development and also handled collaboration with other subcontractors.
+    Leading 3D engineering team, I designed and managed 3d game engine development ‚Ace 3d Engine‚.
+    It was unique experience to manage team with 12 developers and build complex software product from scratch.
+    Experienced software developer with 18+ years in different domains: Game development, Finance & trading software, Avia simulators, ITSM.
+    Cross Platform development using Windows, Linux, Android. Key programming language is C/C++.
+    Java, TypeScript, Python, PHP, JavaScript languages are using as well."
+  }
+}

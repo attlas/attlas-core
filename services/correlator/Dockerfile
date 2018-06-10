@@ -1,0 +1,26 @@
+FROM node:9.10.1-alpine
+
+ARG SERVICES_CORRELATOR_HOST
+ARG SERVICES_CORRELATOR_LSTN
+ARG SERVICES_CORRELATOR_PORT
+ARG SERVICES_CORRELATOR_PORTS
+
+ENV SERVICES_CORRELATOR_HOST $SERVICES_CORRELATOR_HOST
+ENV SERVICES_CORRELATOR_LSTN $SERVICES_CORRELATOR_LSTN
+ENV SERVICES_CORRELATOR_PORT $SERVICES_CORRELATOR_PORT
+ENV SERVICES_CORRELATOR_PORTS $SERVICES_CORRELATOR_PORTS
+
+RUN apk --update --no-cache add curl
+HEALTHCHECK --interval=5s --timeout=3s CMD curl --fail http://localhost:${SERVICES_CORRELATOR_PORT}/healthcheck || exit 1
+
+# Create app directory
+WORKDIR /usr/src/app
+
+# Copy sources
+COPY package*.json ./
+COPY ./src ./src
+
+# Install app dependencies
+RUN npm install --only=production
+
+CMD [ "npm", "start" ]

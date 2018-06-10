@@ -55,8 +55,8 @@ export class BindComponent implements OnInit {
        },
       'home'
     );
-    this.navButtons.primary.initButton('light', '');
-    this.navButtons.build(true, 'lg');
+    this.navButtons.primary.initButton('light', undefined);
+    this.navButtons.build('lg');
   }
 
   ngOnInit() {

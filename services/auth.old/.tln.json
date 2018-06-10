@@ -1,0 +1,42 @@
+{
+  "stages":{
+    "prereq":{
+      "shell":[
+        "npm install oauthio --save",
+        "npm install cors --save",
+        "npm install express-session --save"
+      ]
+    },
+    "serve":{
+      "shell":[
+        "export $(cat ./../../.env | grep -v ^# | xargs)",
+        "export SERVICES_AUTH_HOST=$(ipconfig getifaddr en0)",
+        "#printenv | grep SERVICES",
+        "npm run dev"
+      ]
+    },
+    "run":{
+      "shell":[
+        "export $(cat ./../../.env | grep -v ^# | xargs)",
+        "npm start"
+      ]
+    },
+    "docker-run":{
+      "shell":[
+        "export $(cat ./../../.env | grep -v ^# | xargs)",
+        "docker build --build-arg SERVICES_AUTH_HOSTNAME=$SERVICES_AUTH_HOST \\",
+        "             --build-arg SERVICES_AUTH_PORT=$SERVICES_AUTH_PORT \\",
+        "             --build-arg SERVICES_AUTH_PORTS=$SERVICES_AUTH_PORTS \\",
+        "             -t attlas-auth:${PROJECT_VERSION} .",
+        "docker run -d --rm -p $SERVICES_AUTH_PORT:$SERVICES_AUTH_PORT -p $SERVICES_AUTH_PORTS:$SERVICES_AUTH_PORTS --name attlas-auth attlas-auth:${PROJECT_VERSION}"
+      ]
+    },
+    "docker-stop":{
+      "shell":[
+        "export $(cat ./../../.env | grep -v ^# | xargs)",
+        "docker stop attlas-auth",
+        "docker rmi attlas-auth:${PROJECT_VERSION}"
+      ]
+    }
+  }
+}

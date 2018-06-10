@@ -34,14 +34,14 @@ export class NavButton extends NavAction{
     }
     this.buttonClasses = cl;
   }
-  build(offset:number, width: number, size: string) {
+  build(width: number, size: string) {
     this.buttonClasses = `${this.buttonClasses} btn-${size}`;
-    this.rowClasses = `offset-${offset} col-${width}`;
+    this.colClasses = `col-${width}`;
   }
   getButtonClasses(): string { return this.buttonClasses; }
-  getRowClasses(): string { return this.rowClasses; }
+  getColClasses(): string { return this.colClasses; }
   private buttonClasses: string = '';
-  private rowClasses: string = '';
+  private colClasses: string = '';
 }
 
 export class NavAdvancedButton extends NavButton {
@@ -58,17 +58,10 @@ export class NavButtons {
   secondary: NavButton = new NavButton();
   advanced: NavAdvancedButton = new NavAdvancedButton();
   /**/
-  build(offset: boolean, size: string) {
+  build(size: string) {
     let w1 = 0;
     let w2 = 12;
-    let o1 = 0;
-    let o2 = 0;
-    let o3 = 0;
     //
-    if (offset) {
-      w2 = 10;
-      o3 = 1;
-    }
     if (this.advanced.isVisible()) {
       w1 = 2;
       w2 = w2 - w1;
@@ -76,8 +69,8 @@ export class NavButtons {
     if (this.primary.isVisible() && this.secondary.isVisible()) {
       w2 = w2 / 2;
     }
-    this.primary.build(o3, w2, size);
-    this.secondary.build(o2, w2, size);
-    this.advanced.build(o1, w1, size);
+    this.advanced.build(w1, size);
+    this.secondary.build(w2, size);
+    this.primary.build(w2, size);
   }
 }
