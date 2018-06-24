@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders, HttpResponse, HttpParams, HttpErrorResponse } 
 import { Observable } from 'rxjs';
 import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
 import { catchError, map, retry } from 'rxjs/operators';
+import { of } from 'rxjs';
 
 import { Notification } from './../models/notification'
 import { ApiResponse } from './../models/api-response'
@@ -30,7 +31,7 @@ export class BindService {
           }
           return res.data;
         }),
-        catchError(this.handleError)
+        catchError(this.handleError2<Provider[]>('getProviders', undefined))
       );
   }
   
@@ -52,6 +53,7 @@ export class BindService {
     return `${CONSTS.HOSTS.BIND_SERVICE}/api/v1${endpoint}`;
   }
 
+  /*
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
       // A client-side or network error occurred. Handle it accordingly.
@@ -66,7 +68,17 @@ export class BindService {
     // return an ErrorObservable with a user-facing error message
     return new ErrorObservable(
       'Something bad happened; please try again later.');
-  };
+  }
+  */
+
+  private handleError2<T>(operation = 'operation', result?: T) {
+    return (error: HttpErrorResponse): Observable<T> => {
+      console.error(error); // log to console instead
+      ////throw(operation + ' failed'); // use this for subscribe(error:) to fire
+      // Let the app keep running by returning an empty result.
+      return of(result as T);
+    };
+  }
 
   error(message: String){
     let notification = new Notification();
@@ -75,3 +87,4 @@ export class BindService {
   }
 
 }
+

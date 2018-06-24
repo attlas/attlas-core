@@ -1,9 +1,3 @@
 #!/bin/bash -e
-export CLIENT_HOSTNAME=0.0.0.0
-export CLIENT_PORT=80
-export CLIENT_PORTS=443
-docker build --build-arg CLIENT_HOSTNAME=$CLIENT_HOSTNAME \
-             --build-arg CLIENT_PORT=$CLIENT_PORT \
-             --build-arg CLIENT_PORTS=$CLIENT_PORTS \
-             -t tln-angular:latest .
-docker run -d --rm -p $CLIENT_PORT:$CLIENT_PORT -p $CLIENT_PORTS:$CLIENT_PORTS --name tln-angular tln-angular:latest
+export $(cat ./.env | grep -v ^# | xargs)
+docker run -d --rm -p $PROJECT_PARAM_PORT:80 -p $PROJECT_PARAM_PORTS:443 --name ${PROJECT_KEY} ${PROJECT_KEY}:${PROJECT_VERSION}

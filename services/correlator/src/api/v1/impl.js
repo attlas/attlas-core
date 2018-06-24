@@ -1,5 +1,4 @@
 const path = require('path');
-
 const goal = require('./models/goal.js');
 
 // controllers
@@ -8,20 +7,19 @@ const goals = require('./ctrls/goals.js');
 const flows = require('./ctrls/flows.js');
 const docs = require('./ctrls/docs.js');
 
-
 module.exports = function(express, jsv, reply, helpers) {
 
+  this.routerPath = '/api/v1';
   this.router = express.Router();
-  //this.notImplRouter = express.Router();
+  //----------------------------------------------------------------------------
+  // projects specific declarations
+
   this.goalsRouter = express.Router();
   this.docsRouter = express.Router();
   //
   // compile schemas
   jsv.compile(goal.GoalParamSchemaId, goal.GoalParamSchema);
 
-  /*this.notImplRouter.route('/').all(function(req, res, next) {
-    next(new Error('not implemented'));
-  });*/
   // Execution context
   const home = __dirname;
   this.context = {
@@ -33,6 +31,14 @@ module.exports = function(express, jsv, reply, helpers) {
    };
 
   //----------------------------------------------------------------------------
+  //
+  this.router.route('/')
+    // version info
+    .get(function (req, res) {
+      return res.json(reply.success({id:'v1'}));
+    });
+  //----------------------------------------------------------------------------
+  // projects specific functionality
   // goals
   this.goalsRouter.route('/*')
     // get all goals
@@ -51,7 +57,6 @@ module.exports = function(express, jsv, reply, helpers) {
           })
         .catch(e => res.status(400).json(reply.fail(e)));
     });
-  //----------------------------------------------------------------------------
   // docs
   this.docsRouter.route('/*')
     // get doc
@@ -62,11 +67,15 @@ module.exports = function(express, jsv, reply, helpers) {
         .catch(e => res.status(400).json(reply.fail(`Invalid request parameter: '${id}'`)));
     });
 
-  //this.router.use('/contacts', notImplRouter);
+  //this.router.use('/contacts', );
   this.router.use('/goals', goalsRouter);
-  //this.router.use('/flows', notImplRouter);
+  //this.router.use('/flows', );
   this.router.use('/docs', docsRouter);
+  //----------------------------------------------------------------------------
   //
+  this.getRouterPath = function() {
+    return this.routerPath;
+  }
   this.getRouter = function() {
     return this.router;
   }

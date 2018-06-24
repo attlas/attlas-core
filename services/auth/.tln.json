@@ -4,8 +4,7 @@
       "shell":[
         "export $(cat ./.env | grep -v ^# | xargs)",
         "export COMPONENT_PARAM_HOST=$(ipconfig getifaddr en0)",
-        "#printenv | grep SERVICES",
-        "npm run dev"
+        "npm run serve"
       ]
     },
     "run":{
@@ -17,7 +16,7 @@
     "docker.build":{
       "shell":[
         "export $(cat ./.env | grep -v ^# | xargs)",
-        "docker build -t ${COMPONENT_NAME}:${COMPONENT_VERSION} ."
+        "docker build -t ${COMPONENT_KEY}:${COMPONENT_VERSION} ."
       ]
     },
     "docker.run":{
@@ -27,14 +26,14 @@
         " --env-file ./.env \\",
         " -p $COMPONENT_PARAM_PORT:$COMPONENT_PARAM_PORT \\",
         " -p $COMPONENT_PARAM_PORTS:$COMPONENT_PARAM_PORTS \\",
-        "  --name ${COMPONENT_NAME} ${COMPONENT_NAME}:${COMPONENT_VERSION}"
+        "  --name ${COMPONENT_KEY} ${COMPONENT_KEY}:${COMPONENT_VERSION}"
       ]
     },
     "docker.stop":{
       "shell":[
         "export $(cat ./.env | grep -v ^# | xargs)",
-        "docker stop ${COMPONENT_NAME}",
-        "docker rmi ${COMPONENT_NAME}:${COMPONENT_VERSION}"
+        "docker stop ${COMPONENT_KEY}",
+        "docker rmi ${COMPONENT_KEY}:${COMPONENT_VERSION}"
       ]
     }
   }

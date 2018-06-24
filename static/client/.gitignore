@@ -107,7 +107,7 @@ typings/
 
 # SonarQube output
 .scannerwork
+sonar-project.properties
 
 secrets*.*
 hosts.ts
-sonar-project.properties
