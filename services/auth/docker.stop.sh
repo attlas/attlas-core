@@ -1,4 +1,4 @@
 #!/bin/bash -e
 export $(cat ./.env | grep -v ^# | xargs)
-docker stop ${COMPONENT_NAME}
-docker rmi ${COMPONENT_NAME}:${COMPONENT_VERSION}
+docker stop ${COMPONENT_KEY}
+docker rmi ${COMPONENT_KEY}:${COMPONENT_VERSION}

@@ -1,3 +1,3 @@
 #!/bin/sh
 envsubst < .env.template > .env
-npm start
+exec npm start
