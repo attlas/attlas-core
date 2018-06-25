@@ -31,7 +31,7 @@ module.exports = function(express, jsv, reply, helpers) {
    };
 
   //----------------------------------------------------------------------------
-  //
+  // api enpoint info
   this.router.route('/')
     // version info
     .get(function (req, res) {

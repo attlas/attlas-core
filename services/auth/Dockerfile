@@ -7,11 +7,10 @@ WORKDIR /usr/src/app
 COPY ./package*.json ./
 COPY ./src ./src
 COPY ./.env.template ./
-copy ./docker-entry.sh ./
+COPY ./docker-entry.sh ./
 
 # Install app dependencies
 RUN apk --update --no-cache add git gettext
 RUN npm install --only=production
-RUN pwd && printenv && ls -la
 
 CMD [ "./docker-entry.sh" ]
