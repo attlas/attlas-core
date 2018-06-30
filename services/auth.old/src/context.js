@@ -1,13 +1,13 @@
 (function() {
-  const host = (process.env.SERVICES_AUTH_HOST == undefined)?('127.0.0.1'):(process.env.SERVICES_AUTH_HOST);
-  const lstn = (process.env.SERVICES_AUTH_LSTN == undefined)?('0.0.0.0'):(process.env.SERVICES_AUTH_LSTN);
-  const port = (process.env.SERVICES_AUTH_PORT == undefined)?(80):(process.env.SERVICES_AUTH_PORT);
-  const ports = (process.env.SERVICES_AUTH_PORTS == undefined)?(443):(process.env.SERVICES_AUTH_PORTS);
-  const version = (process.env.PROJECT_VERSION == undefined)?('0.1.0'):(process.env.PROJECT_VERSION);
+  const host = (process.env.COMPONENT_PARAM_HOST == undefined)?('127.0.0.1'):(process.env.COMPONENT_PARAM_HOST);
+  const lstn = (process.env.COMPONENT_PARAM_LSTN == undefined)?('0.0.0.0'):(process.env.COMPONENT_PARAM_LSTN);
+  const port = (process.env.COMPONENT_PARAM_PORT == undefined)?(80):(process.env.COMPONENT_PARAM_PORT);
+  const ports = (process.env.COMPONENT_PARAM_PORTS == undefined)?(443):(process.env.COMPONENT_PARAM_PORTS);
+  const version = (process.env.PROJECT_VERSION == undefined)?('0.1.0'):(process.env.COMPONENT_VERSION);
 
-  const authSecret = process.env.SERVICES_AUTH_SECRET;
-  const authPublicKey = process.env.SERVICES_AUTH_PUBLIC_KEY;
-  const authSecretKey = process.env.SERVICES_AUTH_SECRET_KEY;
+  const authSecret = process.env.COMPONENT_PARAM_SECRET;
+  const authPublicKey = process.env.COMPONENT_PARAM_PUBLIC_KEY;
+  const authSecretKey = process.env.COMPONENT_PARAM_SECRET_KEY;
 
 
   //
