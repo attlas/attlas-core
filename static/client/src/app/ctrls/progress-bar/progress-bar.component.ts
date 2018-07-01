@@ -8,7 +8,7 @@ import { ProgressService } from '../../services/progress.service';
   styleUrls: ['./progress-bar.component.css']
 })
 export class ProgressBarComponent implements OnInit {
-  value: number = 0;
+  value = 0;
 
   constructor(private progressService: ProgressService) {
   }

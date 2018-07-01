@@ -4,7 +4,7 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 import { NgModule } from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { FormsModule }   from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
@@ -54,7 +54,7 @@ import { ReferralComponent } from './apps/referral/referral.component';
     routing,
     NgbModule.forRoot()
   ],
-  providers:[
+  providers: [
     ProgressService,
     BindService,
     AuthGuardService

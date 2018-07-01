@@ -1,10 +1,10 @@
-import { ApiResponse } from './api-response'
+import { ApiResponse } from './api-response';
 
 export class Provider {
-  providerId: string;
-  connected: boolean;
-};
+  providerId = '';
+  connected = false;
+}
 
 export class ProvidersResponse extends ApiResponse {
   data: Provider[];
-};
+}

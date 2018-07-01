@@ -5,9 +5,9 @@ import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
 import { catchError, map, retry } from 'rxjs/operators';
 import { of } from 'rxjs';
 
-import { Notification } from './../models/notification'
-import { ApiResponse } from './../models/api-response'
-import { Provider, ProvidersResponse } from './../models/providers'
+import { Notification } from './../models/notification';
+import { ApiResponse } from './../models/api-response';
+import { Provider, ProvidersResponse } from './../models/providers';
 
 import { CONSTS } from './../../environments/consts';
 
@@ -25,7 +25,7 @@ export class BindService {
     return this.http.get<ProvidersResponse>(this.getBindEndpoint('/auth'), {withCredentials : true})
       .pipe(
         map(res => {
-          let p = res.data.find(provider => provider.connected);
+          const p = res.data.find(provider => provider.connected);
           if (p) {
             localStorage.setItem(CONSTS.STORAGE.USER, 'authenticated');
           }
@@ -34,7 +34,7 @@ export class BindService {
         catchError(this.handleError2<Provider[]>('getProviders', undefined))
       );
   }
-  
+
   /**/
   isAuthenticated(): boolean {
     if (localStorage.getItem(CONSTS.STORAGE.USER)) {
@@ -74,14 +74,14 @@ export class BindService {
   private handleError2<T>(operation = 'operation', result?: T) {
     return (error: HttpErrorResponse): Observable<T> => {
       console.error(error); // log to console instead
-      ////throw(operation + ' failed'); // use this for subscribe(error:) to fire
+      // throw(operation + ' failed'); // use this for subscribe(error:) to fire
       // Let the app keep running by returning an empty result.
       return of(result as T);
     };
   }
 
-  error(message: String){
-    let notification = new Notification();
+  error(message: string) {
+    const notification = new Notification();
     notification.message = message;
     this.change.emit(notification);
   }

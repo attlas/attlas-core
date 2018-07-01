@@ -1,6 +1,14 @@
 #!/bin/bash -e
 export $(cat ./.env | grep -v ^# | xargs)
-export PROJECT_PARAM_HOST=$(ipconfig getifaddr en0)
-export PROJECT_PARAM_AUTH_HOST=$(ipconfig getifaddr en0)
+export COMPONENT_PARAM_HOST=localhost
+case "$(uname -s)" in
+   Darwin)
+     export COMPONENT_PARAM_HOST=$(ipconfig getifaddr en0)
+     ;;
+   Linux)
+     export COMPONENT_PARAM_HOST=$(ifconfig eth0 | grep 'inet addr' | cut -d: -f2 | awk '{print $1}')
+     ;;
+esac
+export COMPONENT_PARAM_AUTH_HOST=${COMPONENT_PARAM_HOST}
 envsubst < src/environments/consts.ts.template > src/environments/consts.ts
-ng serve --host=${PROJECT_PARAM_LSTN} --port=${PROJECT_PARAM_PORT}
+ng serve --host=${COMPONENT_PARAM_LSTN} --port=${COMPONENT_PARAM_PORT}

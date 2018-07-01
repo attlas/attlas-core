@@ -1,5 +1,11 @@
 
 export class NavAction {
+  /**/
+  private visible = false;
+  private action: any = null;
+  private icon = '';
+  private text = '';
+
   initAction(action: any, icon: string = '', text: string = '') {
     this.visible = true;
     this.action = action;
@@ -16,19 +22,18 @@ export class NavAction {
     return '';
   }
   getText(): string { return this.text; }
-  /**/
-  private visible: boolean = false;
-  private action: any = null;
-  private icon = '';
-  private text = '';
 }
 
-export class NavButton extends NavAction{
+export class NavButton extends NavAction {
+
+  private buttonClasses = '';
+  private colClasses = '';
+
   initButton(color: string, border: string) {
     let cl = `btn btn-${color}`;
-    if (typeof border != 'undefined') {
+    if (typeof border !== 'undefined') {
       cl = `${cl} border`;
-      if (border != ''){
+      if (border !== '') {
         cl = `${cl} border-${border}`;
       }
     }
@@ -40,17 +45,15 @@ export class NavButton extends NavAction{
   }
   getButtonClasses(): string { return this.buttonClasses; }
   getColClasses(): string { return this.colClasses; }
-  private buttonClasses: string = '';
-  private colClasses: string = '';
 }
 
 export class NavAdvancedButton extends NavButton {
+  private popupClasses = '';
   items: NavAction[] = [];
   initPopup(color: string) {
     this.popupClasses = `bg-${color}`;
   }
   getPopupClasses(): string { return this.popupClasses; }
-  private popupClasses: string = '';
 }
 
 export class NavButtons {

@@ -7,7 +7,7 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class ErrorPanelComponent implements OnInit {
 
-  @Input('error') errorMessage: string = "";
+  @Input() errorMessage = '';
 
   constructor() { }
 
