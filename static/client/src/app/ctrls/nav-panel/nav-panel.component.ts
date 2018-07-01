@@ -10,6 +10,8 @@ import { NavButtons } from './../../models/nav-buttons';
 export class NavPanelComponent implements OnInit {
 
   @Input() options: NavButtons;
+  /**/
+  private popupMenu = false;
 
   constructor() { }
 
@@ -20,6 +22,4 @@ export class NavPanelComponent implements OnInit {
   /**/
   togglePopupMenu() { this.popupMenu = !this.popupMenu; }
   isPopupMenuVisible(): boolean { return this.popupMenu; }
-  /**/
-  private popupMenu: boolean = false;
 }

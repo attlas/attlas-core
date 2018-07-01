@@ -18,7 +18,7 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (this.bindService.isAuthenticated() ){
+    if (this.bindService.isAuthenticated()) {
       this.router.navigate(['/feed']);
     }
   }

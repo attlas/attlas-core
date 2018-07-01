@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { Provider, ProvidersResponse } from './../models/providers'
+import { Provider, ProvidersResponse } from './../models/providers';
 
-import { BindService } from './../services/bind.service'
+import { BindService } from './../services/bind.service';
 import { NavButtons } from './../models/nav-buttons';
 
 
@@ -16,10 +16,10 @@ export class BindComponent implements OnInit {
 
   readonly navButtons: NavButtons = new NavButtons();
 
-  loading: boolean = false;
-  error: string = "";
+  loading = false;
+  error = '';
 
-  expanded: boolean = false;
+  expanded = false;
   providers: Provider[] = [
   /*
     'facebook',
@@ -45,7 +45,7 @@ export class BindComponent implements OnInit {
     'steam',
     'viber'
     */
-  ]
+  ];
   readonly providersToShow: number = 6;
 
   constructor(private router: Router, private bindService: BindService) {
@@ -65,7 +65,7 @@ export class BindComponent implements OnInit {
 
   getProviders() {
     this.loading = true;
-    this.error = "";
+    this.error = '';
     this.providers = [];
     this.bindService.getProviders().subscribe(
       (v) => {

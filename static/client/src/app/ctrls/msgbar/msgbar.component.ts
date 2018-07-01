@@ -12,7 +12,7 @@ import { BindService } from './../../services/bind.service';
 export class MsgbarComponent implements OnInit {
 
   notification: Notification = new Notification();
-  show: boolean = true;
+  show = true;
 
   constructor(private bindService: BindService) {
     this.bindService.change.subscribe(notification => {

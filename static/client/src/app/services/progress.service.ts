@@ -2,9 +2,9 @@ import { Injectable, Output, EventEmitter } from '@angular/core';
 
 @Injectable()
 export class ProgressService {
-  value: number = 0;
-  minValue: number = 0;
-  maxValue: number = 0;
+  value = 0;
+  minValue = 0;
+  maxValue = 0;
 
   @Output() change: EventEmitter<number> = new EventEmitter();
 
@@ -34,11 +34,11 @@ export class ProgressService {
     this.value = v;
     //
     let ev = 0;
-    let df = this.maxValue - this.minValue;
+    const df = this.maxValue - this.minValue;
     if (df > 0) {
       ev = (this.value - this.minValue) / df;
     }
-    //console.log(ev);
+    // console.log(ev);
     this.change.emit(Math.round(ev * 100));
   }
 

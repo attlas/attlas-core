@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavbarComponent implements OnInit {
 
-  show:boolean = false;
+  show = false;
 
   constructor() { }
 
@@ -15,7 +15,7 @@ export class NavbarComponent implements OnInit {
   }
 
   toggleCollapse() {
-    this.show = !this.show
+    this.show = !this.show;
   }
 
 }

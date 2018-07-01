@@ -11,12 +11,12 @@ export class LiquidityComponent extends BaseApp implements OnInit {
 
   single = [
     {
-      name:"Test",
+      name: 'Test',
       series: []
     }
   ];
 
-  //view: any[] = [700, 400];
+  // view: any[] = [700, 400];
 
   // options
   showXAxis = false;
@@ -37,25 +37,24 @@ export class LiquidityComponent extends BaseApp implements OnInit {
 
   constructor() {
     super();
-    for(let i= 0; i<120; i++){
-      this.single[0].series.push({name:i, value: 
-        25 + 50*Math.sin(i/50)
-        + 10*Math.sin(i/5)
-        + this.randomInt(-10, 10)
-         });
+    for ( let i = 0; i < 120; i++ ) {
+      this.single[0].series.push( { name: i, value:
+        25 + 50 * Math.sin( i / 50 )
+        + 10 * Math.sin( i / 5 )
+        + this.randomInt( -10, 10 )
+         } );
     }
-    //Object.assign(this, {single/*, multi*/});
+    // Object.assign(this, {single/*, multi*/});
    }
 
   ngOnInit() {
   }
 
   onSelect(event) {
-    console.log(event);
+    console.log( event );
   }
-  
-  private randomInt(min, max){
-    return Math.floor(Math.random() * (max - min + 1)) + min;
+
+  private randomInt(min, max) {
+    return Math.floor( Math.random() * (max - min + 1) ) + min;
   }
-  
 }
