@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "tln-angular": {
+    "com.attlas.static.client": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
@@ -49,18 +49,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "tln-angular:build"
+            "browserTarget": "com.attlas.static.client:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "tln-angular:build:production"
+              "browserTarget": "com.attlas.static.client:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "tln-angular:build"
+            "browserTarget": "com.attlas.static.client:build"
           }
         },
         "test": {
@@ -95,7 +95,7 @@
         }
       }
     },
-    "tln-angular-e2e": {
+    "com.attlas.static.client-e2e": {
       "root": "",
       "sourceRoot": "e2e",
       "projectType": "application",
@@ -104,7 +104,7 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "./protractor.conf.js",
-            "devServerTarget": "tln-angular:serve"
+            "devServerTarget": "com.attlas.static.client:serve"
           }
         },
         "lint": {
@@ -121,7 +121,7 @@
       }
     }
   },
-  "defaultProject": "tln-angular",
+  "defaultProject": "com.attlas.static.client",
   "schematics": {
     "@schematics/angular:component": {
       "prefix": "app",
