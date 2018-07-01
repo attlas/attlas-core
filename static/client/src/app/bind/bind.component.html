@@ -10,7 +10,7 @@
         <div class="row">
           <div class="col-12 text-center">
             <app-loading-panel *ngIf="loading"></app-loading-panel>
-            <app-error-panel *ngIf="error" [error]="error"></app-error-panel>
+            <app-error-panel *ngIf="error" [errorMessage]="error"></app-error-panel>
           </div>
         </div>
         <div class="row" *ngIf="!(loading || error)">
