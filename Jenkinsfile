@@ -52,6 +52,7 @@ node {
     stage('Build & Unit test') {
       //
       sh "./build.sh"
+      sh "./test.sh"
       //
     }
     //
