@@ -8,7 +8,7 @@ describe('HudComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ HudComponent ]
+      declarations: [ HudComponent]
     })
     .compileComponents();
   }));
