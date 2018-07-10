@@ -1,6 +1,11 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { FeedComponent } from './feed.component';
+import {FeedComponent} from './feed.component';
+import {NavbarComponent} from "../ctrls/navbar/navbar.component";
+import {ProgressBarComponent} from "../ctrls/progress-bar/progress-bar.component";
+import {LiquidityComponent} from "../apps/liquidity/liquidity.component";
+import {PatronComponent} from "../apps/patron/patron.component";
+import {ReferralComponent} from "../apps/referral/referral.component";
 
 describe('FeedComponent', () => {
   let component: FeedComponent;
@@ -8,9 +13,9 @@ describe('FeedComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ FeedComponent ]
+      declarations: [FeedComponent, NavbarComponent, ProgressBarComponent, LiquidityComponent, PatronComponent, ReferralComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
