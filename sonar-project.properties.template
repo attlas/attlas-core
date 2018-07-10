@@ -1,6 +1,6 @@
-sonar.projectKey=attlas-portal
-sonar.projectName=attlas-portal
-sonar.projectVersion=17.11.0-SNAPSHOT
+sonar.projectKey=${PROJECT_NAME}
+sonar.projectName=${PROJECT_NAME}
+sonar.projectVersion=${PROJECT_VERSION}
 sonar.sources=service/src
 sonar.binaries=service/target/classes
 sonar.exclusions=service/src/**/*.test.js,service/src/test/**
