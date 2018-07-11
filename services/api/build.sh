@@ -1,3 +1,4 @@
 #!/bin/bash -e
-export $(cat ./../../.env | grep -v ^# | xargs)
+
+. ./.env.sh
 mvn clean install

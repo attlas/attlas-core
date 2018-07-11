@@ -5,7 +5,7 @@
   <groupId>com.attlas</groupId>
   <artifactId>api</artifactId>
   <packaging>jar</packaging>
-  <version>18.3.0-SNAPSHOT</version>
+  <version>18.7.0-SNAPSHOT</version>
   <name>api</name>
 
   <properties>
@@ -58,6 +58,7 @@
   </dependencies>
 
   <build>
+    <finalName>${project.groupId}.${project.artifactId}-${project.version}</finalName>
     <plugins>
       <plugin>
         <groupId>org.jacoco</groupId>
@@ -143,7 +144,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>2.5.1</version>
+        <version>3.7.0</version>
         <inherited>true</inherited>
         <configuration>
           <source>1.8</source>
@@ -153,6 +154,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-assembly-plugin</artifactId>
+        <version>3.1.0</version>
         <configuration>
           <descriptorRefs>
             <descriptorRef>jar-with-dependencies</descriptorRef>
