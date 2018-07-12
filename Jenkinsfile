@@ -41,8 +41,9 @@ node {
     } else {
     }
     //
-    sh 'envsubst < .env.template > .env';
-    sh 'envsubst < sonar-project.properties.template > sonar-project.properties';
+    sh 'envsubst < .env.template > .env'
+    sh 'export $(cat ./.env | grep -v ^# | xargs) && envsubst < sonar-project.properties.template > sonar-project.properties'
+    //
     printTopic('Config files')
     sh 'cat ./.env';
     sh 'cat ./sonar-project.properties';
