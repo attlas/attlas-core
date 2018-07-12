@@ -43,9 +43,13 @@ node {
     //
     sh 'envsubst < .env.template > .env';
     sh 'envsubst < sonar-project.properties.template > sonar-project.properties';
+    printTopic('Config files')
+    sh 'cat ./.env';
+    sh 'cat ./sonar-project.properties';
     //
     printTopic('Build info')
     echo "[PR:${pullRequest}] [BRANCH:${scmVars.GIT_BRANCH}] [COMMIT: ${scmVars.GIT_COMMIT}]"
+    //
     printTopic('Environment variables')
     echo sh(returnStdout: true, script: 'env')
     //
