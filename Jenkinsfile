@@ -69,11 +69,15 @@ node {
   }
 
   try {
-    stage('Build & Unit test') {
+    stage('Build') {
       //
       sh "./build.sh"
-      sh "./test.sh"
       //
+    }
+    stage('Unit test') {
+      /*/
+      sh "./test.sh"
+      /*/
     }
     //
     stage('SonarQube analysis') {
