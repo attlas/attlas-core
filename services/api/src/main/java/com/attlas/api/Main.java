@@ -33,7 +33,7 @@ public class Main {
     PROTOCOL = "http://";
     host = Optional.ofNullable(System.getenv("API_HOSTNAME"));
     port = Optional.ofNullable(System.getenv("API_PORT"));
-    BASE_URI = PROTOCOL + "0.0.0.0:" + port.orElse("8080") + "/";
+    BASE_URI = PROTOCOL + "0.0.0.0:" + port.orElse("8082") + "/";
   }
 
   /**
