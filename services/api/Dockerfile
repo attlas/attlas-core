@@ -1,18 +1,22 @@
-FROM openjdk:8u151-jre-alpine
+FROM openjdk:8u171-jre-alpine
 
-ARG API_ARTIFACT
-ARG API_HOSTNAME
-ARG API_PORT
+#
+ARG COMPONENT_PARAM_HOST
+ARG COMPONENT_PARAM_LSTN
+ARG COMPONENT_PARAM_PORT
+ARG COMPONENT_PARAM_PORTS
 
-ENV API_ARTIFACT $API_ARTIFACT
-ENV API_HOSTNAME $API_HOSTNAME
-ENV API_PORT $API_PORT
+ENV COMPONENT_PARAM_PORT ${COMPONENT_PARAM_PORT}
+#
+RUN apk --update --no-cache add curl
 
-RUN apk --update --no-cache add curl python py-pip && pip install jsonschema requests
+#
+HEALTHCHECK --interval=5s --timeout=3s CMD curl --fail http://localhost:${COMPONENT_PARAM_PORT}/healthcheck || exit 1
 
-COPY ./target/${API_ARTIFACT} /
-RUN mkdir scripts
-COPY ./scripts /scripts
-HEALTHCHECK --interval=5s --timeout=3s CMD curl --fail http://localhost:${API_PORT}/healthcheck || exit 1
+# Create app directory
+WORKDIR /usr/app
 
-CMD exec java -jar /${API_ARTIFACT}
+COPY ./target/*jar-with-dependencies.jar ./
+COPY ./docker-entry.sh ./
+
+CMD [ "./docker-entry.sh" ]

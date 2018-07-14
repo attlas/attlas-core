@@ -8,60 +8,84 @@ def sendEmailNotification(subj, recepients) {
   subject: subj,
   to: "${recepients}"
 }
+def printTopic(topic) {
+  println("[*] ${topic} ".padRight(80, '-'))
+}
 
 node {
+  //
   def pullRequest = false
+  def commitSha = ''
+  def buildBranch = ''
+  def pullId = ''
+  def lastCommitAuthorEmail = ''
+  def repo = ''
+  def org = ''
   //
   stage('Clone sources') {
     //
     def scmVars = checkout scm
+    printTopic('Job input parameters');
+    println(params)
+    printTopic('SCM variables')
+    println(scmVars)
     //
-    if (params.containsKey('sha1')){
+    commitSha = scmVars.GIT_COMMIT
+    buildBranch = scmVars.GIT_BRANCH
+    if (buildBranch.contains('PR-')) {
       pullRequest = true
-      echo "Pull request build sha1: ${sha1}"
-      sh "git fetch --tags --progress origin +refs/pull/*:refs/remotes/origin/pr/*"
-      sh "git checkout ${ghprbActualCommit}"
-    }else{
-      echo "Build push branch: ${scmVars.GIT_BRANCH}, sha: ${scmVars.GIT_COMMIT}"
-      sh "git checkout ${scmVars.GIT_COMMIT}"
+      pullId = CHANGE_ID
+    } else if (params.containsKey('sha1')){
+      pullRequest = true
+      pullId = ghprbPullId
+    } else {
     }
+    //
+    sh 'envsubst < .env.template > .env'
+    sh 'export $(cat ./.env | grep -v ^# | xargs) && envsubst < sonar-project.properties.template > sonar-project.properties'
+    //
+    printTopic('Config files')
+    sh 'cat ./.env';
+    sh 'cat ./sonar-project.properties';
+    //
+    printTopic('Build info')
+    echo "[PR:${pullRequest}] [BRANCH:${scmVars.GIT_BRANCH}] [COMMIT: ${scmVars.GIT_COMMIT}]"
+    //
+    printTopic('Environment variables')
     echo sh(returnStdout: true, script: 'env')
+    //
+    repo = sh(returnStdout: true, script:'''git config --get remote.origin.url | rev | awk -F'[./:]' '{print $2}' | rev''').trim()
+    org = sh(returnStdout: true, script:'''git config --get remote.origin.url | rev | awk -F'[./:]' '{print $3}' | rev''').trim()
+    //
+    printTopic('Repo parameters')
+    echo "[org:${org}] [repo:${repo}]"
+    //
+    lastCommitAuthorEmail = sh(returnStdout: true, script:'''git log --format="%ae" HEAD^!''').trim()
+    if (!pullRequest){
+      lastCommitAuthorEmail = sh(returnStdout: true, script:'''git log -2 --format="%ae" | paste -s -d ",\n"''').trim()
+    }
+    printTopic('Author(s)')
+    echo "[lastCommitAuthorEmail:${lastCommitAuthorEmail}]"
   }
-  /*
-  def groupId = sh(returnStdout: true, script:'''mvn help:evaluate -Dexpression=project.groupId | grep -e "^[^\\[]"''').trim()
-  //def artifactId = sh(returnStdout: true, script:'''mvn help:evaluate -Dexpression=project.artifactId | grep -e "^[^\\[]"''').trim()
-  def artifactId = sh(returnStdout: true, script:'''pushd bundle > /dev/null && mvn help:evaluate -Dexpression=project.artifactId | grep -e "^[^\\[]" && popd > /dev/null''').trim()
-  def version = sh(returnStdout: true, script:'''mvn help:evaluate -Dexpression=project.version | grep -e "^[^\\[]"''').trim()
-  echo "groupId: ${groupId} artifactId: ${artifactId} version: ${version}"
-  */
-  // Get repo parameters
-  def repo = sh(returnStdout: true, script:'''git config --get remote.origin.url | rev | awk -F'[./:]' '{print $2}' | rev''').trim()
-  def org = sh(returnStdout: true, script:'''git config --get remote.origin.url | rev | awk -F'[./:]' '{print $3}' | rev''').trim()
-  echo "org: ${org} repo: ${repo}"
-  //
-  // Get author(s')'s emails
-  def lastCommitAuthorEmail = sh(returnStdout: true, script:'''git log --format="%ae" HEAD^!''').trim()
-  if (!pullRequest){
-    lastCommitAuthorEmail = sh(returnStdout: true, script:'''git log -2 --format="%ae" | paste -s -d ",\n"''').trim()
-  }
-  echo "lastCommitAuthorEmail: ${lastCommitAuthorEmail}"
-  //
-  sh "envsubst < .env.template > .env"
-  sh "cat ./.env"
+
   try {
-    stage('Build & Unit test') {
+    stage('Build') {
       //
       sh "./build.sh"
-      sh "./test.sh"
       //
+    }
+    stage('Unit test') {
+      /*/
+      sh "./test.sh"
+      /*/
     }
     //
     stage('SonarQube analysis') {
-      /*/
+      //
       def scannerHome = tool 'SonarQube Scanner';
       withSonarQubeEnv('SonarQube') {
         if (pullRequest){
-          sh "${scannerHome}/bin/sonar-scanner -Dsonar.analysis.mode=preview -Dsonar.github.pullRequest=${ghprbPullId} -Dsonar.github.repository=${org}/${repo} -Dsonar.github.endpoint=https://github.bmc.com/api/v3 -Dsonar.github.oauth=${GITHUB_ACCESS_TOKEN} -Dsonar.login=${SONARQUBE_ACCESS_TOKEN}"
+          sh "${scannerHome}/bin/sonar-scanner -Dsonar.analysis.mode=preview -Dsonar.github.pullRequest=${ghprbPullId} -Dsonar.github.repository=${org}/${repo} -Dsonar.github.oauth=${GITHUB_ACCESS_TOKEN} -Dsonar.login=${SONARQUBE_ACCESS_TOKEN}"
         } else {
           sh "${scannerHome}/bin/sonar-scanner"
           // check SonarQube Quality Gates
@@ -93,7 +117,7 @@ node {
           }
         }
       }
-      /*/
+      //
     }
     //
     stage('Archive & Upload artifacts') {
