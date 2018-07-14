@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ProgressBarComponent } from './progress-bar.component';
-import {ProgressService} from "../../services/progress.service";
+import { ProgressService } from '../../services/progress.service';
 
 describe('ProgressBarComponent', () => {
   let component: ProgressBarComponent;
@@ -10,7 +10,7 @@ describe('ProgressBarComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ ProgressBarComponent ],
-      providers:[ProgressService]
+      providers: [ ProgressService ]
     })
     .compileComponents();
   }));
