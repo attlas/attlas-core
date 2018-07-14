@@ -1,7 +1,7 @@
 #!/bin/bash -e
 
 pushd static/client
-#./lint.sh
+./lint.sh
 #./test.sh
 popd
 

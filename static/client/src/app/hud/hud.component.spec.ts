@@ -1,10 +1,10 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import {HudComponent} from './hud.component';
-import {NavbarComponent} from "../ctrls/navbar/navbar.component";
-import {ProgressBarComponent} from "../ctrls/progress-bar/progress-bar.component";
-import {NO_ERRORS_SCHEMA} from "@angular/core";
-import {ProgressService} from "../services/progress.service";
+import { HudComponent } from './hud.component';
+import { NavbarComponent } from '../ctrls/navbar/navbar.component';
+import { ProgressBarComponent } from '../ctrls/progress-bar/progress-bar.component';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { ProgressService } from '../services/progress.service';
 
 describe('HudComponent', () => {
   let component: HudComponent;
