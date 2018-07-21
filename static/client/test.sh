@@ -1,3 +1,3 @@
 #!/bin/bash -e
-export $(cat ./.env | grep -v ^# | xargs)
-ng test com.attlas.static.client --code-coverage
+. ./.env.sh
+ng test ${COMPONENT_ID} --code-coverage

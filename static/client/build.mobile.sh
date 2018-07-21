@@ -12,4 +12,4 @@ esac
 export COMPONENT_PARAM_AUTH_HOST=${COMPONENT_PARAM_HOST}
 envsubst < src/environments/consts.ts.template > src/environments/consts.ts
 ng build --prod --configuration=production --base-href . --output-path ../../mobile/cordova/www/
-sed -i -e "s|</app-root>|$(cat ./cordova.patch)|g" ../../mobile/cordova/www/index.html
+sed -i -e "s|</app-root>|$(cat ./src/cordova.patch)|g" ../../mobile/cordova/www/index.html
