@@ -1,7 +1,7 @@
 export const CONSTS = {
   HOSTS: {
-    SELF: 'http://localhost:8080',
-    BIND_SERVICE: 'http://localhost:8081'
+    SELF: 'http://46.101.7.84:8080',
+    BIND_SERVICE: 'http://46.101.7.84:'
   },
   STORAGE: {
     USER: 'currentUser'
