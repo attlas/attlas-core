@@ -1,3 +1,3 @@
 #!/bin/bash -e
 export $(cat ./../../.env | grep -v ^# | xargs)
-adb uninstall $PROJECT_ID
+adb uninstall ${PROJECT_ID}.mobile.client

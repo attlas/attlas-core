@@ -11,30 +11,31 @@
     },
     "build":{
       "shell":[
-        "export $(cat ./.env | grep -v ^# | xargs)",
+        ". ./.env.sh",
         "ng build"
       ]
     },
     "test":{
       "shell":[
-        "export $(cat ./.env | grep -v ^# | xargs)",
-        "ng test ${COMPONENT_KEY} --code-coverage"
+        ". ./.env.sh",
+        "ng test ${COMPONENT_ID} --code-coverage"
       ]
     },
     "lint":{
       "shell":[
-        "export $(cat ./.env | grep -v ^# | xargs)",
-        "ng lint ${COMPONENT_KEY} --format=prose --type-check=true"
+        ". ./.env.sh",
+        "ng lint ${COMPONENT_ID} --format=prose --type-check=true"
       ]
     },
     "build.prod":{
       "shell":[
+        ". ./.env.sh",
         "ng build --configuration=production"
       ]
     },
     "serve":{
       "shell":[
-        "export $(cat ./.env | grep -v ^# | xargs)",
+        ". ./.env.sh",
         "export COMPONENT_PARAM_HOST=localhost",
         "case \"$(uname -s)\" in",
         "   Darwin)",
@@ -51,7 +52,7 @@
     },
     "sonar":{
       "shell":[
-        "export $(cat ./.env | grep -v ^# | xargs)",
+        ". ./.env.sh",
         "envsubst < sonar-project.properties.template > sonar-project.properties",
         "#~/projects/sonar-scanner-3.0.3.778/bin/sonar-scanner -X",
         "sonar-scanner"
@@ -59,25 +60,25 @@
     },
     "docker.build":{
       "shell":[
-        "export $(cat ./.env | grep -v ^# | xargs)",
+        ". ./.env.sh",
         "docker build --build-arg COMPONENT_PARAM_HOST=${COMPONENT_PARAM_HOST} \\",
         "             --build-arg COMPONENT_PARAM_LSTN=${COMPONENT_PARAM_LSTN} \\",
         "             --build-arg COMPONENT_PARAM_PORT=${COMPONENT_PARAM_PORT} \\",
         "             --build-arg COMPONENT_PARAM_PORTS=${COMPONENT_PARAM_PORTS} \\",
-        "             -t ${COMPONENT_KEY}:${COMPONENT_VERSION} ."
+        "             -t ${COMPONENT_ID}:${COMPONENT_VERSION} ."
       ]
     },
     "docker.run":{
       "shell":[
-        "export $(cat ./.env | grep -v ^# | xargs)",
-        "docker run -d --rm -p ${COMPONENT_PARAM_PORT}:80 -p ${COMPONENT_PARAM_PORTS}:443 --name ${COMPONENT_KEY} ${COMPONENT_KEY}:${COMPONENT_VERSION}"
+        ". ./.env.sh",
+        "docker run -d --rm -p ${COMPONENT_PARAM_PORT}:80 -p ${COMPONENT_PARAM_PORTS}:443 --name ${COMPONENT_ID} ${COMPONENT_ID}:${COMPONENT_VERSION}"
       ]
     },
     "docker.stop":{
       "shell":[
-        "export $(cat ./.env | grep -v ^# | xargs)",
-        "docker stop ${COMPONENT_KEY}",
-        "docker rmi ${COMPONENT_KEY}:${COMPONENT_VERSION}"
+        ". ./.env.sh",
+        "docker stop ${COMPONENT_ID}",
+        "docker rmi ${COMPONENT_ID}:${COMPONENT_VERSION}"
       ]
     },
     "build.mobile":{
@@ -95,7 +96,7 @@
         "export COMPONENT_PARAM_AUTH_HOST=${COMPONENT_PARAM_HOST}",
         "envsubst < src/environments/consts.ts.template > src/environments/consts.ts",
         "ng build --prod --configuration=production --base-href . --output-path ../../mobile/cordova/www/",
-        "sed -i -e \"s|</app-root>|$(cat ./cordova.patch)|g\" ../../mobile/cordova/www/index.html"
+        "sed -i -e \"s|</app-root>|$(cat ./src/cordova.patch)|g\" ../../mobile/cordova/www/index.html"
       ]
     }
   }

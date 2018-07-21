@@ -1,5 +1,6 @@
 #!/bin/bash -e
-export $(cat ./.env | grep -v ^# | xargs)
+. ./.env.sh
+
 export COMPONENT_PARAM_HOST=localhost
 case "$(uname -s)" in
    Darwin)
