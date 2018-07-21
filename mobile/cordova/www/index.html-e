@@ -8,6 +8,6 @@
   <link rel="icon" type="image/x-icon" href="favicon.ico">
 <link rel="stylesheet" href="styles.c06ca9e6ff4299335f0d.css"></head>
 <body>
-  <app-root></app-root><script>window.addEventListener = function () {EventTarget.prototype.addEventListener.apply(this, arguments);};window.removeEventListener = function () {EventTarget.prototype.removeEventListener.apply(this, arguments);};document.addEventListener = function () {EventTarget.prototype.addEventListener.apply(this, arguments);};document.removeEventListener = function () {EventTarget.prototype.removeEventListener.apply(this, arguments);};</script><script type="text/javascript" src="cordova.js"></script>
+  <app-root></app-root>
 <script type="text/javascript" src="runtime.a66f828dca56eeb90e02.js"></script><script type="text/javascript" src="polyfills.24fb9a7a5bc933fa80c9.js"></script><script type="text/javascript" src="main.b3510539a72cfb647cec.js"></script></body>
 </html>
