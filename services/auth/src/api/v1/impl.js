@@ -5,6 +5,10 @@ module.exports = function(express, jsv, reply, helpers) {
   this.router = express.Router();
   //----------------------------------------------------------------------------
   // projects specific declarations
+  this.oauth = require('oauthio');
+  // Initialize OAuth SDK
+  this.oauth.initialize(context.getAuthPublicKey(), context.getAuthSecretKey());
+
   
   //----------------------------------------------------------------------------
   // api enpoint info
