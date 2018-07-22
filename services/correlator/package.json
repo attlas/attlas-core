@@ -1,6 +1,6 @@
 {
-  "name": "attlas-collerator",
-  "version": "18.6.0",
+  "name": "com.attlas.services.collerator",
+  "version": "18.8.0",
   "description": "attlas-correlator",
   "license": "MIT",
   "author": "Vladyslav Kurmaz <vladislav.kurmaz@gmail.com>",
