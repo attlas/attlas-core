@@ -2,10 +2,11 @@
 module.exports = function(express, app, jsv, reply, helpers) {
 
   this.routerPath = '/api/v1';
-  this.router = express.Router();
+  this.router = express.Router({mergeParams: true});
   //----------------------------------------------------------------------------
-  // projects specific declarations
+  // component specific declarations
   this.cache = require('memory-cache');
+  this.randomstring = require("randomstring");
 
   this.oauth = require('oauthio');
   // Initialize OAuth SDK
@@ -20,17 +21,16 @@ module.exports = function(express, app, jsv, reply, helpers) {
     paypal: { connected:false },
     twitter: { connected:false }
   };
-
   //----------------------------------------------------------------------------
   // api enpoint info
   this.router.route('/')
     // version info
     .get(function (req, res) {
       return res.json(reply.success({id:'v1'}));
-    })
-    // projects specific routers
-  ;
-  // contacts
+    });
+  //----------------------------------------------------------------------------
+  // component specific routers
+  // CONTACTS
   this.router.route('/contacts')
     // get list of available providers
     .get(function (req, res) {
@@ -41,60 +41,55 @@ module.exports = function(express, app, jsv, reply, helpers) {
         r[key].connected = (req.session.credentials) ? (key in req.session.credentials) : false;
       });
       return res.json(reply.success(r));
-    })
-  ;
-  // goals
+    });
+  // GOALS
   // authenticate
   this.router.get('/goals/auth/:id', function(req, res, next) {
     if (req.params.id in this.providers && req.query.redirect) {
-      const rs = randomstring.generate({length: app.params.get('authKeyLength'),charset: 'alphabetic'});
-      cache.put(rs, req.query.redirect, app.params.get('authTimeout'), function(key, value) {
+      const rs = this.randomstring.generate({length: app.params.get('authKeyLength'),charset: 'alphabetic'});
+      console.log(app.params.get('authTimeout'));
+      this.cache.put(rs, req.query.redirect, 60000/*app.params.get('authTimeout')*/, function(key, value) {
         console.log('[CACHE] ' + key + ' expired');
       });
-      this.oauth.auth(req.params.id, context.buildEndpoint('api', 'v1', 'oauth', 'redirect', rs))(req, res, next);
+      this.oauth.auth(req.params.id, app.params.buildEndpoint('host', 'port', ['api', 'v1', 'goals', 'redirect', rs]))(req, res, next);
     } else {
       return res.status(400).json(reply.fail(`Invalid provider id: '${req.params.id}' or redirect: '${req.query.redirect}'`));
     }
   });
-//
-// authentication callback
-apiV1Router.get('/oauth/redirect/:id', oauth.redirect(function(result, req, res) {
-  // error from oauth.io
-  if (result instanceof Error) {
-    res.status(500).send(context.buildResponseCodeMsg(500, result.message));
-  } else {
-    const providerId = result.provider;
-    const cb = cache.get(req.params.id);
-    if (cb) {
-      cache.del(req.params.id);
-      const credentials = result.getCredentials();
-      if (req.session.credentials == undefined){
-        req.session.credentials = {}
-      }
-      req.session.credentials[providerId] = credentials;
-      //
-      /*
-      if (res.session.credentials == undefined){
-        res.session.credentials = {}
-      }
-      res.session.credentials[providerId] = credentials;
-      */
-      res.redirect(cb);
-      /*
-      result.me().done(function(me) {
-        res.status(200).send(context.buildResponseData(me));
-      });
-      */
+  //
+  // authentication callback
+  this.router.get('/goals/redirect/:id', oauth.redirect(function(result, req, res) {
+    // error from oauth.io
+    if (result instanceof Error) {
+      res.status(500).json(reply.fail(result.message));
     } else {
-      res.status(500).send(context.buildResponseCodeMsg(500, 'Authentication session expired'));
+      const providerId = result.provider;
+      const cb = this.cache.get(req.params.id);
+      if (cb) {
+        this.cache.del(req.params.id);
+        const credentials = result.getCredentials();
+        if (req.session.credentials == undefined){
+          req.session.credentials = {}
+        }
+        req.session.credentials[providerId] = credentials;
+        //
+        /*
+        if (res.session.credentials == undefined){
+          res.session.credentials = {}
+        }
+        res.session.credentials[providerId] = credentials;
+        */
+        res.redirect(cb);
+        /*
+        result.me().done(function(me) {
+          res.status(200).send(context.buildResponseData(me));
+        });
+        */
+      } else {
+        res.status(500).json(reply.fail('Authentication session expired'));
+      }
     }
-  }
-}));
-  
-  
-  //----------------------------------------------------------------------------
-  // project specific functionality
-
+  }));
   //----------------------------------------------------------------------------
   // register router
   app.use(this.routerPath, this.router);

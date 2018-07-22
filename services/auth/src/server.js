@@ -33,7 +33,7 @@ module.exports = function(){
     ports:  { env:'COMPONENT_PARAM_PORTS', def:8443 },
     secret: { env:'COMPONENT_PARAM_SECRET', def:randomstring.generate({length: 32,charset: 'alphabetic'})},
     publicKey: { env: 'COMPONENT_PARAM_PUBLIC_KEY', def:'' },
-    secretKey: { env: 'COMPONENT_PARAM_SECRET_KEY', def:'' }
+    secretKey: { env: 'COMPONENT_PARAM_SECRET_KEY', def:'' },
     authKeyLength: { env: 'COMPONENT_PARAM_AUTH_KEY_LENGTH', def: 32 },
     authTimeout: { env: 'COMPONENT_PARAM_AUTH_TIMEOUT', def:60000 }
   });
