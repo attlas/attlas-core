@@ -21,30 +21,28 @@ export class BindComponent implements OnInit {
 
   expanded = false;
   providers: Provider[] = [
-  /*
-    'facebook',
-    'linkedin',
-    'github',
-    'stackexchange',
-    'google',
-    'twitter',
-    'glassdoor',
-    'slack',
-    'coursera',
-    'foursquare',
-    'paypal',
-    'soundcloud',
-    'telegram',
-    'whatsapp',
-    'dropbox',
-    'gdrive.google',
-    'live.microsoft',
-    'skype',
-    'instagram',
-    'onedrive.microsoft',
-    'steam',
-    'viber'
-    */
+    { providerId: 'facebook', connected: true },
+    { providerId: 'linkedin', connected: false },
+    { providerId: 'github', connected: true },
+    { providerId: 'stackexchange', connected: false },
+    { providerId: 'google', connected: false },
+    { providerId: 'twitter', connected: false },
+    { providerId: 'glassdoor', connected: false },
+    { providerId: 'slack', connected: false },
+    { providerId: 'coursera', connected: false },
+    { providerId: 'foursquare', connected: false },
+    { providerId: 'paypal', connected: false },
+    { providerId: 'soundcloud', connected: false },
+    { providerId: 'telegram', connected: false },
+    { providerId: 'whatsapp', connected: true },
+    { providerId: 'dropbox', connected: false },
+    { providerId: 'gdrive.google', connected: false },
+    { providerId: 'live.microsoft', connected: false },
+    { providerId: 'skype', connected: false },
+    { providerId: 'instagram', connected: false },
+    { providerId: 'onedrive.microsoft', connected: false },
+    { providerId: 'steam', connected: true },
+    { providerId: 'viber', connected: false }
   ];
   readonly providersToShow: number = 6;
 
@@ -64,6 +62,7 @@ export class BindComponent implements OnInit {
   }
 
   getProviders() {
+  /*
     this.loading = true;
     this.error = '';
     this.providers = [];
@@ -79,6 +78,7 @@ export class BindComponent implements OnInit {
         this.loading = false;
       }
     );
+    */
   }
 
   /**/

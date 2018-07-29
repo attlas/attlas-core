@@ -34,7 +34,7 @@ module.exports = function(express, app, jsv, reply, helpers) {
   this.router.route('/contacts')
     // get list of available providers
     .get(function (req, res) {
-      console.log(req);
+      console.log(req.session);
       let r = {};
       Object.keys(this.providers).forEach(function (key) {
         r[key] = this.providers[key];
@@ -47,13 +47,15 @@ module.exports = function(express, app, jsv, reply, helpers) {
   this.router.get('/goals/auth/:id', function(req, res, next) {
     if (req.params.id in this.providers && req.query.redirect) {
       const rs = this.randomstring.generate({length: app.params.get('authKeyLength'),charset: 'alphabetic'});
-      console.log(app.params.get('authTimeout'));
-      this.cache.put(rs, req.query.redirect, 60000/*app.params.get('authTimeout')*/, function(key, value) {
+      this.cache.put(rs, req.query.redirect, parseInt(app.params.get('authTimeout')), function(key, value) {
         console.log('[CACHE] ' + key + ' expired');
       });
-      this.oauth.auth(req.params.id, app.params.buildEndpoint('host', 'port', ['api', 'v1', 'goals', 'redirect', rs]))(req, res, next);
+      const redirect = app.params.buildEndpoint('host', 'port', ['api', 'v1', 'goals', 'redirect', rs]);
+      console.log(redirect);
+      console.log(this.oauth);
+      this.oauth.auth(req.params.id, redirect)(req, res, next);
     } else {
-      return res.status(400).json(reply.fail(`Invalid provider id: '${req.params.id}' or redirect: '${req.query.redirect}'`));
+      return res.status(400).json(reply.fail(`Invalid provider id: '${req.params.id}' or redirect url: '${req.query.redirect}'`));
     }
   });
   //
@@ -72,6 +74,7 @@ module.exports = function(express, app, jsv, reply, helpers) {
           req.session.credentials = {}
         }
         req.session.credentials[providerId] = credentials;
+        console.log('Received:', credentials);
         //
         /*
         if (res.session.credentials == undefined){
@@ -80,11 +83,11 @@ module.exports = function(express, app, jsv, reply, helpers) {
         res.session.credentials[providerId] = credentials;
         */
         res.redirect(cb);
-        /*
+        //*
         result.me().done(function(me) {
-          res.status(200).send(context.buildResponseData(me));
+          console.log(me);
         });
-        */
+        //*/
       } else {
         res.status(500).json(reply.fail('Authentication session expired'));
       }
