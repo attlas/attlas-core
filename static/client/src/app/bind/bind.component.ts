@@ -62,7 +62,7 @@ export class BindComponent implements OnInit {
   }
 
   getProviders() {
-  /*
+    //
     this.loading = true;
     this.error = '';
     this.providers = [];
@@ -78,7 +78,7 @@ export class BindComponent implements OnInit {
         this.loading = false;
       }
     );
-    */
+    //
   }
 
   /**/

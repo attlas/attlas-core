@@ -15,6 +15,8 @@ export class MsgbarComponent implements OnInit {
   show = true;
 
   constructor(private bindService: BindService) {
+    console.log('msgbar');
+    this.notification.message = 'error';
     this.bindService.change.subscribe(notification => {
       this.notification = notification;
       this.show = true;

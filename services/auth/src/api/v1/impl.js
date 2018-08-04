@@ -35,10 +35,9 @@ module.exports = function(express, app, jsv, reply, helpers) {
     // get list of available providers
     .get(function (req, res) {
       console.log(req.session);
-      let r = {};
+      let r = [];
       Object.keys(this.providers).forEach(function (key) {
-        r[key] = this.providers[key];
-        r[key].connected = (req.session.credentials) ? (key in req.session.credentials) : false;
+        r.push( { providerId: key, connected: (req.session.credentials) ? (key in req.session.credentials) : false } );
       });
       return res.json(reply.success(r));
     });

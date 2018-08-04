@@ -46,24 +46,34 @@ module.exports = function(){
       next(err);
     }
   });
-  app.use(helmet());
+  //app.use(helmet());
+  /*/
   app.use(session({
     store: new sessionFileStore({}),
     secret: app.params.get('secret'),
     name : app.params.get('key'),
-    resave: false,
+    resave: true,
     saveUninitialized: true
   }));
+  /*/
+  app.use(session({secret: app.params.get('secret'), resave: false, saveUninitialized: true}));
+  
   /*app.use(csrf());
   app.use(function(req, res, next) {
     res.locals._csrf = req.csrfToken();
     next();
   });*/
+  /*/
+  app.use(cors({origin: 'http://localhost:8080'}));
+  /*/
   app.use(cors({
-    origin: '*',
+    origin: 'http://localhost:8080',
+    methods: ['GET', 'PUT', 'POST', 'DELETE', 'HEAD', 'OPTIONS'], //GET,HEAD,PUT,PATCH,POST,DELETE
+    allowedHeaders: ['Content-Type', 'Content-Length', 'Authorization', 'X-Requested-With'],
     credentials: true,
-    optionsSuccessStatus: 200
+    optionsSuccessStatus: 204
   }));
+  //
 
   // utilities
   // json validator
