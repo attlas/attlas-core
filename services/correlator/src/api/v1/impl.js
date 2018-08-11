@@ -11,9 +11,7 @@ module.exports = function(express, app, jsv, reply, helpers) {
 
   this.routerPath = '/api/v1';
   this.router = express.Router({mergeParams: true});
-  //----------------------------------------------------------------------------
-  // component specific declarations
-
+  // component specific declarations ===========================================
   this.goalsRouter = express.Router();
   this.docsRouter = express.Router();
   //
@@ -29,16 +27,13 @@ module.exports = function(express, app, jsv, reply, helpers) {
     flows: new flows.Flows(home),
     docs: new docs.Docs(home)
    };
-
-  //----------------------------------------------------------------------------
-  // api enpoint info
+  // api enpoint info ==========================================================
   this.router.route('/')
     // version info
     .get(function (req, res) {
       return res.json(reply.success({id:'v1'}));
     });
-  //----------------------------------------------------------------------------
-  // component specific routers
+  // component specific routers ================================================
   // goals
   this.goalsRouter.route('/*')
     // get all goals
@@ -71,8 +66,7 @@ module.exports = function(express, app, jsv, reply, helpers) {
   this.router.use('/goals', goalsRouter);
   //this.router.use('/flows', );
   this.router.use('/docs', docsRouter);
-  //----------------------------------------------------------------------------
-  // register router
+  // register router ===========================================================
   app.use(this.routerPath, this.router);
   return this;
 }
