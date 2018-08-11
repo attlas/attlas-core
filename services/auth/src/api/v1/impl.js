@@ -3,8 +3,7 @@ module.exports = function(express, app, jsv, reply, helpers) {
 
   this.routerPath = '/api/v1';
   this.router = express.Router({mergeParams: true});
-  //----------------------------------------------------------------------------
-  // component specific declarations
+  // component specific declarations ===========================================
   this.cache = require('memory-cache');
   this.randomstring = require("randomstring");
 
@@ -21,15 +20,13 @@ module.exports = function(express, app, jsv, reply, helpers) {
     paypal: { connected:false },
     twitter: { connected:false }
   };
-  //----------------------------------------------------------------------------
-  // api enpoint info
+  // api enpoint info ==========================================================
   this.router.route('/')
     // version info
     .get(function (req, res) {
       return res.json(reply.success({id:'v1'}));
     });
-  //----------------------------------------------------------------------------
-  // component specific routers
+  // component specific routers ================================================
   // CONTACTS
   this.router.route('/contacts')
     // get list of available providers
@@ -92,8 +89,7 @@ module.exports = function(express, app, jsv, reply, helpers) {
       }
     }
   }));
-  //----------------------------------------------------------------------------
-  // register router
+  // register router ===========================================================
   app.use(this.routerPath, this.router);
   return this;
 }
