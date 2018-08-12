@@ -1,3 +1,6 @@
+/*
+ * Cache for compiled schemas + validate
+ */
 module.exports = function(options) {
   //
   const Ajv = require('ajv');
@@ -7,7 +10,7 @@ module.exports = function(options) {
   this.compile = function(id, schema) {
     if (!this.isCompiled(id)) {
       try {
-        this.cache[id] = ajv.compile(schema);
+        this.cache[id] = this.ajv.compile(schema);
       } catch (e) {
         console.log(e);
         return false;
@@ -25,6 +28,4 @@ module.exports = function(options) {
   this.isCompiled = function(id) {
     return (this.cache[id] != null);
   }
-  //
-  return this;
 };

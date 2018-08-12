@@ -22,7 +22,7 @@
               </div>
             </a>
           </div>
-          <div class="col-12 text-right" *ngIf="providers.length">
+          <div class="col-12 text-right" *ngIf="providers && providers.length">
             <button type="button" class="btn btn-link" (click)="showMoreLess()">{{expanded?'less...':'more...'}}</button>
           </div>
         </div>

@@ -1,3 +1,6 @@
+/*
+ * Helper class contructs API response
+ */
 module.exports = function() {
   //
   this.success = function(data, links = null) {
@@ -6,6 +9,4 @@ module.exports = function() {
   this.fail = function(errors) {
     return {success:false, errors:errors};
   }
-  //
-  return this;
 };
