@@ -1,11 +1,11 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 
-import { NgModule } from '@angular/core';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { routing } from './app.routing';
@@ -47,10 +47,10 @@ import { ReferralComponent } from './apps/referral/referral.component';
   ],
   imports: [
     BrowserModule,
-    BrowserAnimationsModule,
-    NgxChartsModule,
     FormsModule,
     HttpClientModule,
+    BrowserAnimationsModule,
+    NgxChartsModule,
     routing,
     NgbModule.forRoot()
   ],

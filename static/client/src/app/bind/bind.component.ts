@@ -68,13 +68,16 @@ export class BindComponent implements OnInit {
     this.providers = [];
     this.bindService.getProviders().subscribe(
       (v) => {
+        console.log('1');
         this.providers = v;
       },
       (err) => {
-        this.loading = false;
+        console.log('2');
         this.error = err;
+        this.loading = false;
       },
       () => {
+        console.log('3');
         this.loading = false;
       }
     );

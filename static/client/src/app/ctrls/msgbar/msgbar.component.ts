@@ -12,11 +12,10 @@ import { BindService } from './../../services/bind.service';
 export class MsgbarComponent implements OnInit {
 
   notification: Notification = new Notification();
-  show = true;
+  show = false;
 
   constructor(private bindService: BindService) {
-    console.log('msgbar');
-    this.notification.message = 'error';
+    this.notification.message = '';
     this.bindService.change.subscribe(notification => {
       this.notification = notification;
       this.show = true;

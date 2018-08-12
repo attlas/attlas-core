@@ -22,7 +22,7 @@ export class BindService {
   /**/
   getProviders(): Observable<Provider[]> {
     localStorage.removeItem(CONSTS.STORAGE.USER);
-    const options = {  
+    const options = {
 //      headers:new HttpHeaders ({
 //        "Content-Type": "application/json"
 //      }),
@@ -81,9 +81,9 @@ export class BindService {
   private handleError2<T>(operation = 'operation', result?: T) {
     return (error: HttpErrorResponse): Observable<T> => {
       console.error(error); // log to console instead
-      // throw(operation + ' failed'); // use this for subscribe(error:) to fire
+      throw new Error(operation + ' failed'); // use this for subscribe(error:) to fire
       // Let the app keep running by returning an empty result.
-      return of(result as T);
+      //return of(result as T);
     };
   }
 
