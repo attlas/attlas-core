@@ -2,7 +2,7 @@
 
 pushd static/client
 ./prereq.sh
-#./build.sh
+./build.sh
 popd
 
 pushd services/auth
