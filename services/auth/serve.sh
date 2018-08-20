@@ -1,5 +1,4 @@
 #!/bin/bash -e
-
 . ./.env.sh
 case "$(uname -s)" in
    Darwin)

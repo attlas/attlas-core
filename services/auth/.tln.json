@@ -1,39 +1,62 @@
 {
   "stages":{
+    "prereq":{
+      "shell":[
+        "envsubst < .env.template > .env",
+        "envsubst < sonar-project.properties.template > sonar-project.properties"
+      ]
+    },
+    "build":{
+      "shell":[
+        ". ./.env.sh",
+        "npm i"
+      ]
+    },
+    "test":{
+      "shell":[
+        ". ./.env.sh",
+        "npm run jasmine"
+      ]
+    },
     "serve":{
       "shell":[
-        "export $(cat ./.env | grep -v ^# | xargs)",
+        ". ./.env.sh",
         "export COMPONENT_PARAM_HOST=$(ifconfig getifaddr en0)",
         "npm run serve"
       ]
     },
-    "run":{
-      "shell":[
-        "export $(cat ./.env | grep -v ^# | xargs)",
-        "npm start"
-      ]
-    },
     "docker.build":{
       "shell":[
-        "export $(cat ./.env | grep -v ^# | xargs)",
-        "docker build -t ${COMPONENT_KEY}:${COMPONENT_VERSION} ."
+        ". ./.env.sh",
+        "docker build -t ${COMPONENT_ID}:${COMPONENT_VERSION} ."
       ]
     },
     "docker.run":{
       "shell":[
-        "export $(cat ./.env | grep -v ^# | xargs)",
+        ". ./.env.sh",
         "docker run -d --rm \\",
-        " --env-file ./.env \\",
         " -p $COMPONENT_PARAM_PORT:$COMPONENT_PARAM_PORT \\",
         " -p $COMPONENT_PARAM_PORTS:$COMPONENT_PARAM_PORTS \\",
-        "  --name ${COMPONENT_KEY} ${COMPONENT_KEY}:${COMPONENT_VERSION}"
+        "  --name ${COMPONENT_ID} ${COMPONENT_ID}:${COMPONENT_VERSION}"
+      ]
+    },
+    "docker.save":{
+      "shell":[
+        ". ./.env.sh",
+        "docker save -o ${COMPONENT_ID}-${COMPONENT_VERSION}.tar ${COMPONENT_ID}:${COMPONENT_VERSION}"
+      ]
+    },
+    "docker.load":{
+      "shell":[
+        ". ./.env.sh",
+        "docker load -i ${COMPONENT_ID}-${COMPONENT_VERSION}.tar"
       ]
     },
     "docker.stop":{
       "shell":[
-        "export $(cat ./.env | grep -v ^# | xargs)",
-        "docker stop ${COMPONENT_KEY}",
-        "docker rmi ${COMPONENT_KEY}:${COMPONENT_VERSION}"
+        ". ./.env.sh",
+        "docker stop ${COMPONENT_ID}",
+        "docker rmi ${COMPONENT_ID}:${COMPONENT_VERSION}"
       ]
     }
   }
