@@ -1,9 +1,0 @@
-export const CONSTS = {
-  HOSTS: {
-    SELF: 'http://${COMPONENT_PARAM_HOST}:${COMPONENT_PARAM_PORT}',
-    BIND_SERVICE: 'http://${COMPONENT_PARAM_AUTH_HOST}:${COMPONENT_PARAM_AUTH_PORT}'
-  },
-  STORAGE: {
-    USER: 'currentUser'
-  }
-};

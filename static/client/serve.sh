@@ -1,6 +1,5 @@
 #!/bin/bash -e
 . ./.env.sh
-
 export COMPONENT_PARAM_HOST=localhost
 case "$(uname -s)" in
    Darwin)
@@ -11,5 +10,4 @@ case "$(uname -s)" in
      ;;
 esac
 export COMPONENT_PARAM_AUTH_HOST=${COMPONENT_PARAM_HOST}
-envsubst < src/environments/consts.ts.template > src/environments/consts.ts
 ng serve --host=${COMPONENT_PARAM_LSTN} --port=${COMPONENT_PARAM_PORT}

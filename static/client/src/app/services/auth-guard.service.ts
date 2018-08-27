@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router, CanActivate } from '@angular/router';
 
-import { CONSTS } from './../../environments/consts';
+import { environment } from '../../environments/environment';
 
 @Injectable()
 export class AuthGuardService implements CanActivate {
@@ -10,7 +10,7 @@ export class AuthGuardService implements CanActivate {
 
   canActivate() {
     /*/
-    if (localStorage.getItem(CONSTS.STORAGE.USER)) {
+    if (localStorage.getItem(environment.storage.keyName)) {
       return true;
     }
     this.router.navigate(['/bind']);
