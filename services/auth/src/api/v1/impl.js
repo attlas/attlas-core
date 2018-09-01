@@ -1,4 +1,3 @@
-
 module.exports = function(express, app, jsv, reply, helpers) {
 
   this.routerPath = '/api/v1';
@@ -6,10 +5,11 @@ module.exports = function(express, app, jsv, reply, helpers) {
   // component specific declarations ===========================================
   this.cache = require('memory-cache');
   this.randomstring = require("randomstring");
+  app.params.set('authKeyLength', 128);
 
   this.oauth = require('oauthio');
   // Initialize OAuth SDK
-  this.oauth.initialize(app.params.get('publicKey'), app.params.get('secretKey'));
+  this.oauth.initialize(app.params.publicKey, app.params.secretKey);
   //
   this.providers = {
     facebook: { connected:false },
@@ -42,11 +42,11 @@ module.exports = function(express, app, jsv, reply, helpers) {
   // authenticate
   this.router.get('/goals/auth/:id', function(req, res, next) {
     if (req.params.id in this.providers && req.query.redirect) {
-      const rs = this.randomstring.generate({length: app.params.get('authKeyLength'),charset: 'alphabetic'});
-      this.cache.put(rs, req.query.redirect, parseInt(app.params.get('authTimeout')), function(key, value) {
+      const rs = this.randomstring.generate({length: app.params.authKeyLength,charset: 'alphabetic'});
+      this.cache.put(rs, req.query.redirect, parseInt(app.params.authTimeout), function(key, value) {
         console.log('[CACHE] ' + key + ' expired');
       });
-      const redirect = app.params.buildEndpoint('host', 'port', ['api', 'v1', 'goals', 'redirect', rs]);
+      const redirect = app.params.buildEndpoint(app.params.host, app.params.port, ['api', 'v1', 'goals', 'redirect', rs]);
       console.log(redirect);
       console.log(this.oauth);
       this.oauth.auth(req.params.id, redirect)(req, res, next);

@@ -36,9 +36,8 @@ module.exports = function(){
     ports:      { env:'COMPONENT_PARAM_PORTS',          def: 9444 },
     whitelist:  { env:'COMPONENT_PARAM_CORS_WHITELIST', def: '*' },
     // [Component] specific parameters =========================================
-    publicKey:  { env: 'COMPONENT_PARAM_PUBLIC_KEY',    def:'' },
-    secretKey:  { env: 'COMPONENT_PARAM_SECRET_KEY',    def:'' },
-    authKeyLength: { env: 'COMPONENT_PARAM_AUTH_KEY_LENGTH',  def: 32 },
+    publicKey:  { env: 'COMPONENT_PARAM_OAUTHIO_PUBLIC_KEY',    def:'' },
+    secretKey:  { env: 'COMPONENT_PARAM_OAUTHIO_SECRET_KEY',    def:'' },
     authTimeout:{ env: 'COMPONENT_PARAM_AUTH_TIMEOUT',  def:60000 }
   });
   //
