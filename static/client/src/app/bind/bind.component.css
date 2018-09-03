@@ -3,15 +3,16 @@
 }
 
 .provider-icon {
-  width: 56px;
+  width: 64px;
 }
 
 .circle {
-  position: absolute;
+  position: relative;
+  display: inline-block;
   border-radius: 50%;
   border-width: 2px !important;
   width: 16px;
   height: 16px;
-  left: 8px;
-  top:0px;
+  left: -26px;
+  top: -68px;
 }

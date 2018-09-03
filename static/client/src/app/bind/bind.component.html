@@ -15,12 +15,12 @@
         </div>
         <div class="row" *ngIf="!(loading || error)">
           <div class="col-3 text-center p-0"  *ngFor="let provider of providers; let i = index">
-            <a class="" href="{{getProviderBindLink(provider.providerId)}}" *ngIf="i<providersToShow || expanded">
-              <div>
-                <div *ngIf="provider.connected" class="bg-info border border-light circle"></div>
+            <div class="">
+              <a class="" href="{{getProviderBindLink(provider.providerId)}}" *ngIf="i<providersToShow || expanded">
                 <img  class="provider-icon" [attr.src]="'assets/images/providers/' + provider.providerId + '.png'">
-              </div>
-            </a>
+              </a>
+            </div>
+            <div *ngIf="provider.connected" class="bg-info border border-light circle"></div>
           </div>
           <div class="col-12 text-right" *ngIf="providers && providers.length > providersToShow">
             <button type="button" class="btn btn-link" (click)="showMoreLess()">{{expanded?'less...':'more...'}}</button>
