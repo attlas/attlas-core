@@ -11,7 +11,7 @@ export const environment = {
   },
   services: {
     bind: {
-      apiUrl: 'http://46.101.7.84:9081'
+      apiUrl: 'http://46.101.7.84:9081/api/v1'
     }
   }
 };

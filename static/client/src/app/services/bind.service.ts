@@ -52,12 +52,12 @@ export class BindService {
 
   /**/
   getProviderBindLink(providerId: string) {
-    return this.getEndpoint(`/auth/${providerId}?callback=${environment.self}/bind`);
+    return this.getEndpoint(`/goals/auth/${providerId}?redirect=${environment.self}/bind`);
   }
 
   /**/
   private getEndpoint(endpoint: string): string {
-    return `${environment.services.bind.apiUrl}/api/v1${endpoint}`;
+    return `${environment.services.bind.apiUrl}${endpoint}`;
   }
 
   /*

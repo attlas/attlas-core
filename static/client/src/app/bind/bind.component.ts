@@ -21,9 +21,9 @@ export class BindComponent implements OnInit {
 
   expanded = false;
   providers: Provider[] = [
-    { providerId: 'facebook', connected: true },
+    { providerId: 'facebook', connected: false },
     { providerId: 'linkedin', connected: false },
-    { providerId: 'github', connected: true },
+    { providerId: 'github', connected: false },
     { providerId: 'stackexchange', connected: false },
     { providerId: 'google', connected: false },
     { providerId: 'twitter', connected: false },
@@ -34,17 +34,17 @@ export class BindComponent implements OnInit {
     { providerId: 'paypal', connected: false },
     { providerId: 'soundcloud', connected: false },
     { providerId: 'telegram', connected: false },
-    { providerId: 'whatsapp', connected: true },
+    { providerId: 'whatsapp', connected: false },
     { providerId: 'dropbox', connected: false },
     { providerId: 'gdrive.google', connected: false },
     { providerId: 'live.microsoft', connected: false },
     { providerId: 'skype', connected: false },
     { providerId: 'instagram', connected: false },
     { providerId: 'onedrive.microsoft', connected: false },
-    { providerId: 'steam', connected: true },
+    { providerId: 'steam', connected: false },
     { providerId: 'viber', connected: false }
   ];
-  readonly providersToShow: number = 6;
+  readonly providersToShow: number = 8;
 
   constructor(private router: Router, private bindService: BindService) {
     this.navButtons.primary.initAction(
