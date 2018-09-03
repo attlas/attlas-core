@@ -17,10 +17,10 @@ module.exports = function(express, app, jsv, reply, helpers) {
     github: { },
     stackexchange: { },
     google: { },
-    microsoft: { },
+    //microsoft: { },
     slack: { },
     dropbox: { },
-    paypal: { },
+    //paypal: { },
     twitter: { }
   };
 
