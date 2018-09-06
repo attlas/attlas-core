@@ -27,6 +27,7 @@ import { FeedComponent } from './feed/feed.component';
 import { LiquidityComponent } from './apps/liquidity/liquidity.component';
 import { PatronComponent } from './apps/patron/patron.component';
 import { ReferralComponent } from './apps/referral/referral.component';
+import { ProfileComponent } from './profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { ReferralComponent } from './apps/referral/referral.component';
     FeedComponent,
     LiquidityComponent,
     PatronComponent,
-    ReferralComponent
+    ReferralComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,

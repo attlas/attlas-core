@@ -51,8 +51,8 @@ export class BindService {
   }
 
   /**/
-  getProviderBindLink(providerId: string) {
-    return this.getEndpoint(`/goals/auth/${providerId}?redirect=${environment.self}/bind`);
+  getProviderBindLink(providerId: string, redirect: string) {
+    return this.getEndpoint(`/goals/auth/${providerId}?redirect=${environment.self}/${redirect}`);
   }
 
   /**/

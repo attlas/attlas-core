@@ -6,6 +6,10 @@
   width: 64px;
 }
 
+.button-icon {
+  width: 32px;
+}
+
 .circle {
   position: relative;
   display: inline-block;
@@ -15,4 +19,10 @@
   height: 16px;
   left: -26px;
   top: -68px;
+}
+
+.sticked-container-bottom {
+  position:absolute;
+  bottom:0px;
+  left:0px;
 }

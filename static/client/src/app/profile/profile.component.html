@@ -1,0 +1,30 @@
+<app-navbar></app-navbar>
+<app-progress-bar></app-progress-bar>
+<app-msgbar></app-msgbar>
+<div class="container">
+  <div class="row mt-3 mb-3">
+    <div class="col-12 col-sm-6 p-0" *ngFor="let provider of providers; let i = index">
+      <div class="card rounded-0 m-1">
+        <div class="card-header font-weight-bold p-1">
+          <img  class="" [attr.src]="'assets/images/providers/' + provider.providerId + '.png'" width="32px">
+          <a class="btn btn-link float-right" href="{{getProviderBindLink(provider.providerId)}}" *ngIf="!provider.connected">connect</a>
+          <!--button class="btn btn-link float-right m-0 p-0 d-block">
+            <img *ngIf="true" src="assets/images/octicons/chevron-right.svg" width="12px">
+            <img *ngIf="" src="assets/images/octicons/chevron-up.svg">
+          </button-->
+        </div>
+        <div class="card-body" *ngIf="provider.connected">
+          <div class="media">
+            <img class="mr-3" [attr.src]="provider.data.me.avatar" width="64px">
+            <div class="media-body">
+              <h5 class="mt-0">{{provider.data.me.name}} <small>{{provider.data.me.email}}</small></h5>
+              {{provider.data.me.location}} <a *ngIf="provider.data.me.url" [attr.href]="provider.data.me.url">more...</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+

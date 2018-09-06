@@ -37,7 +37,18 @@ module.exports = function(express, app, jsv, reply, helpers) {
     .get(function (req, res) {
       let r = [];
       Object.keys(this.providers).forEach(function (key) {
-        r.push( { providerId: key, connected: (req.session.credentials) ? (key in req.session.credentials) : false } );
+        let connected = (req.session.credentials) ? (key in req.session.credentials) : false;
+        let data = null;
+        if (connected) {
+          data = req.session.credentials[key];
+        }
+        r.push(
+          {
+            providerId: key,
+            connected: connected,
+            data: data
+          }
+        );
       });
       return res.json(reply.success(r));
     });
@@ -84,21 +95,16 @@ module.exports = function(express, app, jsv, reply, helpers) {
         if (req.session.credentials == undefined){
           req.session.credentials = {}
         }
-        req.session.credentials[providerId] = credentials;
+        req.session.credentials[providerId] = {credentials: credentials, me: {}};
         console.log('Received:', credentials);
         //
-        /*
-        if (res.session.credentials == undefined){
-          res.session.credentials = {}
-        }
-        res.session.credentials[providerId] = credentials;
-        */
-        res.redirect(cb);
-        //*
+        //
         result.me().done(function(me) {
-          console.log(me);
+          req.session.credentials[providerId].me = me;
+          console.log(req.session.credentials[providerId]);
+          res.redirect(cb);
         });
-        //*/
+        //
       } else {
         res.status(500).json(reply.fail('Authentication session expired'));
       }
