@@ -37,8 +37,7 @@ module.exports = function(){
     whitelist:  { env:'COMPONENT_PARAM_CORS_WHITELIST', def: '*' },
     // [Component] specific parameters =========================================
     publicKey:  { env: 'COMPONENT_PARAM_OAUTHIO_PUBLIC_KEY',    def:'' },
-    secretKey:  { env: 'COMPONENT_PARAM_OAUTHIO_SECRET_KEY',    def:'' },
-    authTimeout:{ env: 'COMPONENT_PARAM_AUTH_TIMEOUT',  def:60000 }
+    secretKey:  { env: 'COMPONENT_PARAM_OAUTHIO_SECRET_KEY',    def:'' }
   });
   //
   app.use(bodyParser.json());

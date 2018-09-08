@@ -22,6 +22,15 @@ node {
   def repo = ''
   def org = ''
   //
+  def delivery = true;
+  if (env.BUILD_IMAGES) {
+    delivery = BUILD_IMAGES.toString().toBoolean();
+  }
+  def deploy = true;
+  if (env.CLUSTER) {
+    deploy = CLUSTER?.trim();
+  }
+  //
   stage('Clone sources') {
     //
     def scmVars = checkout scm
@@ -69,15 +78,14 @@ node {
   }
 
   try {
+    stage('Prereq') {
+      sh "./prereq.sh"
+    }
     stage('Build') {
-      //
       sh "./build.sh"
-      //
     }
     stage('Unit test') {
-      /*/
       sh "./test.sh"
-      /*/
     }
     //
     stage('SonarQube analysis') {
@@ -120,14 +128,17 @@ node {
       //
     }
     //
-    stage('Archive & Upload artifacts') {
-      /*/
-      if (!pullRequest){
-        sh "./devops/dsm/upload.sh ${groupId} ${artifactId} ${version} './bundle/target'"
-        archiveArtifacts artifacts: 'package/target/*.zip'    
-        sh "./devops/dsm/upload-osgi.sh ${groupId} ${artifactId} ${version} './package/target' $DSM_APPS_NEXUS_OSGI_HOST $DSM_APPS_NEXUS_OSGI_REPO"
+    stage('Delivery') {
+      if (pullRequest){
+      } else {
+        // archiveArtifacts artifacts: 'package/target/*.zip'    
       }
-      /*/
+    }
+    //
+    stage('Deploy') {
+      if (pullRequest){
+      } else {
+      }
     }
     //
     stage('Postprocess') {

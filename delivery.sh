@@ -6,3 +6,13 @@ pushd static/client
 ./docker.save.sh
 popd
 
+pushd services/auth
+./docker.build.sh
+./docker.save.sh
+popd
+
+pushd services/api
+popd
+
+pushd services/correlator
+popd

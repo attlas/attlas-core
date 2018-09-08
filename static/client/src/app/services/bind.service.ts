@@ -83,7 +83,7 @@ export class BindService {
       console.error(error); // log to console instead
       throw new Error(operation + ' failed'); // use this for subscribe(error:) to fire
       // Let the app keep running by returning an empty result.
-      //return of(result as T);
+      // return of(result as T);
     };
   }
 

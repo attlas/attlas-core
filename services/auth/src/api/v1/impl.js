@@ -6,6 +6,7 @@ module.exports = function(express, app, jsv, reply, helpers) {
   this.cache = require('memory-cache');
   this.randomstring = require("randomstring");
   app.params.set('authKeyLength', 128);
+  app.params.set('authTimeout', 60000);
 
   this.oauth = require('oauthio');
   // Initialize OAuth SDK
