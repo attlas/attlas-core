@@ -1,0 +1,12 @@
+export const environment = {
+  production: true,
+  self: 'http://${COMPONENT_PARAM_HOST}:${COMPONENT_PARAM_PORT}',
+  storage: {
+    keyName: 'currentUser'
+  },
+  services: {
+    bind: {
+      apiUrl: 'http://${COMPONENT_PARAM_AUTH_HOST}:${COMPONENT_PARAM_AUTH_PORT}/api/v1'
+    }
+  }
+};
