@@ -89,7 +89,7 @@ node {
     }
     //
     stage('SonarQube analysis') {
-      //
+      /*/
       def scannerHome = tool 'SonarQube Scanner';
       withSonarQubeEnv('SonarQube') {
         if (pullRequest){
@@ -125,7 +125,7 @@ node {
           }
         }
       }
-      //
+      /*/
     }
     //
     stage('Delivery') {
