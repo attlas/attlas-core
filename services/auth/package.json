@@ -1,6 +1,6 @@
 {
   "name": "com.attlas.services.auth",
-  "version": "18.6.0-SNAPSHOT",
+  "version": "18.9.0",
   "description": "attlas-services-auth",
   "license": "MIT",
   "author": "Vladyslav Kurmaz <vladislav.kurmaz@gmail.com>",

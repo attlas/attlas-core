@@ -1,19 +1,18 @@
 #!/bin/bash -e
 
 pushd static/client
-./build.sh
+./build.prod.sh
+./docker.build.sh
+./docker.save.sh
 popd
 
 pushd services/auth
-./build.sh
+./docker.build.sh
+./docker.save.sh
 popd
 
 pushd services/api
-#./build.sh
 popd
 
 pushd services/correlator
-#./build.sh
 popd
-
-

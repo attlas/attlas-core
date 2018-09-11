@@ -2,4 +2,3 @@
 
 envsubst > .env < .env.template
 envsubst > sonar-project.properties < sonar-project.properties.template
-./build.sh

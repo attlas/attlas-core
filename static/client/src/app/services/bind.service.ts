@@ -9,7 +9,7 @@ import { Notification } from './../models/notification';
 import { ApiResponse } from './../models/api-response';
 import { Provider, ProvidersResponse } from './../models/providers';
 
-import { CONSTS } from './../../environments/consts';
+import { environment } from '../../environments/environment';
 
 @Injectable()
 export class BindService {
@@ -21,7 +21,7 @@ export class BindService {
 
   /**/
   getProviders(): Observable<Provider[]> {
-    localStorage.removeItem(CONSTS.STORAGE.USER);
+    localStorage.removeItem(environment.storage.keyName);
     const options = {
 //      headers:new HttpHeaders ({
 //        "Content-Type": "application/json"
@@ -33,7 +33,7 @@ export class BindService {
         map(res => {
           const p = res.data.find(provider => provider.connected);
           if (p) {
-            localStorage.setItem(CONSTS.STORAGE.USER, 'authenticated');
+            localStorage.setItem(environment.storage.keyName, 'authenticated');
           }
           console.log(res);
           return res.data;
@@ -44,20 +44,20 @@ export class BindService {
 
   /**/
   isAuthenticated(): boolean {
-    if (localStorage.getItem(CONSTS.STORAGE.USER)) {
+    if (localStorage.getItem(environment.storage.keyName)) {
       return true;
     }
     return false;
   }
 
   /**/
-  getProviderBindLink(providerId: string) {
-    return this.getEndpoint(`/auth/${providerId}?callback=${CONSTS.HOSTS.SELF}/bind`);
+  getProviderBindLink(providerId: string, redirect: string) {
+    return this.getEndpoint(`/goals/auth/${providerId}?redirect=${environment.self}/${redirect}`);
   }
 
   /**/
   private getEndpoint(endpoint: string): string {
-    return `${CONSTS.HOSTS.BIND_SERVICE}/api/v1${endpoint}`;
+    return `${environment.services.bind.apiUrl}${endpoint}`;
   }
 
   /*
@@ -83,7 +83,7 @@ export class BindService {
       console.error(error); // log to console instead
       throw new Error(operation + ' failed'); // use this for subscribe(error:) to fire
       // Let the app keep running by returning an empty result.
-      //return of(result as T);
+      // return of(result as T);
     };
   }
 

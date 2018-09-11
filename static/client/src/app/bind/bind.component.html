@@ -1,6 +1,6 @@
 <div class="container">
   <div class="row" style="height:100vh">
-    <div class="offset-1 col-10 offset-sm-2 col-sm-8 offset-md-3 col-md-6 offset-lg-4 col-lg-4 bg-light border">
+    <div class="offset-1 col-10 offset-sm-2 col-sm-8 offset-md-3 col-md-6 offset-lg-4 col-lg-4 bg-light border p-0">
       <a routerLink="/home">
         <div class="text-center">
           <img class="img-fluid community-logo pt-4 pb-4" src="assets/images/community.png">
@@ -15,19 +15,28 @@
         </div>
         <div class="row" *ngIf="!(loading || error)">
           <div class="col-3 text-center p-0"  *ngFor="let provider of providers; let i = index">
-            <a class="" href="{{getProviderBindLink(provider.providerId)}}" *ngIf="i<providersToShow || expanded">
-              <div>
-                <div *ngIf="provider.connected" class="bg-info border border-light circle"></div>
+            <div class="">
+              <a class="" href="{{getProviderBindLink(provider.providerId)}}" *ngIf="i<providersToShow || expanded">
                 <img  class="provider-icon" [attr.src]="'assets/images/providers/' + provider.providerId + '.png'">
-              </div>
-            </a>
+              </a>
+            </div>
+            <div *ngIf="provider.connected" class="bg-info border border-light circle"></div>
           </div>
-          <div class="col-12 text-right" *ngIf="providers && providers.length">
+          <div class="col-12 text-right" *ngIf="providers && providers.length > providersToShow">
             <button type="button" class="btn btn-link" (click)="showMoreLess()">{{expanded?'less...':'more...'}}</button>
           </div>
         </div>
       </div>
-      <app-nav-panel [options]="navButtons" *ngIf="isAuthenticated()"></app-nav-panel>
+      <div class="container border-top sticked-container-bottom" *ngIf="isAuthenticated()">
+        <div class="row">
+          <div class="col-6 p-0 text-center border-right">
+            <button type="button" class="btn btn-block btn-link rounded-0"><img class="button-icon" src="assets/images/icons/home.png" (click)="gotoHome()"></button>
+          </div>
+          <div class="col-6 p-0 text-center">
+            <button type="button" class="btn btn-block btn-link rounded-0"><img class="button-icon" src="assets/images/icons/profile.png" (click)="gotoProfile()"></button>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>

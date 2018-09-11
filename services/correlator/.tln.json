@@ -22,7 +22,6 @@
     "serve":{
       "shell":[
         ". ./.env.sh",
-        "export COMPONENT_PARAM_HOST=$(ifconfig getifaddr en0)",
         "npm run serve"
       ]
     },
@@ -30,6 +29,7 @@
       "shell":[
         ". ./.env.sh",
         "docker build \\",
+        "--build-arg COMPONENT_PARAM_PORT=$COMPONENT_PARAM_PORT \\",
         " -t ${COMPONENT_ID}:${COMPONENT_VERSION} ."
       ]
     },
@@ -37,7 +37,6 @@
       "shell":[
         ". ./.env.sh",
         "docker run -d --rm \\",
-        " --env-file ./.env \\",
         " -p $COMPONENT_PARAM_PORT:$COMPONENT_PARAM_PORT \\",
         " -p $COMPONENT_PARAM_PORTS:$COMPONENT_PARAM_PORTS \\",
         "  --name ${COMPONENT_ID} ${COMPONENT_ID}:${COMPONENT_VERSION}"
@@ -55,6 +54,7 @@
         "docker load -i ${COMPONENT_ID}-${COMPONENT_VERSION}.tar"
       ]
     },
+
     "docker.stop":{
       "shell":[
         ". ./.env.sh",

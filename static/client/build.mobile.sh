@@ -11,5 +11,6 @@ case "$(uname -s)" in
 esac
 export COMPONENT_PARAM_AUTH_HOST=${COMPONENT_PARAM_HOST}
 envsubst < src/environments/consts.ts.template > src/environments/consts.ts
+npm i
 ng build --prod --configuration=production --base-href . --output-path ../../mobile/cordova/www/
 sed -i -e "s|</app-root>|$(cat ./src/cordova.patch)|g" ../../mobile/cordova/www/index.html

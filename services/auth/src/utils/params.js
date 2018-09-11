@@ -15,10 +15,14 @@ module.exports = function() {
     Object.keys(variables).map(f.bind(this));
   }
   //
-  this.buildEndpoint = function(path, query = null, hash = null) {
+  this.set = function(name, value) {
+    this[name] = value;
+  }
+  //
+  this.buildEndpoint = function(host, port, path, query = null, hash = null) {
     // TODO implement processing for query and hash
     const r = path.slice();
-    r.unshift(`http://${this.host}:${this.port}`);
+    r.unshift(`http://${host}:${port}`);
     return r.join('/');
   }
   //

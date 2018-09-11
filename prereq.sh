@@ -1,19 +1,19 @@
 #!/bin/bash -e
 
+export $(cat ./.env | grep -v ^# | xargs)
+
 pushd static/client
-./build.sh
+./prereq.sh
 popd
 
 pushd services/auth
-./build.sh
+./prereq.sh
 popd
 
 pushd services/api
-#./build.sh
+#./prereq.sh
 popd
 
 pushd services/correlator
-#./build.sh
+#./prereq.sh
 popd
-
-
